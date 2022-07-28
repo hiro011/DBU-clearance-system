@@ -4,6 +4,13 @@
 @section('content')
 
 <style>    
+
+  .column1 {
+    width: 40%;
+  }
+  .center{
+    padding-right: 8%;
+  }
  
   .center h1 {
     text-align: center;
@@ -16,48 +23,24 @@
     box-sizing: border-box;
   }
   form .txt_field {
-    position: relative;
-    border-bottom: 2px solid #adadad;
-    margin: 30px 0;
-  
+    margin-bottom: 15px;
+    align-items: center;
   }
+   
   .txt_field input {
     width: 100%;
-    padding: 0 5px;
-    height: 40px;
-    font-size: 16px;
-    border: none;
-    background: none;
+    padding: 8px 10px;
+    font-size: 15px;
+    border: 1px solid #d5dbd9;
+    background-color: #e9f4fb;
     outline: none;
+    border-radius: 3px;
+    transition: all 0.3s ease;
   }
   .txt_field label{
-    position: absolute;
-    top: 50%;
-    left: 5px;
-    color: #adadad;
-    transform: translateY(-50%);
-    font-size: 16px;
-    pointer-events: none;
-    transition: .5s;
-  }
-  .txt_field span::before{
-    content: '';
-    position: absolute;
-    top: 40px;
-    left: 0;
-    width: 0%;
-    height: 2px;
-    background: #2691d9;
-    transition: .5s;
-  }
-  .txt_field input:focus ~ label,
-  .txt_field input:valid ~ label{
-    top: -5px;
-    color: #2691d9;
-  }
-  .txt_field input:focus ~ span::before,
-  .txt_field input:valid ~ span::before{
-    width: 100%;
+    width: 200px;
+    color: black;
+    font-size: 14px;
   }
 
   input[type="submit"]{
@@ -74,9 +57,9 @@
     margin-top: 20px;
   }
   input[type="submit"]:hover{
-    border-color: #88a5b8;
-    background: #4d94c4;
-    transition: .5s;
+    border-color: #a2b4c0;
+    background: #4492c7;
+    transition: .4s;
   }
 
 </style>
@@ -85,48 +68,53 @@
 <section id="columns">
   <div class="body-container">
     <div class="column">
+      <!-- <hr size="3" width="100%" color="gray"> -->
       <a href="login">Officers</a>
       <a href="login">Department Officers</a>
-      <button class="dropdown-btn">Clearance Request
-          <i class="fa fa-caret-down"></i>
-      </button>
-      <div class="dropdown-container">
-        <ul>
-          <a href="login">Teacher</a>
-          <a href="login">Administrator Staff</a>
-          <a href="login">Regular Student</a>
-          <a href="login">Extension Student</a>
-          <a href="login">Distance Student</a>
-        </ul>
+      <div>
+        <button class="dropdown-btn">Clearance Request</button>
+        <div class="dropdown-container">
+          <ul>
+            <a href="login">Teacher</a>
+            <a href="login">Administrator Staff</a>
+            <a href="login">Regular Student</a>
+            <a href="login">Extension Student</a>
+            <a href="login">Distance Student</a>
+          </ul>
+        </div>
       </div>
 
     </div>
 
     <div class="column1">
       <!-- content place -->
- 
+
       <div class="center" style="padding-left: 10px; position: center;">
         <h1>Login</h1>
-        <form method="post">
+
+        <form action="{{ route('auth.check') }}" method="post">
+        
+          @if(Session::get('fail'))
+            <div class="alert alert-danger" >
+              {{ Session::get('fail') }}
+            </div>
+          @endif
+
+          @csrf
           <div class="txt_field">
-              <input type="text" required>
-              <span></span>
-              <label>Username</label>
+            <label>Email</label>
+            <input type="text" name="email" placeholder="email" value="{{ old('email') }}">
+            <span style="color: red;">@error('email'){{ $message }} @enderror</span>
           </div>
           <div class="txt_field">
-              <input type="password" required>
-              <span></span>
-              <label>Password</label>
+            <label>Password</label>
+            <a href="{{ route('auth.forgotPass') }}" style="float: right; color: red;">Forgot Password?</a>
+            <input type="password" name="password" placeholder="password">
+            <span style="color: red;">@error('password'){{ $message }} @enderror</span>
           </div>
 
           <input id="myButton" type="submit" value="Login">
-      
-          <script type="text/javascript">
-              document.getElementById("myButton").onclick = function () {
-                  location.href = "student info";
-              };
-          </script>
-        
+       
         </form>
       </div>
 

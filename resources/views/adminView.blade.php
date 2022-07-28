@@ -7,21 +7,37 @@
 <section id="columns">
   <div class="body-container">
     <div class="column">
-      <!-- <hr size="3" width="100%" color="gray"> -->
-      <a href="auth/login">Officers</a>
-      <a href="login">Department Officers</a>
-      <div>
-        <button class="dropdown-btn">Clearance Request</button>
-        <div class="dropdown-container">
-          <ul>
-            <a href="login">Teacher</a>
-            <a href="login">Administrator Staff</a>
-            <a href="login">Regular Student</a>
-            <a href="login">Extension Student</a>
-            <a href="login">Distance Student</a>
-          </ul>
+       
+        <div>
+            <button class="dropdown-btn">New User</button>
+            <div class="dropdown-container">
+                <ul>
+                <a href="/admin/new officer">Officer</a>
+                <a href="login">Teacher</a>
+                <a href="login">Administrator Staff</a>
+                <a href="login">Regular Student</a>
+                <a href="login">Extension Student</a>
+                <a href="login">Distance Student</a>
+                </ul>
+            </div>
+            <style>
+                .dropdown-container{
+                    display: none;
+                }
+            </style>
+        </div>  
+        <div>
+        <p>
+        <hr size="3" width="100%" color="gray">
+        </p>
+        <hr size="3" width="100%" color="gray">
         </div>
-      </div>
+        <a href="login">Officers</a>
+        <a href="login">Teachers</a>
+        <a href="login">Administrator Staffs</a>
+        <a href="login">Regular Students</a>
+        <a href="login">Extension Students</a>
+        <a href="login">Distance Students</a>
 
     </div>
 
@@ -109,7 +125,24 @@
 
     </div>
 
- 
+    <!-- java script dropdown -->
+    <script>
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            } else {
+                dropdownContent.style.display = "block";
+            }
+            });
+        }
+    </script>
+
   </div> 
 </section>
 

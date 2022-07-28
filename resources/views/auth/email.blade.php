@@ -48,7 +48,7 @@
     height: 50px;
     border: 1px solid;
     background: #2691d9;
-    border-radius: 25px;
+    border-radius: 5px;
     font-size: 18px;
     color: #e9f4fb;
     font-weight: 700;
@@ -92,13 +92,15 @@
       <div class="center" style="padding-left: 10px; position: center;">
         <h1>Login</h1>
 
-        <form action="{{ route('auth.check') }}" method="post">
         
-          @if(Session::get('fail'))
-            <div class="alert alert-danger" >
-              {{ Session::get('fail') }}
+        @if (Session('status'))
+            <div class="alert alert-success">
+                {{ Session('status')}}
             </div>
-          @endif
+        @endif
+        
+
+        <form action="{{ route('password.email') }}" method="post">
 
           @csrf
           <div class="txt_field">
@@ -106,14 +108,9 @@
             <input type="text" name="email" placeholder="email" value="{{ old('email') }}">
             <span style="color: red;">@error('email'){{ $message }} @enderror</span>
           </div>
-          <div class="txt_field">
-            <label>Password</label>
-            <a href="{{ route('auth.forgotPass') }}" style="float: right; color: red;">Forgot Password?</a>
-            <input type="password" name="password" placeholder="password">
-            <span style="color: red;">@error('password'){{ $message }} @enderror</span>
-          </div>
+           
 
-          <input id="myButton" type="submit" value="Login">
+          <input id="myButton" type="submit" value="Reset">
        
         </form>
       </div>

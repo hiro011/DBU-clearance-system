@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\StudentViewController;
+use App\Http\Controllers\loginController;
+use App\Http\Controllers\NewOfficerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +22,7 @@ use App\Http\Controllers\StudentViewController;
 Route::get('/', function () {
     return view('Home');
 });
-Route::get('/login', function () {
-    return view('login');
-});
+ 
 Route::get('/student info', function () {
     return view('stud_info');
 });
@@ -56,21 +56,34 @@ Route::get('/residence office', function () {
 Route::get('/residence office/new dorm user', function () {
     return view('newDormUser');
 });
+Route::get('password/reset', function () {
+    return view('auth.email');
+});
+Route::get('password/new', function () {
+    return view('auth.resetPass');
+});
+Route::get('admin', function () {
+    return view('adminView');
+});
+Route::get('/admin/new officer', function () {
+    return view('newUsers.newOfficer');
+});
 
 
-Route::get('newStud', [StudentViewController::class, 'newStudent']);
-Route::post('add', [StudentViewController::class, 'add']);
+Route::get('registrar/newStudent', [StudentViewController::class, 'newStudent']);
+Route::post('registrar/add', [StudentViewController::class, 'add']);
+
+Route::get('newuser', [ForgotPassController::class, 'newuser']);
+Route::post('newuser/add', [ForgotPassController::class, 'adduser']);
+
+Route::get('auth/login', [loginController::class, 'login'])->name('auth.login');
+Route::post('auth/check', [loginController::class, 'check'])->name('auth.check');;
 
 
-Route::get('insert','StudInsertController@insertform');
-Route::post('create','StudInsertController@insert');
-Route::get('view-records','StudViewController@index');
  
 Route::get('/auth/login',[MainController::class, 'login'])->name('auth.login');
 Route::get('/auth/register',[MainController::class, 'register'])->name('auth.register');
-
-Route::post('/auth/save',[MainController::class, 'save'])->name('auth.save');
-
+ 
 
 // Route::post('/saveStudent', function () {
 //     return view('welcome');

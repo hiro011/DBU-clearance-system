@@ -48,10 +48,10 @@
     height: 50px;
     border: 1px solid;
     background: #2691d9;
-    border-radius: 25px;
     font-size: 18px;
     color: #e9f4fb;
     font-weight: 700;
+    border-radius: 5px;
     cursor: pointer;
     outline: none;
     margin-top: 20px;
@@ -92,28 +92,29 @@
       <div class="center" style="padding-left: 10px; position: center;">
         <h1>Login</h1>
 
-        <form action="{{ route('auth.check') }}" method="post">
         
-          @if(Session::get('fail'))
-            <div class="alert alert-danger" >
-              {{ Session::get('fail') }}
-            </div>
-          @endif
+         
+        <form action="{{ route('password.update') }}" method="post">
 
           @csrf
+          <input type="hidden" name="token" value="{{ $token }}">
           <div class="txt_field">
             <label>Email</label>
             <input type="text" name="email" placeholder="email" value="{{ old('email') }}">
             <span style="color: red;">@error('email'){{ $message }} @enderror</span>
           </div>
           <div class="txt_field">
-            <label>Password</label>
-            <a href="{{ route('auth.forgotPass') }}" style="float: right; color: red;">Forgot Password?</a>
-            <input type="password" name="password" placeholder="password">
+            <label>New Password</label>
+            <input id="password" type="password" name="newPassword" placeholder="New Password">
+            <span style="color: red;">@error('password'){{ $message }} @enderror</span>
+          </div>
+          <div class="txt_field">
+            <label>Confirm Password</label>
+            <input type="password" name="confirmPassword" placeholder="Confirm Password">
             <span style="color: red;">@error('password'){{ $message }} @enderror</span>
           </div>
 
-          <input id="myButton" type="submit" value="Login">
+          <input id="myButton" type="submit" value="Update">
        
         </form>
       </div>

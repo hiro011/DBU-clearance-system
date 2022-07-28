@@ -1,23 +1,22 @@
 
 html, body {
-    font-family: 'Nunito', sans-serif;
-    /* color: #636b6f; */
-    /* margin: 0; */
-    padding-left: 4%;
-    padding-right: 4%;
-    background-color: lightblue;
+    /* font-family: 'Nunito', sans-serif; */
+    font-family: "Times New Roman", Times, serif;
+    padding-left: 6%;
+    padding-right: 6%;
+    background-color: gray;
+} 
+.containerBox {
+  background-color: #ffffff;
 }
-
 .full-height {
   height: 100vh;
 }
-
 .flex-center {
   align-items: center;
   display: flex;
   justify-content: center;
 }
-
 .position-ref {
   position: relative;
 }
@@ -25,44 +24,54 @@ html, body {
   position: absolute;
 } 
 .title {
-  font-size: 84px;
+  font-size: 75px;
 }
 .links > a {
   /* color: #636b6f; */
   padding: 0 25px;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 1px;
+  font-weight: 550;
   letter-spacing: .1rem;
   text-decoration: none;
   text-transform: uppercase;
 }
 
 footer {
-    overflow: hidden;
-    bottom: 0;
-    background: #eee;
-    padding: 10px;
-    text-align: center;
-    Width: 100%;
+  overflow: hidden;
+  bottom: 0;
+  background: #094250;
+  background: linear-gradient(130deg,#53777e, #328296, #1d86a0);
+  padding: 10px;
+  text-align: center;
+  Width: 98.2%;
 }
 
 
 /*  style for navigation bar   */
 
 .topnav {
-    background-color: #5BCCE9;
-    color: #5BCCE9;
+    background: linear-gradient(120deg,#67d4e7, #5fc9e4, #27c5ec);
     overflow: hidden;
     width: 100%;
     transition: top 0.3s;
-    padding-right: 10px;
     z-index: 1;
     top: 0;
+}
+.sticky {
+  padding-right: 99px;
+  position: fixed;
+  top: 0;
+  width: 76.3%;
+  z-index: 20;
+}
+.sticky+.content {
+  padding-top: 60px;
 }
 .topnav a {
     float: right;
     display: block;
-    color: #fff;
+    border-left: 2px solid rgb(83, 83, 211);
+    color: #ffffff;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -74,15 +83,14 @@ footer {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    font-size: 22px;
+    font-size: 20px;
 }
 .topnav a:hover {
-    background-color: rgb(104, 171, 230);
-    color: black;
+    background-color: blue;
 }
 .topnav a.active {
-    background-color: #04AA6D;
-    color: black;
+    background-color: #5573d3;
+    color: #ffffff;
     float: left;
     display: block;
     text-align: center;
@@ -92,31 +100,25 @@ footer {
 
 }
 .topnav a.active:hover {
-    background-color: rgb(104, 171, 230);
-    color: black;
+    background-color: rgb(9, 88, 158);
 }
 
-.sticky {
-    position: fixed;
-    top: 0;
-    padding-right: 99px;
-    width: 100%;
-    z-index: 20;
-}
-.sticky+.content {
-    padding-top: 60px;
-}
+
 
 @media screen and (max-width: 600px) {
-    .topnav a, a.active {
-        float: none;
-        display: block;
-        text-align: left;
-        font-size: 12px;
-        margin: 0;
-        padding: 10px;
-        /* float: right; */
-    }
+  .topnav a, a.active {
+      float: none;
+      display: block;
+      text-align: left;
+      font-size: 12px;
+      border: none;
+      margin: 0;
+      padding: 10px;
+      /* float: right; */
+  }
+  .topnav a{
+    text-decoration: underline;
+  }
     
 }
 
@@ -126,47 +128,43 @@ footer {
 .dropdown-btn {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
-    font-size: 25px;
-    /* color: black; */
+    font-size: 22px;
     display: block;
-    border: none;
-    background: none;
+    border-style: groove;
+    border-color: rgb(83, 83, 211);
+    background: rgb(117, 117, 202);;
     width:100%;
     text-align: left;
     cursor: pointer;
     transition: 0.3s;
+    color: black;
+    margin: 0;
 }
 
 /* On mouse-over */
 .dropdown-btn:hover {
-    background-color: rgb(104, 171, 230);
-    /* color: #f1f1f1; */
-    
+    background-color: blue;
 }
 
 /* Add an active class to the active dropdown button */
 .active {
-    background-color: green;
+    background-color: blue;
     color: white;
 }
 
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
 .dropdown-container {
-    display: none;
-    background-color: #262626;
+    display: block;
+    background-color: #6b9ba7;
     padding-left: 8px;
-    width: 100;
+    width: 100%;
+    margin-top: 10px;
+    padding-top: 20px;
 }
-
-/* Optional: Style the caret down icon */
-.fa-caret-down {
-    float: right;
-    padding-right: 8px;
-}
+ 
 .body-container {
-    background: linear-gradient(120deg, #8ee3f1, #94c6d3, #7d9196);
+    background: #ffffff;
     margin-top: 0;
-    
 }
 button { 
     float: left;
@@ -183,9 +181,10 @@ button:hover {
 .column {
     float: left;
     width: 28%;
-    background-color: rgb(33, 141, 168);
+    background-color: rgb(224, 235, 240);
     margin-top: 0;
-    height: 50%;
+    padding-top: 5%;
+    height: auto;
 }
 .column1 {
     float: left;
@@ -212,17 +211,17 @@ button:hover {
 /* The navigation menu links */
 .column a {
     padding: 8px 8px 8px 32px;
-    color: white;
+    color: rgb(0, 0, 0);
     text-decoration: none;
-    font-size: 25px;
+    font-size: 22px;
     display: block;
     transition: 0.3s;
 }
 
 /* When you mouse over the navigation links, change their color */
 .column a:hover {
-    background-color: rgb(104, 171, 230);
-    color: #f1f1f1;
+    background-color: blue;
+    /* color: #f1f1f1; */
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the column.column (less padding and a smaller font size) */
@@ -240,12 +239,18 @@ button:hover {
     .column, .column1 {
     width: 100%;
     }
+    footer {
+      width: 93.5%;
+    }
+    .sticky {
+      width: 73.5%;
+    }
 }
 
 /* Student information form style */
  .wrapper{
     max-width: 500px;
-    width: 100%;
+    width: 88%;
     background: #fff;
     margin: 20px auto;
     box-shadow: 1px 1px 2px rgba(0,0,0,0.125);
@@ -269,11 +274,89 @@ button:hover {
   .wrapper .form .inputfield{
     margin-bottom: 15px;
     align-items: center;
+   
   }
   
   .wrapper .form .inputfield label{
     width: 200px;
-    color: #757575;
+    color: black;
+    font-size: 14px;
+  }
+  
+  .wrapper .form .inputfield .input,
+  .wrapper .form .inputfield .textarea{
+    width: 70%;
+    outline: none;
+    border: 1px solid #d5dbd9;
+    font-size: 15px;
+    padding: 8px 10px;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+  
+  .wrapper .form .inputfield .textarea{
+    width: 100%;
+    height: 125px;
+    resize: none;
+  }
+  
+  .wrapper .form .inputfield .custom_select{
+    position: relative;
+    width: 75%;
+    height: 37px;
+  }
+  
+  .wrapper .form .inputfield .custom_select:before{
+    content: "";
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    border: 8px solid;
+    border-color: #d5dbd9 transparent transparent transparent;
+    pointer-events: none;
+  }
+  
+  .wrapper .form .inputfield .custom_select select{
+    -webkit-appearance: none;
+    -moz-appearance:   none;
+    appearance:        none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    border: 0px;
+    padding: 8px 10px;
+    font-size: 15px;
+    border: 1px solid #d5dbd9;
+    border-radius: 3px;
+  }
+  
+  
+  .wrapper .form .inputfield .input:focus,
+  .wrapper .form .inputfield .textarea:focus,
+  .wrapper .form .inputfield .custom_select select:focus{
+    border: 1px solid #1c8ad4;
+  }
+  
+  .wrapper .form .inputfield p{
+     font-size: 14px;
+     color: #757575;
+  }
+  .wrapper .form .inputfield .check{
+    width: 15px;
+    height: 15px;
+    position: relative;
+    display: block;
+    cursor: pointer;
+  }
+  .wrapper .form .inputfield{
+    margin-bottom: 15px;
+    align-items: center;
+   
+  }
+  
+  .wrapper .form .inputfield label{
+    width: 200px;
+    color: black;
     font-size: 14px;
   }
   
@@ -407,6 +490,9 @@ button:hover {
     }
     .wrapper .form .inputfield.terms{
       flex-direction: row;
+    }
+    .wrapper{
+      width: 79%;
     }
   }
   

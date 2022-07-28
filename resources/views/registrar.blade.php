@@ -8,7 +8,7 @@
             
             <div>
                 </br>
-                    <a href="/registrar/new student" class="abutton">
+                    <a href="registrar/newStudent" class="abutton">
                           New Student   
                     </a>
                 <ul>
@@ -20,19 +20,17 @@
                    
                 <style>
                     .abutton {
-                        background-color: blue;
+                        background-color: #7488f8;
                         border: none;
                         color: white;
                         text-align: left;
                         text-decoration: none;
-                        display: inline-block;
+                        display: block;
                         font-size: 10px;
                         cursor: pointer;
                     }
                     .abutton:hover{
-                        background-color: rgb(104, 171, 230);
                         color: #f1f1f1;
-                            
                     }
                 </style>   
                  

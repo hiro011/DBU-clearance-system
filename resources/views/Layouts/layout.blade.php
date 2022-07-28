@@ -10,12 +10,13 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href=" bootstrap-3.1.1/css/bootstrap.min.css ">
 
     </head>
 
     <body>
-        <div style="background-color: green;">
-            <div class="relative flex items-top justify-center " >
+        <div class="containerBox">
+            <div>
 
                 <section id="navbar">
                     <div class="topnav">
