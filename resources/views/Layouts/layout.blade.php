@@ -25,8 +25,7 @@
                             <a class="active" href="/">Home</a>
                             <span>DBU Clearance </span> 
                             <span > Processing System</span>
-                            <a id="link" href="contact">Contact</a>
-                            <a id="link" href="about">About</a>
+                            <a id="link" href="/about">About</a>
                         </div>
                     
                     </div>  

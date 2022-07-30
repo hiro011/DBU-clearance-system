@@ -11,7 +11,7 @@ class loginController extends Controller
 {
     //
     function login(){
-        return view('login');
+        return view('auth.login');
     }
     function check(Request $request){
         //validate request input

@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MainController;
 use App\Http\Controllers\StudentViewController;
 use App\Http\Controllers\loginController;
-use App\Http\Controllers\NewOfficerController;
+use App\Http\Controllers\OfficerController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +28,9 @@ Route::get('/student info', function () {
 });
 Route::get('/test', function () {
     return view('test001');
+});
+Route::get('/about', function () {
+    return view('about');
 });
 Route::get('/registrar', function () {
     return view('registrar');
@@ -62,16 +65,14 @@ Route::get('password/reset', function () {
 Route::get('password/new', function () {
     return view('auth.resetPass');
 });
-Route::get('admin', function () {
-    return view('adminView');
-});
-Route::get('/admin/new officer', function () {
-    return view('newUsers.newOfficer');
-});
 
 
+
+// Registrar add students 
 Route::get('registrar/newStudent', [StudentViewController::class, 'newStudent']);
 Route::post('registrar/add', [StudentViewController::class, 'add']);
+// endRegistrar 
+
 
 Route::get('newuser', [ForgotPassController::class, 'newuser']);
 Route::post('newuser/add', [ForgotPassController::class, 'adduser']);
@@ -79,11 +80,37 @@ Route::post('newuser/add', [ForgotPassController::class, 'adduser']);
 Route::get('auth/login', [loginController::class, 'login'])->name('auth.login');
 Route::post('auth/check', [loginController::class, 'check'])->name('auth.check');;
 
+// Admin login and registaration
+Route::post('/admin/new admin/save', [AdminController::class, 'save'])->name('newUsers.saveAdmin');
+Route::post('/auth/admin/check', [AdminController::class, 'check'])->name('auth.admin.check');
+Route::get('/auth/admin/logout',[AdminController::class, 'logout'])->name('auth.admin.logout');
 
- 
-Route::get('/auth/login',[MainController::class, 'login'])->name('auth.login');
-Route::get('/auth/register',[MainController::class, 'register'])->name('auth.register');
- 
+// Officers login and registaration
+Route::post('/admin/new officer/save', [OfficerController::class, 'save'])->name('newUsers.saveOfficer');
+Route::post('/auth/officer/check', [OfficerController::class, 'check'])->name('auth.officer.check');
+Route::get('/auth/login/officer', [OfficerController::class, 'login'])->name('auth.loginOfficers');
+// endOfficer
+
+
+Route::group(['middleware'=>['AuthCheck']], function(){
+    Route::get('/auth/login/admin', [AdminController::class, 'login'])->name('auth.loginAdmin');
+    Route::get('/admin/new admin', [AdminController::class, 'register'])->name('newUsers.newAdmin');
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
+
+    Route::get('/admin/settings',[AdminController::class,'settings']);
+    Route::get('/admin/profile',[AdminController::class,'profile']);
+    Route::get('/admin/staff',[AdminController::class,'staff']);
+
+    // new Officer registaration and dashboard
+    Route::get('/admin/new officer', [OfficerController::class, 'register'])->name('newUsers.newOfficer');
+    Route::get('/officers/library', [OfficerController::class, 'dashboard']);
+    // endOfficer
+
+});
+
+// endAdmin
+
+
 
 // Route::post('/saveStudent', function () {
 //     return view('welcome');

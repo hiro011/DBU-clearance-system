@@ -80,7 +80,7 @@ footer {
 .topnav a {
   float: right;
   display: block;
-  border: 1.5px solid #d5dbd9;
+  border-left: 1px solid black;
   color: #ffffff;
   text-align: center;
   padding: 14px 16px;
@@ -102,6 +102,7 @@ footer {
 }
 
 .topnav a.active {
+  background-color: #5573d3;
   color: #ffffff;
   float: left;
   display: block;
@@ -120,7 +121,7 @@ footer {
 @media screen and (max-width: 600px) {
 
   .topnav a,
-  a.activeHome {
+  a.active {
     float: none;
     display: block;
     text-align: left;
@@ -147,35 +148,17 @@ footer {
   display: block;
   border-style: groove;
   border-width: 1px;
-  border-radius: 5px;
-  border-color:#5fbdd4;
-  background: #8698d4;
+  border-radius: 4px;
+  background: rgb(128, 159, 216);
   width: 100%;
   text-align: left;
   cursor: pointer;
   transition: 0.3s;
   color: black;
-  width: 100%;
-}
-.view-btn {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 22px;
-  display: block;
-  border-style: groove;
-  border-width: 1px;
-  border-radius: 5px;
-  border-color:#5fbdd4;
-  background: #6a84d8;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-  transition: 0.3s;
-  color: black;
-  width: 100%;
+  margin: 0;
 }
 
-.dropdown-container span { /* needed for 'clearance request' span don't delet*/
+.dropdown-container span {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 22px;
@@ -185,7 +168,7 @@ footer {
   color: white;
   margin: 0;
 }
-.dropspan-container span { /* needed for '@gmail.com' select don't delet*/
+.dropspan-container span {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 22px;
@@ -202,7 +185,13 @@ footer {
   background-color: rgb(85, 85, 221);
 }
 
-/* Dropdown container */
+/* Add an active class to the active dropdown button */
+.active {
+  background-color: blue;
+  color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
 .dropdown-container {
   display: block;
   background-color: #6b9ba7;
@@ -232,10 +221,10 @@ button:hover {
 
 .column {
   float: left;
-  width: 30%;
+  width: 28%;
   background-color: rgb(224, 235, 240);
   margin-top: 0;
-  padding-top: 3%;
+  padding-top: 5%;
   height: auto;
 }
 
@@ -277,7 +266,7 @@ button:hover {
   color: #f1f1f1;
 }
 
-/* On smaller screens, where height is less than 450px, */
+/* On smaller screens, where height is less than 450px, change the style of the column.column (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
 
   .column,

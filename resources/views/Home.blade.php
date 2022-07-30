@@ -3,22 +3,33 @@
 
 @section('content')
 
+<style>
+  #navbar .active{
+    background-color: blue;
+    color: white;
+  }
+  .topnav a.active:hover {
+    opacity: 0.6;
+  }
+</style>
 
 <section id="columns">
   <div class="body-container">
     <div class="column">
       <!-- <hr size="3" width="100%" color="gray"> -->
-      <a href="auth/login">Officers</a>
-      <a href="login">Department Officers</a>
+      <a href="/auth/login/admin">Admin</a>
+      <a href="/auth/login/officer">Officers</a>
+      <a href="/auth/login/officer">Department Officers</a>
       <div>
-        <button class="dropdown-btn">Clearance Request</button>
+         
         <div class="dropdown-container">
+          <span class="dropspan">Clearance Request</span>
           <ul>
-            <a href="login">Teacher</a>
-            <a href="login">Administrator Staff</a>
-            <a href="login">Regular Student</a>
-            <a href="login">Extension Student</a>
-            <a href="login">Distance Student</a>
+            <a href="/auth/login/teacher">Teacher</a>
+            <a href="/auth/login/adminStaff">Administrator Staff</a>
+            <a href="/auth/login/regular">Regular Student</a>
+            <a href="/auth/login/extension">Extension Student</a>
+            <a href="/auth/login/distance">Distance Student</a>
           </ul>
         </div>
       </div>
@@ -28,9 +39,9 @@
     <div class="column1">
       <!-- content place -->
  
-      <div class="box" style="padding-left: 10px; position: center;">
+      <div class="box" style=" position: center;">
 
-        <h1>
+        <h1 style="text-align: center;">
           Welcome to Debre Berhan University Clearance Processing System to continue please login.
         </h1> </br>
 
@@ -41,9 +52,13 @@
               position: relative;
               width: 100%;
             }
+            .container img{
+              width: 100%; 
+              height: 300px;
+            }
 
-              /* Style the button and place it in the middle of the container/image */
-            .container .btn, .btn1, .btn2, .btn3, .btn4 {
+            /* Style the button and place it in the middle of the container/image */
+            .container .btn, .btn1, .btn2, .btn3, .btn4, .btn5{
               position: absolute;
               left: 30%;
               height: auto;
@@ -59,49 +74,63 @@
               transition: 0.8s;
             }
             .container .btn {
-              top: 25%;
+              margin-top: 15%;
             }
             .container .btn1 {
-              top: 36%;
+              top: 35%;
             }
             .container .btn2 {
               top: 47%;
             }
             .container .btn3 {
-              top: 58%;
+              top: 59%;
             }
             .container .btn4 {
-              top: 69%;
+              top: 71%;
+            }
+            .container .btn5 {
+              top: 83%;
             }
             .container .btn:hover, .btn1:hover, .btn2:hover, 
             .btn3:hover, .btn4:hover {
               background-color: black;
             }
+            .column1 {
+              width: 63%;
+            }
+            @media screen and (max-width: 600px) {
+
+              .column1 {
+                width: 100%;
+              }
+            }
             
           </style>
 
           <div class="container">
-            <img src="/img/Happy Bunch - Desk.png" alt="officer" style="width: 100%; height: 300px;">  
+            <img src="/img/Happy Bunch - Desk.png" alt="officer" >  
             <button type="submit" class="btn">Login as Officer</button>
           </div>
 
           <div class="container">
-            <img src="/img/desk.png" alt="DepartmentOfficer" style="width: 100%; height: 300px;"> 
+            <img src="/img/desk.png" alt="DepartmentOfficer" > 
             <button type="submit" class="btn">Department Officer</button> 
           </div class="container">
 
           <div class="container">
             </br>
-            <div style="display: block; background-color: #5f9cec; ">
+            <div style="display: block; background-color: #5f9cec; height: 40px; ">
             <h1 style="padding-left: 25%;">Clearance Request</h1>
             </div>
             </br>
-            <img src="/img/work.png" alt="Clearance_Request" style="width: 100%; height: 300px;">  
-            <button type="submit" class="btn">Teacher</button> 
-            <button type="submit" class="btn1">Administrator staff</button>
-            <button type="submit" class="btn2">Regular student</button>
-            <button type="submit" class="btn3">Extension student</button>
-            <button type="submit" class="btn4">Distance student</button>
+            <img src="/img/work.png" alt="Clearance_Request" >  
+            <div class="btn-container01">
+              <button type="submit" class="btn1">Teacher</button> 
+              <button type="submit" class="btn2">Administrator staff</button>
+              <button type="submit" class="btn3">Regular student</button>
+              <button type="submit" class="btn4">Extension student</button>
+              <button type="submit" class="btn5">Distance student</button>
+            </div>
           </div>
         </div>
 
