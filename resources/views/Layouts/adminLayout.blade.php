@@ -67,7 +67,12 @@
                                     <ul>
                                     <a href="/admin/new admin" id="adminA">Admin</a>
                                     <a href="/admin/new officer" id="officerA">Officer</a>
-                                    <a href="#" id="clearanceA">Clearance User</a>
+                                    <a href="/admin/new user" id="clearanceA">Clearance User</a>
+                                    <!-- <a href="login" id="teachersA">Teachers</a>
+                                    <a href="login" id="adminStaffA">Administrator Staffs</a>
+                                    <a href="login" id="regStudA">Regular Students</a>
+                                    <a href="login" id="extnStudA">Extension Students</a>
+                                    <a href="login" id="disStudA">Distance Students</a> -->
                                     </ul>
                                 </div>
                                

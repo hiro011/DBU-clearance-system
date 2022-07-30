@@ -5,6 +5,8 @@ use App\Http\Controllers\StudentViewController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\OfficerController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RegularStudController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,16 +85,37 @@ Route::post('auth/check', [loginController::class, 'check'])->name('auth.check')
 // Admin login and registaration
 Route::post('/admin/new admin/save', [AdminController::class, 'save'])->name('newUsers.saveAdmin');
 Route::post('/auth/admin/check', [AdminController::class, 'check'])->name('auth.admin.check');
+
+// logout
 Route::get('/auth/admin/logout',[AdminController::class, 'logout'])->name('auth.admin.logout');
+// End Admin
+
+// User controller
+// user save
+Route::post('/admin/new RegularStudent/save', [UserController::class, 'RegStudsave'])->name('newUsers.saveRegStud');
+Route::post('/admin/new ExtensionStudent/save', [UserController::class, 'ExtnStudsave'])->name('newUsers.saveExtnStud');
+Route::post('/admin/new DistanceStudent/save', [UserController::class, 'DisStudsave'])->name('newUsers.saveDisStud');
+Route::post('/admin/new Teacher/save', [UserController::class,   'Teachersave'])->name('newUsers.saveTeacher');
+Route::post('/admin/new AdminStaff/save', [UserController::class,   'AdminStaffsave'])->name('newUsers.saveAdminStaff');
+
+// user check
+Route::post('/auth/RegStudUser/check', [UserController::class, 'RegStudcheck'])->name('auth.RegStuduser.check');
+Route::post('/auth/ExtStudUser/check', [UserController::class, 'ExtnStudcheck'])->name('auth.ExtnStuduser.check');
+Route::post('/auth/DisStudUser/check', [UserController::class, 'DisStudcheck'])->name('auth.DisStuduser.check');
+Route::post('/auth/TeacherUser/check', [UserController::class, 'Teachercheck'])->name('auth.Teacheruser.check');
+Route::post('/auth/AdminStaffUser/check', [UserController::class, 'AdminStaffcheck'])->name('auth.AdminStaffuser.check');
+
+// End user
 
 // Officers login and registaration
 Route::post('/admin/new officer/save', [OfficerController::class, 'save'])->name('newUsers.saveOfficer');
 Route::post('/auth/officer/check', [OfficerController::class, 'check'])->name('auth.officer.check');
-Route::get('/auth/login/officer', [OfficerController::class, 'login'])->name('auth.loginOfficers');
-// endOfficer
+// End Officer
 
 
 Route::group(['middleware'=>['AuthCheck']], function(){
+
+    // Admin Controller Routes
     Route::get('/auth/login/admin', [AdminController::class, 'login'])->name('auth.loginAdmin');
     Route::get('/admin/new admin', [AdminController::class, 'register'])->name('newUsers.newAdmin');
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
@@ -100,11 +123,33 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/admin/settings',[AdminController::class,'settings']);
     Route::get('/admin/profile',[AdminController::class,'profile']);
     Route::get('/admin/staff',[AdminController::class,'staff']);
+    // End Admin Route
 
-    // new Officer registaration and dashboard
+    // Officer controller route
+    Route::get('/auth/login/officer', [OfficerController::class, 'login'])->name('auth.loginOfficers');
     Route::get('/admin/new officer', [OfficerController::class, 'register'])->name('newUsers.newOfficer');
     Route::get('/officers/library', [OfficerController::class, 'dashboard']);
-    // endOfficer
+    // End officer controller
+    
+    // User controller route
+    // user login
+    Route::get('/auth/login/RegStud', [OfficerController::class,   'RegStudlogin'])->name('auth.loginRegularStud');
+    Route::get('/auth/login/ExtnStud', [OfficerController::class,  'ExtnStudlogin'])->name('auth.loginExtensionStud');
+    Route::get('/auth/login/DisStud', [OfficerController::class,   'DisStudlogin'])->name('auth.loginDistanceStud');
+    Route::get('/auth/login/Teacher', [OfficerController::class,   'Teacherlogin'])->name('auth.loginTeacher');
+    Route::get('/auth/login/AdminStaff', [OfficerController::class,'AdminStafflogin'])->name('auth.loginAdminStaff');
+
+
+    // user new user
+    Route::get('/admin/new user', [UserController::class, 'register'])->name('newUsers.newClearanceUser');
+    
+    // user Dashboard
+    Route::get('/user/regular student', [UserController::class,  'RegularStudDashboard']);
+    Route::get('/user/extension student', [UserController::class, 'ExtensionStudDashboard']);
+    Route::get('/user/distance student', [UserController::class,  'DistanceStudDashboard']);
+    Route::get('/user/teacher', [UserController::class, 'TeacherDashboard']);
+    Route::get('/user/admin staff', [UserController::class, 'AdminStaffDashboard']);
+    // End user controller
 
 });
 

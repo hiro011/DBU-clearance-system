@@ -27,7 +27,7 @@
           <ul>
             <a href="/auth/login/teacher">Teacher</a>
             <a href="/auth/login/adminStaff">Administrator Staff</a>
-            <a href="/auth/login/regular">Regular Student</a>
+            <a href="/auth/login/RegStud">Regular Student</a>
             <a href="/auth/login/extension">Extension Student</a>
             <a href="/auth/login/distance">Distance Student</a>
           </ul>

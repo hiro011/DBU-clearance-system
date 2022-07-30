@@ -46,7 +46,7 @@
             {{ Session::get('fail')}}
         </div>
     @endif
-        <form action="{{ route('newUsers.saveAdmin') }}" method="post">
+        <form action="{{ route('newUsers.saveAdmin') }}" method="post" autocomplete="on">
 
         @csrf
             <div class="inputfield">
@@ -58,12 +58,7 @@
                 
             <div class="inputfield">
                 <label>Email</label></br>
-                <div class="custom-email">
-                    <input type="text" class="input" name="email" placeholder="Username" value="{{ old('email') }}">
-                    <select name="gmail">
-                        <option value="@gmail.com" >@gmail.com</option>
-                    </select></br>
-                </div>
+                <input type="text" class="input" name="email" placeholder="Username" value="{{ old('email') }}"></br>
                 <span style="color:red;">@error('email'){{ $message }} @enderror</span>
             </div>  
             <div class="inputfield">

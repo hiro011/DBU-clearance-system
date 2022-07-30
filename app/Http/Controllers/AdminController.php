@@ -43,6 +43,7 @@ class AdminController extends Controller
 
 
     function save(Request $request){
+
         //Validate requests
         $request->validate([
             'name'=>'required',
@@ -55,11 +56,11 @@ class AdminController extends Controller
 
         // $user = auth()->user()->name;
         
-        $email = $request->email.$request->gmail;
+        // $email = $request->email.$request->gmail;
 
         $admin = new Admin;
         $admin->name = $request->name;
-        $admin->email = $email;
+        $admin->email = $request->email;
         $admin->password = $request->password; // Hash::make($request->password);
         // $admin->add_by = $user;
         $save = $admin->save();
