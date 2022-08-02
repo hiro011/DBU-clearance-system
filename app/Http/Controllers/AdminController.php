@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 
 class AdminController extends Controller
@@ -52,10 +53,7 @@ class AdminController extends Controller
         ]);
 
          //Insert data into database
-        $data = ['LoggedUserInfo'=>Admin::where('id','=', session('LoggedUser'))->first()];
-
-        // $user = auth()->user()->name;
-        
+       
         // $email = $request->email.$request->gmail;
 
         $admin = new Admin;
@@ -89,6 +87,7 @@ class AdminController extends Controller
 
             if(Hash::check($request->password, $password)){
                 $request->session()->put('LoggedUser', $userInfo->id);
+                
                 return redirect('admin/dashboard'); 
             }else{
                 return back()->with('fail','Incorrect password.');

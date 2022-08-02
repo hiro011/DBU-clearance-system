@@ -1,47 +1,57 @@
-html,
-body {
-  /* font-family: 'Nunito', sans-serif; */
-  font-family: "Times New Roman", Times, serif;
-  padding-left: 6%;
-  padding-right: 6%;
-  background-color: gray;
-}
 
-.containerBox {
-  background-color: #ffffff;
-}
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700|Trade+Winds&display=swap');
 
-.full-height {
-  height: 100vh;
-}
+/* body style */
+  html, body {
+    font-family: 'Nunito', sans-serif;
+    /* font-family: "Times New Roman", Times, serif; */
+    padding-left: 6%;
+    padding-right: 6%;
+    background-color: gray;
+  }
+  /* body {
+    font-family: "Times New Roman", Times, serif;
+    padding-left: 6%;
+    padding-right: 13%;
+    background-color: gray;
+  } */
 
-.flex-center {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-}
+  .containerBox {
+    background-color: #ffffff;
+  }
 
-.position-ref {
-  position: relative;
-}
+  .full-height {
+    height: 100vh;
+  }
 
-.top-right {
-  position: absolute;
-}
+  .flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
 
-.title {
-  font-size: 75px;
-}
+  .position-ref {
+    position: relative;
+  }
 
-.links>a {
-  /* color: #636b6f; */
-  padding: 0 25px;
-  font-size: 1px;
-  font-weight: 550;
-  letter-spacing: .1rem;
-  text-decoration: none;
-  text-transform: uppercase;
-}
+  .top-right {
+    position: absolute;
+  }
+
+  .title {
+    font-size: 75px;
+  }
+
+  .links>a {
+    /* color: #636b6f; */
+    padding: 0 25px;
+    font-size: 1px;
+    font-weight: 550;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+/* end body style */
 
 footer {
   overflow: hidden;
@@ -56,431 +66,487 @@ footer {
 
 /*  style for navigation bar   */
 
-.topnav {
-  background: linear-gradient(120deg, #67d4e7, #5fc9e4, #27c5ec);
-  overflow: hidden;
-  width: 100%;
-  transition: top 0.3s;
-  z-index: 1;
-  top: 0;
-}
-
-.sticky {
-  padding-right: 99px;
-  position: fixed;
-  top: 0;
-  width: 76.3%;
-  z-index: 20;
-}
-
-.sticky+.content {
-  padding-top: 60px;
-}
-
-.topnav a {
-  float: right;
-  display: block;
-  border: 1.5px solid #d5dbd9;
-  color: #ffffff;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.topnav span {
-  float: left;
-  color: #fcfcfc;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 20px;
-}
-
-.topnav a:hover {
-  background-color: rgb(85, 85, 221);
-}
-
-.topnav a.active {
-  color: #ffffff;
-  float: left;
-  display: block;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.topnav a.active:hover {
-  background-color: rgb(85, 85, 221);
-}
-
-
-
-@media screen and (max-width: 600px) {
-
-  .topnav a,
-  a.activeHome {
-    float: none;
-    display: block;
-    text-align: left;
-    font-size: 12px;
-    border: none;
-    margin: 0;
-    padding: 10px;
-    /* float: right; */
-  }
- 
-  .topnav a {
-    text-decoration: underline;
-  }
-
-}
-
-/* <!-- style for drop down --> */
-
-/* Style the dropdown button */
-.dropdown-btn {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 22px;
-  display: block;
-  border-style: groove;
-  border-width: 1px;
-  border-radius: 5px;
-  border-color:#5fbdd4;
-  background: #8698d4;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-  transition: 0.3s;
-  color: black;
-  width: 100%;
-}
-.view-btn {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 22px;
-  display: block;
-  border-style: groove;
-  border-width: 1px;
-  border-radius: 5px;
-  border-color:#5fbdd4;
-  background: #6a84d8;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-  transition: 0.3s;
-  color: black;
-  width: 100%;
-}
-
-.dropdown-container span { /* needed for 'clearance request' span don't delet*/
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 22px;
-  display: block;
-  background: rgb(85, 142, 150);
-  text-align: left;
-  color: white;
-  margin: 0;
-}
-.dropspan-container span { /* needed for '@gmail.com' select don't delet*/
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 22px;
-  display: block;
-  background: rgb(85, 142, 150);
-  text-align: left;
-  color: white;
-  margin: 0;
-}
-
-
-/* On mouse-over */
-.dropdown-btn:hover {
-  background-color: rgb(85, 85, 221);
-}
-
-/* Dropdown container */
-.dropdown-container {
-  display: block;
-  background-color: #6b9ba7;
-  padding-left: 0px;
-  width: 100%;
-  margin-top: 10px;
-  padding-top: 20px;
-}
-
-.body-container {
-  background: #ffffff;
-  margin-top: 0;
-}
-
-button {
-  float: left;
-  background-color: #2ecce0;
-  color: white;
-  cursor: pointer;
-  width: 50%;
-  height: 40px;
-}
-
-button:hover {
-  opacity: 0.7;
-}
-
-.column {
-  float: left;
-  width: 30%;
-  background-color: rgb(224, 235, 240);
-  margin-top: 0;
-  padding-top: 3%;
-  height: auto;
-}
-
-.column1 {
-  float: left;
-  width: 50%;
-  background-color: rgb(178, 217, 250);
-  margin-top: 0;
-}
-
-.left {
-  width: 25%;
-}
-
-.right {
-  width: 75%;
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* The navigation menu links */
-.column a {
-  padding: 8px 8px 8px 32px;
-  color: rgb(0, 0, 0);
-  text-decoration: none;
-  font-size: 22px;
-  display: block;
-  transition: 0.3s;
-}
-
-/* When you mouse over the navigation links, change their color */
-.column a:hover {
-  background-color: rgb(85, 85, 221);
-  color: #f1f1f1;
-}
-
-/* On smaller screens, where height is less than 450px, */
-@media screen and (max-height: 450px) {
-
-  .column,
-  .column1 {
-    padding-top: 15px;
-  }
-
-  .column a {
-    font-size: 18px;
-  }
-}
-
-@media screen and (max-width: 600px) {
-
-  .column,
-  .column1 {
+  .topnav {
+    background: linear-gradient(120deg, #67d4e7, #5fc9e4, #27c5ec);
+    overflow: hidden;
     width: 100%;
-  }
-
-  footer {
-    width: 93.5%;
+    transition: top 0.3s;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    z-index: 1;
+    top: 0;
   }
 
   .sticky {
-    width: 73.5%;
-  }
-}
-
-/* Student information form style */
-.wrapper {
-  max-width: 500px;
-  width: 88%;
-  background: #fff;
-  margin: 10px auto;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.125);
-  padding: 30px;
-}
-
-.wrapper .title {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 25px;
-  text-transform: uppercase;
-  text-align: center;
-}
-
-.wrapper .form {
-  width: 100%;
-  align-items: center;
-  padding-left: 10%;
-}
-
-.wrapper .form .inputfield {
-  margin-bottom: 15px;
-  align-items: center;
-
-}
-
-.wrapper .form .inputfield label {
-  width: 200px;
-  color: black;
-  font-size: 14px;
-}
-
-.wrapper .form .inputfield .input,
-.wrapper .form .inputfield .textarea {
-  width: 70%;
-  outline: none;
-  border: 1px solid #d5dbd9;
-  font-size: 15px;
-  padding: 8px 10px;
-  border-radius: 3px;
-  transition: all 0.3s ease;
-}
-
-.wrapper .form .inputfield .textarea {
-  width: 100%;
-  height: 125px;
-  resize: none;
-}
-
-.wrapper .form .inputfield .custom_select {
-  position: relative;
-  width: 75%;
-  height: 37px;
-}
-
-.wrapper .form .inputfield .custom_select:before {
-  content: "";
-  position: absolute;
-  top: 12px;
-  right: 10px;
-  border: 8px solid;
-  border-color: #d5dbd9 transparent transparent transparent;
-  pointer-events: none;
-}
-
-.wrapper .form .inputfield .custom_select select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  outline: none;
-  width: 100%;
-  height: 100%;
-  border: 0px;
-  padding: 8px 10px;
-  font-size: 15px;
-  border: 1px solid #d5dbd9;
-  border-radius: 3px;
-}
-
-
-.wrapper .form .inputfield .input:focus,
-.wrapper .form .inputfield .textarea:focus,
-.wrapper .form .inputfield .custom_select select:focus {
-  border: 1px solid #1c8ad4;
-}
-
-.wrapper .form .inputfield p {
-  font-size: 14px;
-  color: #757575;
-}
-
-.wrapper .form .inputfield .check {
-  width: 15px;
-  height: 15px;
-  position: relative;
-  display: block;
-  cursor: pointer;
-}
-
-/* .wrapper .form .inputfield .check input[type="checkbox"]{
-    position: absolute;
+    position: fixed;
     top: 0;
-    left: 0;
-    opacity: 0;
-  } 
-  .wrapper .form .inputfield .check .checkmark{
-    width: 15px;
-    height: 15px;
-    border: 1px solid #fec107;
+    width: 70.2%;
+    z-index: 20;
+  }
+
+  .sticky+.content {
+    padding-top: 60px;
+  }
+
+  .topnav a {
+    float: right;
     display: block;
-    position: relative;
-  }
-  .wrapper .form .inputfield .check .checkmark:before{
-    content: "";
-    position: absolute;
-    top: 1px;
-    left: 2px;
-    width: 5px;
-    height: 2px;
-    border: 2px solid;
-    border-color: transparent transparent #fff #fff;
-    transform: rotate(-45deg);
-    display: none;
-  }
-  .wrapper .form .inputfield .check input[type="checkbox"]:checked ~ .checkmark{
-    background: #fec107;
+    border: 1.5px solid #d5dbd9;
+    border-radius: 5px;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
   }
   
-  .wrapper .form .inputfield .check input[type="checkbox"]:checked ~ .checkmark:before{
+  .topnav span {
+    float: left;
+    color: #fcfcfc;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 20px;
+  }
+
+  .topnav a:hover {
+    background-color: rgb(85, 85, 221);
+  }
+
+  .topnav a.active {
+    color: #ffffff;
+    float: left;
     display: block;
-  }*/
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
 
-.wrapper .form .inputfield .btn {
-  width: 75%;
-  padding: 8px 10px;
-  font-size: 15px;
-  border: 0px;
-  background: #2691d9;
-  color: #e9f4fb;
-  cursor: pointer;
-  border-radius: 3px;
-  outline: none;
-}
+  .topnav a.active:hover {
+    background-color: rgb(85, 85, 221);
+  }
 
-.wrapper .form .inputfield .btn:hover {
-  border-color: #88a5b8;
-  background: #4d94c4;
-  transition: .5s;
-}
 
-.wrapper .form .inputfield:last-child {
-  margin-bottom: 0;
-}
+/* End nav bar */
 
-@media (max-width:420px) {
+/* <!-- style for drop down --> */
+
+/* Style for column */
+
+  .dropdown-btn {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 22px;
+    display: block;
+    border-style: groove;
+    border-width: 1px;
+    border-radius: 5px;
+    border-color:#5fbdd4;
+    background: #8698d4;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    color: black;
+    width: 100%;
+  }
+
+  .view-btn {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 22px;
+    display: block;
+    border-style: groove;
+    border-width: 1px;
+    border-radius: 5px;
+    border-color:#5fbdd4;
+    background: #6a84d8;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    color: black;
+    width: 100%;
+  }
+
+  .dropdown-container span, .dropspan-container .dropspan, .dropspanCurrent { /* needed for 'clearance request' span don't delet*/
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 22px;
+    display: block;
+    background: rgb(85, 142, 150);
+    text-align: left;
+    color: white;
+    margin: 0;
+  }
+
+  .dropspanCurrent { /* needed for current page indicator span don't delet*/
+    padding-left: 100px;
+  }
+
+  /* On mouse-over */
+  .dropdown-btn:hover {
+    background-color: rgb(85, 85, 221);
+  }
+
+  /* Dropdown container */
+  .dropdown-container {
+    display: block;
+    background-color: #6b9ba7;
+    padding-left: 0px;
+    width: 100%;
+    margin-top: 10px;
+    padding-top: 20px;
+  }
+
+  .body-container {
+    background: #ffffff;
+    margin-top: 0;
+  }
+
+  button {
+    float: left;
+    background-color: #2ecce0;
+    color: white;
+    cursor: pointer;
+    width: 50%;
+    height: 40px;
+  }
+
+  button:hover {
+    opacity: 0.7;
+  }
+
+  .column {
+    float: left;
+    width: 30%;
+    background-color: rgb(224, 235, 240);
+    margin-top: 0;
+    padding-top: 3%;
+    height: auto;
+  }
+
+  .column1 {
+    float: left;
+    width: 50%;
+    background-color: rgb(178, 217, 250);
+    margin-top: 0;
+  }
+
+  .left {
+    width: 25%;
+  }
+
+  .right {
+    width: 75%;
+  }
+
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  /* The navigation menu links */
+  .column a {
+    padding: 8px 8px 8px 32px;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 22px;
+    display: block;
+    transition: 0.3s;
+  }
+
+  /* When you mouse over the navigation links, change their color */
+  .column a:hover {
+    background-color: rgb(85, 85, 221);
+    color: #f1f1f1;
+  }
+
+  /* On smaller screens, where height is less than 450px, */
+  @media screen and (max-height: 600px) {
+  
+    .column a {
+      font-size: 18px;
+    }
+  
+    .column,
+    .column1 {
+      width: 100%;
+      padding-top: 15px;
+    }
+
+    footer {
+      width: 93.5%;
+    }
+  }
+  
+  
+  @media screen and (max-width: 600px) {
+
+    .topnav a,
+    a.activeHome {
+      float: none;
+      display: block;
+      text-align: left;
+      font-size: 12px;
+      border: none;
+      margin: 0;
+      padding: 10px;
+    }
+    .sticky {
+      width: 73.5%;
+      height:auto;
+    }
+    .topnav .navbar_right .profile .icon_wrap{
+      padding-right: 5px;
+    }
+    .topnav span {
+      float: left;
+      padding: 14px 16px;
+      font-size: 16px;
+    }
+     
+    .topnav .navbar_right {
+      display: inline-block;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .topnav a {
+      text-decoration: underline;
+    }
+    
+    .topnav .navbar_right .profile .icon_wrap{
+      position: relative;
+    }
+
+    .topnav .profile .profile_dd{
+      top: 110px;
+      right: 2px; 
+      left: 185px;
+    }
+    .topnav .profile .profile_dd .spanText{
+    font-size: 12px;
+
+    }
+    .topnav .profile .profile_dd .profile_ul a{
+    font-size: 14px;
+    }
+
+  }
+  @media screen and (max-width: 420px) {
+
+    .topnav a,
+    a.activeHome {
+      float: none;
+      display: block;
+      text-align: left;
+      font-size: 12px;
+      border: none;
+      margin: 0;
+      padding: 10px;
+      /* float: right; */
+    }
+    .sticky {
+      width: 73.5%;
+      height:auto;
+    }
+    .topnav .navbar_right .profile .icon_wrap{
+      padding-right: 5px;
+    }
+    .topnav span {
+      float: left;
+      padding: 14px 16px;
+      font-size: 16px;
+    }
+    .topnav .navbar_right .profile .name{
+      display: none;
+    }
+    .topnav .navbar_right {
+      /* float: right; */
+      display: inline-block;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .topnav a {
+      text-decoration: underline;
+    }
+    
+    .topnav .navbar_right .profile .icon_wrap{
+      position: relative;
+    }
+
+    .topnav .profile .profile_dd{
+      top: 110px;
+      right: 2px; 
+      left: 185px;
+      /* margin-right: 150px; */
+      /* margin-top: 8px; */
+    }
+    .topnav .profile .profile_dd .spanText{
+    font-size: 12px;
+
+    }
+    .topnav .profile .profile_dd .profile_ul a{
+    font-size: 14px;
+    }
+
+  }
+
+    
+  
+/* end of body style */
+
+/* wrapper Student information form style */
+
+  .wrapper {
+    max-width: 500px;
+    width: 88%;
+    background: #fff;
+    margin: 10px auto;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.125);
+    padding: 30px;
+  }
+
+  .wrapper .title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .wrapper .form {
+    width: 100%;
+    align-items: center;
+    padding-left: 10%;
+  }
+
   .wrapper .form .inputfield {
-    flex-direction: column;
-    align-items: flex-start;
+    margin-bottom: 15px;
+    align-items: center;
+
   }
 
   .wrapper .form .inputfield label {
-    margin-bottom: 5px;
+    width: 200px;
+    color: black;
+    font-size: 14px;
   }
 
-  .wrapper .form .inputfield.terms {
-    flex-direction: row;
+  .wrapper .form .inputfield .input,
+  .wrapper .form .inputfield .textarea {
+    width: 70%;
+    outline: none;
+    border: 1px solid #d5dbd9;
+    font-size: 15px;
+    padding: 8px 10px;
+    border-radius: 3px;
+    transition: all 0.3s ease;
   }
 
-  .wrapper {
-    width: 79%;
+  .wrapper .form .inputfield .textarea {
+    width: 100%;
+    height: 125px;
+    resize: none;
   }
-}
 
-/* END Student information form style */
+  .wrapper .form .inputfield .custom_select {
+    position: relative;
+    width: 75%;
+    height: 37px;
+  }
+
+  .wrapper .form .inputfield .custom_select:before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    border: 8px solid;
+    border-color: #d5dbd9 transparent transparent transparent;
+    pointer-events: none;
+  }
+
+  .wrapper .form .inputfield .custom_select select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    border: 0px;
+    padding: 8px 10px;
+    font-size: 15px;
+    border: 1px solid #d5dbd9;
+    border-radius: 3px;
+  }
+
+
+  .wrapper .form .inputfield .input:focus,
+  .wrapper .form .inputfield .textarea:focus,
+  .wrapper .form .inputfield .custom_select select:focus {
+    border: 1px solid #1c8ad4;
+  }
+
+  .wrapper .form .inputfield p {
+    font-size: 14px;
+    color: #757575;
+  }
+
+  .wrapper .form .inputfield .check {
+    width: 15px;
+    height: 15px;
+    position: relative;
+    display: block;
+    cursor: pointer;
+  }
+
+  .wrapper .form .inputfield .btn {
+    width: 75%;
+    padding: 8px 10px;
+    font-size: 15px;
+    border: 0px;
+    background: #2691d9;
+    color: #e9f4fb;
+    cursor: pointer;
+    border-radius: 3px;
+    outline: none;
+  }
+
+  .wrapper .form .inputfield .btn:hover {
+    border-color: #88a5b8;
+    background: #4d94c4;
+    transition: .5s;
+  }
+
+  .wrapper .form .inputfield:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width:420px) {
+    .wrapper .form .inputfield {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .wrapper .form .inputfield label {
+      margin-bottom: 5px;
+    }
+
+    .wrapper .form .inputfield.terms {
+      flex-direction: row;
+    }
+
+    .wrapper {
+      width: 79%;
+    }
+  }
+
+/* END Student information form style */ 
+

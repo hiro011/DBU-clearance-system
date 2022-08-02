@@ -1,6 +1,13 @@
-@extends('Layouts.layout')
+@extends('Layouts.navLayout')
 
 @section('content')
+
+<script>
+        $(document).ready(function(){
+            alert("Electrical dep!!!")
+        });
+    </script>
+
 
 <section id="columns">
     <div class="body-container">

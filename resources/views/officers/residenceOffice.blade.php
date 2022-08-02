@@ -1,5 +1,5 @@
 
-@extends('Layouts.layout')
+@extends('Layouts.navLayout')
 
 @section('content')
 

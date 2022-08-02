@@ -44,6 +44,7 @@ class OfficerController extends Controller
         $officer->name = $request->name;
         $officer->email = $request->email;          // uncomment bellow code to make the input password stored hashed in database
         $officer->password = $request->password;   // Hash::make($request->password); 
+        $officer->college = $request->college;
         $officer->department = $request->department;
         $save = $officer->save();
 
@@ -53,6 +54,7 @@ class OfficerController extends Controller
             return back()->with('fail','Something went wrong, try again later');
         }
     }
+
 
     function check(Request $request){
         //validate request input
@@ -72,7 +74,78 @@ class OfficerController extends Controller
 
             if(Hash::check($request->password, $password)){
                 $request->session()->put('LoggedUser', $userInfo->id);
-                return redirect('officers/library'); 
+
+                $userDep = $userInfo->department;
+                $userColl = $userInfo->college;
+                
+                
+                // colege
+                    // Officers 
+                    // engineering 
+                    // computing 
+                    // freshman 
+                    // law 
+                    // socialScience 
+                    // business 
+                    // computational 
+                    // agriculture 
+                //end
+
+                //Officers
+                    // Anti Corruption
+                    // Cashier
+                    // EngCollege Finance
+                    // Finance
+                    // General Service
+                    // HRM
+                    // ICT Property 
+                    // Property Officer 
+                    // Research 
+                    // StudResidence Office
+                //end
+
+                // Officers
+                // if ($userColl === 'Officers'){
+
+                //     if($userDep === 'Registrar'){
+                //         return redirect('officers/registrar'); 
+                //     } 
+                //     if($userDep === 'StudResidence'){
+                //         return redirect('officers/residenceOffice'); 
+                //     } 
+                //     if($userDep === 'Library'){
+                //         return redirect('officers/library'); 
+                //     } 
+                //     if($userDep === 'Dining'){
+                //         return redirect('officers/diningOfficer'); 
+                //     } 
+                // }
+
+                // Enginering College
+               // if ($userColl === 'engineering'){
+
+                    if($userDep === 'Electrical & Computer Engineering'){
+                        return redirect('depOfficerView/electricalDep'); 
+                    } 
+                    if($userDep === 'Mechanical Engineering'){
+                        return redirect('depOfficerView/mechanicalDep'); 
+                    } 
+                    if($userDep === 'Civil Engineering'){
+                        return redirect('depOfficerView/civilDep'); 
+                    } 
+                    if($userDep === 'Chemical Engineering'){
+                        return redirect('depOfficerView/chemicalDep'); 
+                    } 
+                    if($userDep === 'Industrial Engineering'){
+                        return redirect('depOfficerView/industrialDep'); 
+                    } 
+                    if($userDep === 'CoTM Engineering'){
+                        return redirect('depOfficerView/cotmDep'); 
+                    } 
+                    
+                //}
+               
+
             }else{
                 return back()->with('fail','Incorrect password.');
             }

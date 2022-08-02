@@ -21,7 +21,7 @@
                     <div class="topnav">
                     
                         <div>
-                            <a class="active" href="/">Home</a>
+                            <a href="/">Home</a>
                             <span>DBU Clearance </span> 
                             <span > Processing System</span>
                             <a id="link" href="/about">About</a>

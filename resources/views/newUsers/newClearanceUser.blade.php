@@ -1,7 +1,7 @@
  
 @extends('Layouts.adminLayout')
 
-@section('content')
+@section('adminContent')
 
 <style>
     .inputfield select{
@@ -24,7 +24,7 @@
 </style> 
 
 <div class="wrapper">
-    <div class="title">Add New Clearance User</div>
+    <div class="title">Add New Clearance User </div>
     
     <div class="form">
 
@@ -45,10 +45,11 @@
                 <div class="custom_select">
                     <select id="role" name="role" onchange="role(this)" value="{{ old('role') }}">
                         <option value="regularStud">Regular Student</option>
-                        <option value="teacher">Teacher</option>
                         <option value="adminStaff">Administrator Staff</option>
-                        <option value="extensionStud">Extension Student</option>
                         <option value="distanceStud">Distance Student</option>
+                        <option value="extensionStud">Extension Student</option>
+                        <option value="teacher">Teacher</option>
+
                     </select></br>
                     <span style="color:red;">@error('role'){{ $message }} @enderror</span>
 
@@ -219,5 +220,33 @@
     });
 
 </script>
+
+<!-- script for down key to go to next inputfield -->
+<script>
+    var allFields = document.querySelectorAll(".input");
+
+    for (var i = 0; i < allFields.length; i++) {
+
+        allFields[i].addEventListener("keyup", function(event) {
+
+            if (event.keyCode === 40) {
+                console.log('Enter clicked')
+                event.preventDefault();
+                if (this.parentElement.nextElementSibling.querySelector('input')) {
+                    this.parentElement.nextElementSibling.querySelector('input').focus();
+                }
+            }
+            if (event.keyCode === 38) {
+                console.log('Enter clicked')
+                event.preventDefault(); 
+                if (this.parentElement.previousElementSibling.querySelector('input')) {
+                    this.parentElement.previousElementSibling.querySelector('input').focus();
+                }
+            }
+        });
+
+    }
+</script>
+
 
 @endsection
