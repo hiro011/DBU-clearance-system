@@ -10,7 +10,7 @@
             padding-right: 13%;
             background-color: gray;
         }
-      
+        
         .sticky {
             width: 70%;
         }
@@ -35,8 +35,8 @@
             right: 330px;
             height: auto;
         }
-    
-        #allStudA{
+       
+        #regStudA{
             background-color: blue;
             color: white;
         }

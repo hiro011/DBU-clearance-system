@@ -1,122 +1,390 @@
 
-@extends('Layouts.homeLayout')
+@extends('Layouts.navLayout')
 
-@section('homeContent')
-
+@section('content')
 
   <style>
-    .container {
-      position: relative;
-      width: 100%;
-    }
-    .container img{
-      width: 100%; 
-      height: 300px;
-    }
-    .container a {
-      float: left;
-      margin-left: 15px;
-      background-color: #2ecce0;
-      color: white;
-      cursor: pointer;
-      width: 40%;
-      height: 40px;
-      text-decoration: none;
-      text-align: center;
-    }
-    .container a:hover {
-      opacity: 0.7;
-    }
+
+    body {
+        /* font-family: 'Nunito', sans-serif; */
+        font-family: "Times New Roman", Times, serif;
+        padding-left: 10%;
+        padding-right: 10%;
+        background-color: gray;
+    }  
     
-    /* Style the button and place it in the middle of the container/image */
-    .container a{
-      position: absolute;
-      left: 30%;
-      height: auto;
-      transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-      background-color: #3f5fc7;
-      color: white;
-      font-size: 16px;
-      padding: 12px 24px;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: 0.8s;
-    }
-    .container .btn {
-      margin-top: 15%;
-    }
-    .container .btn1 {
-      top: 35%;
-    }
-    .container .btn2 {
-      top: 47%;
-    }
-    .container .btn3 {
-      top: 59%;
-    }
-    .container .btn4 {
-      top: 71%;
-    }
-    .container .btn5 {
-      top: 83%;
-    }
-    .container .btn:hover, .btn1:hover, .btn2:hover, 
-    .btn3:hover, .btn4:hover, .btn5:hover {
-      background-color: blue;
+    .topnav a.active:hover {
+        opacity: 0.6;
     }
     .column1 {
-      width: 63%;
+        width: 48%;
     }
-    @media screen and (max-width: 600px) {
+    .center{
+      padding: 0 25% 2%;
+      margin: 5%;
 
-      .column1 {
-        width: 100%;
-      }
     }
     
+    .center h1 {
+        text-align: center;
+        padding: 20px 0;
+        border-bottom: 1px solid silver;
+    }
+    .center form {
+        padding: 0 40px;
+        padding-bottom: 80px;
+        box-sizing: border-box;
+    }
+    form .txt_field {
+        margin-bottom: 15px;
+        align-items: center;
+    }
+    
+    .txt_field input {
+        width: 95%;
+        padding: 8px 10px;
+        font-size: 15px;
+        border: 1px solid #d5dbd9;
+        background-color: #e9f4fb;
+        outline: none;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+    }
+    .txt_field label{
+        width: 200px;
+        color: black;
+        font-size: 14px;
+    }
+
+    .center input[type="submit"]{
+        width: 100%;
+        height: 50px;
+        border: 1px solid;
+        background: #2691d9;
+        border-radius: 25px;
+        font-size: 18px;
+        color: #e9f4fb;
+        font-weight: 700;
+        cursor: pointer;
+        outline: none;
+        margin-top: 20px;
+    }
+    .center input[type="submit"]:hover{
+        border-color: #a2b4c0;
+        background: #4492c7;
+        transition: .4s;
+    }
+    form .subBtn{
+        padding-left: 20px;
+    }
+    
+    @media screen and (max-width:420px) {
+        form .txt_field {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        form .txt_field label {
+            margin-bottom: 5px;
+        }
+
+        form .txt_field .terms {
+            flex-direction: row;
+        }
+
+        .center {
+            width: 100%;
+            padding-left: 0;
+        }
+        .column1 {
+            width: 100%;
+            padding-right: 0px;
+
+        }
+        .center form {
+            padding: 0 ;
+            padding-bottom: 80px;
+            padding-right: 50px;
+            padding-left: 20px; 
+            position: center;
+        }
+    
+        .center input[type="submit"]{
+            height: 35px;
+        }
+        body {
+            padding-right: 6%;
+        }
+    }
+        
+    .profile_dd{
+        top: 58px; 
+        right: 280px;
+        height: auto;
+    }
+
+        
   </style>
 
+  
+  <div class="center">
+    @if($LoggedUser)
+    <h1>{{$LoggedUser['name']}}</h1>
+    @endif
+  
+    <div class="txt_field">
+      <ul>
+        @if($LoggedUser['role']==1)
 
-  <div class="box" style=" position: center;">
+          @if($officer)
 
-    <h1 style="text-align: center;">
-      Welcome to Debre Berhan University Clearance Processing System to continue please login.
-    </h1> </br>
+        
+          
+            @if($officer['college'] === 'Officers')
+              <span>Officer</span>
+              @if($officer['department'] === 'HRM')
+                <li><a href="test">HRM Officer</a></li>
+              @endif
+              @if($officer['department'] === 'Dining')
+                <li><a href="/officers/dining office">Dining Officer</a></li>
+              @endif
+              @if($officer['department'] === 'Library')
+                <li><a href="/officers/library">Library</a></li>
+              @endif
+              @if($officer['department'] === 'Registrar')
+              <li><a href="/officers/registrar">Registrar</a></li>
+              @endif
+              @if($officer['department'] === 'Cashier')
+              <li><a href="test">Cashier Officer</a></li>
+              @endif
+              @if($officer['department'] === 'Anti Corruption')
+              <li><a href="test">Anti Corruption</a></li>
+              @endif
+              @if($officer['department'] === 'ICT Property')
+              <li><a href="test">ICT Property Officer</a></li>
+              @endif
+              @if($officer['department'] === 'EngCollege Finance')
+              <li><a href="test">Engineering College Finance Officer</a></li>
+              @endif
+              @if($officer['department'] === 'Finance')
+              <li><a href="test">Finance Officer</a></li>
+              @endif
+              @if($officer['department'] === 'General Service')
+              <li><a href="test">General Service Officer</a></li>
+              @endif
+              @if($officer['department'] === 'Property Officer')
+              <li><a href="test">Property Officer</a></li>
+              @endif
+              @if($officer['department'] === 'Research')
+              <li><a href="test">Research Officer</a></li>
+              @endif
+              @if($officer['department'] === 'StudResidence Office')
+              <li><a href="/officers/student residence">Student Residence Officer</a></li>
+              @endif
+              
+            @endif
 
-    <div style="background-color: lightblue;">
+            @if($officer['college'] !== 'Officers')
+            <span>Department Officer</span>
+            @endif
+ 
+            @if($officer['college'] === 'engineering')
+              @if($officer['department'] === 'Electrical and Computer Engineering')
+              <li><a href="test">Electrical and Computer Engineering</a></li>
+              @endif
+              @if($officer['department'] === 'Mechanical Engineering')
+              <li><a href="test">Mechanical Engineering</a></li>
+              @endif
+              @if($officer['department'] === 'Civil Engineering')
+              <li><a href="test">Civil Engineering</a></li>
+              @endif
+              @if($officer['department'] === 'Chemical Engineering')
+              <li><a href="test">Chemical Engineering</a></li>
+              @endif
+              @if($officer['department'] === 'Industrial Engineering')
+              <li><a href="test">Industrial Engineering</a></li>
+              @endif
+              @if($officer['department'] === 'CoTM Engineering')
+              <li><a href="test">CoTM Engineering</a></li>
+              @endif
+              
+            @endif
 
-    
-      <div class="container">
-        <img src="/img/Happy Bunch - Desk.png" alt="officer" >  
-        <a href="/auth/login/officer" class="btn">Login as Officer</a>
-      </div>
+            @if($officer['college'] === 'Computing')
+              @if($officer['department'] === 'Information Technology')
+              <li><a href="test">Information Technology</a></li>
+              @endif
+              @if($officer['department'] === 'Computer Science')
+              <li><a href="test">Computer Science</a></li>
+              @endif
+              @if($officer['department'] === 'Information System')
+              <li><a href="test">Information System</a></li>
+              @endif
+              @if($officer['department'] === 'Software Engineering')
+              <li><a href="test">Software Engineering</a></li>
+              @endif
+              
+            @endif
 
-      <div class="container">
+            @if($officer['college'] === 'Freshman')
+              @if($officer['department'] === 'Social Freshman')
+              <li><a href="test">Social Freshman</a></li>
+              @endif
+              @if($officer['department'] === 'Natural Freshman')
+              <li><a href="test">Natural Freshman</a></li>
+              @endif
+              
+            @endif
+ 
+            @if($officer['college'] === 'Law')
+              @if($officer['department'] === 'Law')
+              <li><a href="test">Law</a></li>
+              @endif
+              
+            @endif
+ 
+            @if($officer['college'] === 'Education')
+              @if($officer['department'] === 'Technical Drawing')
+              <li><a href="test">Technical Drawing</a></li>
+              @endif
+              @if($officer['department'] === 'Business Education')
+              <li><a href="test">Business Education</a></li>
+              @endif
+              @if($officer['department'] === 'Special need Education')
+              <li><a href="test">Special need Education</a></li>
+              @endif
+              
+            @endif
+ 
+            @if($officer['college'] === 'Social Science')
+              @if($officer['department'] === 'Psychology')
+              <li><a href="test">Psychology</a></li>
+              @endif
+              @if($officer['department'] === 'Geography')
+              <li><a href="test">Geography and Environmental Studies</a></li>
+              @endif
+              @if($officer['department'] === 'Sociology')
+              <li><a href="test">Sociology</a></li>
+              @endif
+              
+              @if($officer['department'] === 'Amharic')
+              <li><a href="test">Amharic</a></li>
+              @endif
+              @if($officer['department'] === 'History')
+              <li><a href="test">History and Heritage Management</a></li>
+              @endif
+              @if($officer['department'] === 'Civics')
+              <li><a href="test">Civics and Ethical Studies</a></li>
+              @endif
+              @if($officer['department'] === 'English')
+              <li><a href="test">English</a></li>
+              @endif
+              
+              @if($officer['department'] === 'Journalism')
+              <li><a href="test">Journalism and Communication</a></li>
+              @endif
+              
+            @endif
+ 
+            @if($officer['college'] === 'Business')
+              @if($officer['department'] === 'Management')
+              <li><a href="test">Management</a></li>
+              @endif
+              @if($officer['department'] === 'Acounting')
+              <li><a href="test">Acounting and Finance</a></li>
+              @endif
+              @if($officer['department'] === 'Economics')
+              <li><a href="test">Economics</a></li>
+              @endif
+              @if($officer['department'] === 'Tourism')
+              <li><a href="test">Tourism and Heritage Management</a></li>
+              @endif
+              @if($officer['department'] === 'Logistics')
+              <li><a href="test">Logistics Supply Chain Management</a></li>
+              @endif
+              
+              @if($officer['department'] === 'Marketing')
+              <li><a href="test">Marketing Management</a></li>
+              @endif
+              
+            @endif
+            
+            @if($officer['college'] === 'Computational')
+               
+              @if($officer['department'] === 'Statistics')
+              <li><a href="test">Statistics</a></li>
+              @endif
+              @if($officer['department'] === 'Physics')
+              <li><a href="test">Physics</a></li>
+              @endif
+              @if($officer['department'] === 'Mathematics')
+              <li><a href="test">Mathematics</a></li>
+              @endif
+              @if($officer['department'] === 'Sport Science')
+              <li><a href="test">Sport Science</a></li>
+              @endif
+              @if($officer['department'] === 'Biology')
+              <li><a href="test">Biology</a></li>
+              @endif
+              @if($officer['department'] === 'Biotechnology')
+              <li><a href="test">Biotechnology</a></li>
+              @endif
+              @if($officer['department'] === 'Chemistry')
+              <li><a href="test">Chemistry</a></li>
+              @endif
+              @if($officer['department'] === 'Geology')
+              <li><a href="test">Geology</a></li>
+              @endif
+              
+            @endif
+ 
+            @if($officer['college'] === 'Agriculture')
+              @if($officer['department'] === 'Natural Resource Management')
+              <li><a href="test">Natural Resource Management</a></li>
+              @endif
+              @if($officer['department'] === 'Animal  Science')
+              <li><a href="test">Animal  Science</a></li>
+              @endif
+              @if($officer['department'] === 'Agriculture Economics')
+              <li><a href="test">Agriculture Economics</a></li>
+              @endif
+              @if($officer['department'] === 'Horticulture')
+              <li><a href="test">Horticulture</a></li>
+              @endif
+              @if($officer['department'] === 'Plant Science')
+              <li><a href="test">Plant Science</a></li>
+              @endif
+              
+            @endif
+            
+          @endif
 
-        <div style="display: block; background-color: #5f9cec; height: 40px; ">
-        <h1 style="padding-left: 25%; padding-top: 1%;">Clearance Request</h1>
-        </div>
-        </br>
-        <img src="/img/work.png" alt="Clearance_Request" >  
+        @endif
 
-        <div class="btn-container">
-          <a href="/auth/login/teacher" class="btn1">Teacher</a>
-          <a href="/auth/login/adminStaff" class="btn2">Administrator staff</a>
-          <a href="/auth/login/regularStud" class="btn3">Regular student</a>
-          <a href="/auth/login/extensionStud" class="btn4">Extension student</a>
-          <a href="/auth/login/distanceStud" class="btn5">Distance student</a>
-        </div>
-
-      </div>
+        @if($teacher or $adminStaff or $regUser or $extnUser or $disUser)
+          <span>Clearance Request</span></br>
+          
+          @if($teacher)
+          <li><a href="test">Teacher</a></li>
+          @endif
+          @if($adminStaff)
+          <li><a href="test">Administrator Staff</a></li>
+          @endif
+          @if($regUser)
+          <li><a href="test">Regular Student</a></li>
+          @endif
+          @if($extnUser)
+          <li><a href="test">Extension Student</a></li>
+          @endif
+          @if($disUser)
+          <li><a href="test">Distance Student</a></li>
+          @endif
+        @endif
+      </ul>
     </div>
 
   </div>
+   
 
-
+ 
 @endsection
-
-
-
-

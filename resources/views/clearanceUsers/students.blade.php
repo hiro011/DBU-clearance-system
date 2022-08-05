@@ -47,9 +47,7 @@
     <section id="columns">
         <div class="body-container">
             <div class="column" style="padding-top: 50px;">
-                @if ($r1)
-                <span class="dropspanCurrent" style="padding-left: 73px;">Regular Student</span> 
-                @endif
+                <span class="dropspanCurrent" style="padding-left: 73px;">Regular Student</span></br>
                 <hr size="3" width="100%" color="gray">
                 <a href="/user/regular student" class="requestA" style="border-radius: 4px;">Request Form</a>
                 <a href="/user/regular student/form" class="submitA" style="border-radius: 4px;">Clearance Submit Form</a>

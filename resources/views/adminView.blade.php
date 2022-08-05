@@ -36,9 +36,9 @@
       </thead>
       <tbody>
           <tr>
-            <td>{{ $LoggedUserInfo['name'] }}</td>
-            <td>{{ $LoggedUserInfo['email'] }}</td>
-            <td><a href="{{ route('auth.admin.logout') }}">Logout</a></td>
+            <td>{{ $LoggedUser['name'] }} </td>
+            <td>{{ $LoggedUser['email'] }}</td>
+            <td><a href="{{ route('auth.logout') }}">Logout</a></td>
           </tr>
       </tbody>
     </table>

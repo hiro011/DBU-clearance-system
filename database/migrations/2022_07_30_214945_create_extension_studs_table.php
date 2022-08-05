@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('extension_studs', function (Blueprint $table) {
             $table->id();
+            $table->text('ID_no');
             $table->text('name');
-            $table->text('email');
-            $table->text('password');
+            $table->text('college');
+            $table->text('department');
             $table->timestamps();
         });
     }

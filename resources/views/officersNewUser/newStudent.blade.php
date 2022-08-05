@@ -1,7 +1,7 @@
  
-@extends('Layouts.adminLayout')
+@extends('Layouts.registrarLayout')
 
-@section('adminContent')
+@section('registrarContent')
 
     <style>
         .inputfield select{
@@ -39,9 +39,23 @@
                 </div>
             @endif
 
-            <form action="{{ route('newUsers.saveOfficer') }}" method="post">
+            <form action="{{ route('newUsers.saveStudent') }}" method="post">
 
-            @csrf
+                @csrf
+                <div class="inputfield">
+                    <label>Program</label></br>
+                    <div class="custom_select">
+                        <select id="program" name="program">
+                            <option selected disabled>Select</option>
+                            <option value="Regular"  @if(old('program') === 'Regular') selected @endif>Regular Student</option>
+                            <option value="Extension"  @if(old('program') === 'Extension') selected @endif>Extension Student</option>
+                            <option value="Distance"  @if(old('program') === 'Distance') selected @endif>Distance Student</option>
+                        </select></br>
+                        <span style="color:red;">@error('program'){{ $message }} @enderror</span>
+
+                    </div>
+                </div> 
+                
                 <div class="inputfield">
                     <label>ID</label> </br>
                     <input type="text" class="input" name="id" placeholder="Enter ID" 
@@ -300,5 +314,5 @@
         }
     </script>
 
- 
+
 @endsection

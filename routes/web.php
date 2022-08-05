@@ -21,9 +21,9 @@ use App\Http\Controllers\RegularStudController;
 
 
 
-Route::get('/', function () {
-    return view('Home');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
  
 Route::get('/student info', function () {
     return view('stud_info');
@@ -75,35 +75,15 @@ Route::get('/test', function () {
 
 
 
-// Registrar add students 
-Route::get('registrar/newStudent', [StudentViewController::class, 'newStudent']);
-Route::post('registrar/add', [StudentViewController::class, 'add']);
-// endRegistrar 
 
 
-Route::get('newuser', [ForgotPassController::class, 'newuser']);
-Route::post('newuser/add', [ForgotPassController::class, 'adduser']);
-
-Route::get('auth/login', [loginController::class, 'login'])->name('auth.login');
-Route::post('auth/check', [loginController::class, 'check'])->name('auth.check');;
-
-
-// ------------ Admin login and registaration ----------------------------------------------- //
-Route::post('/admin/new admin/save', [AdminController::class, 'save'])->name('newUsers.saveAdmin');
-Route::post('/auth/admin/check', [AdminController::class, 'check'])->name('auth.admin.check');
-
-    // logout
-Route::get('/auth/admin/logout',[AdminController::class, 'logout'])->name('auth.admin.logout');
-// -----------------End Admin -----------------------------------------------------------------//
 
 
 // ------------ User controller ---------------------------------------------------------//
     // user save 
-    Route::post('/admin/new RegularStudent/save', [UserController::class, 'RegStudsave'])->name('newUsers.saveRegStud');
-    Route::post('/admin/new ExtensionStudent/save', [UserController::class, 'ExtnStudsave'])->name('newUsers.saveExtnStud');
-    Route::post('/admin/new DistanceStudent/save', [UserController::class, 'DisStudsave'])->name('newUsers.saveDisStud');
-    Route::post('/admin/new Teacher/save', [UserController::class,   'Teachersave'])->name('newUsers.saveTeacher');
-    Route::post('/admin/new AdminStaff/save', [UserController::class,   'AdminStaffsave'])->name('newUsers.saveAdminStaff');
+    Route::post('/registrar/new RegularStudent/save', [UserController::class, 'RegStudsave'])->name('newUsers.saveRegStud');
+    Route::post('/registrar/new ExtensionStudent/save', [UserController::class, 'ExtnStudsave'])->name('newUsers.saveExtnStud');
+    Route::post('/registrar/new DistanceStudent/save', [UserController::class, 'DisStudsave'])->name('newUsers.saveDisStud');
 
     // user check 
     Route::post('/auth/RegStudUser/check', [UserController::class, 'RegStudcheck'])->name('auth.RegStuduser.check');
@@ -123,12 +103,8 @@ Route::get('/auth/admin/logout',[AdminController::class, 'logout'])->name('auth.
 
 // ------------------- Officers controller --------------------------------------------------------- //
     // Officers check and save
-    Route::get('/auth/login/officer', [OfficerController::class, 'login'])->name('auth.loginOfficers');
     Route::post('/admin/new officer/save', [OfficerController::class, 'save'])->name('newUsers.saveOfficer');
-    Route::post('/auth/officer/check', [OfficerController::class, 'check'])->name('auth.officer.check');
-    
-    // Officers dashboard
-    Route::get('/officers/library', [OfficerController::class, 'dashboard']);
+   
 // ------------------------ End Officer  ---------------------------------------------------------- //
 
 
@@ -155,29 +131,43 @@ Route::get('/auth/admin/logout',[AdminController::class, 'logout'])->name('auth.
     });
 // -------------------End user middleware ------------------------------------------------ //
 
-// Admin Dashboard middleware 
+ 
+
+// Registrar add students  
+Route::get('/registrar/new student', [OfficerController::class, 'newStudentRegister'])->name('officersNewUser.newStudent');
+Route::post('/registrar/new student/save', [OfficerController::class, 'newStudentSave'])->name('newUsers.saveStudent');
+
+// endRegistrar 
+
+Route::get('/', [loginController::class, 'login'])->name('auth.login');
+Route::post('/auth/check', [loginController::class, 'check'])->name('auth.check');
+Route::get('/auth/logout',[loginController::class, 'logout'])->name('auth.logout');
+Route::post('/admin/new user/save', [loginController::class, 'newUserSave'])->name('newUsers.saveUser');
+Route::post('/admin/new officer/save', [loginController::class, 'newOfficerSave'])->name('newUsers.saveOfficer');
+
+
 Route::group(['middleware'=>['AuthCheck']], function(){
 
-    // Admin Controller Routes ----------------------------------------------------------- //
-    Route::get('/auth/login/admin', [AdminController::class, 'login'])->name('auth.loginAdmin');
-    Route::get('/admin/new admin', [AdminController::class, 'register'])->name('newUsers.newAdmin');
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
+    // login Controller Routes ----------------------------------------------------------- //
+    Route::get('/admin/new user', [loginController::class, 'newUserRegister'])->name('newUsers.newUser');
+    Route::get('/admin/new officer', [loginController::class, 'newOfficerRegister'])->name('newUsers.newOfficer');
+    Route::get('/admin/dashboard', [loginController::class, 'adminDashboard']);
+    Route::get('/Home', [loginController::class, 'HomeDashboard']);
 
-    //new officer 
-    Route::get('/admin/new officer', [OfficerController::class, 'register'])->name('newUsers.newOfficer');
+    // Officers dashboard
+    Route::get('/officers/library', [loginController::class, 'libraryDashboard']);
+    Route::get('/officers/registrar', [loginController::class, 'registrarDashboard']);
+    Route::get('/officers/student residence', [loginController::class, 'studResidenceDashboard']);
+    Route::get('/officers/dining office', [loginController::class, 'diningDashboard']);
+
+    //department officers
+    Route::get('/officers/electrical department', [loginController::class, 'electricalDashboard']);
     
-    // new user
-    Route::get('/admin/new user', [UserController::class, 'register'])->name('newUsers.newClearanceUser');
     // End Admin Route ------------------------------------------------------------------- //
 
 });
 
-
-// Route::post('/saveStudent', function () {
-//     return view('welcome');
-// })->name('saveStudent');
-
-
+ 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

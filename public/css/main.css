@@ -9,13 +9,7 @@
     padding-right: 6%;
     background-color: gray;
   }
-  /* body {
-    font-family: "Times New Roman", Times, serif;
-    padding-left: 6%;
-    padding-right: 13%;
-    background-color: gray;
-  } */
-
+ 
   .containerBox {
     background-color: #ffffff;
   }
@@ -177,7 +171,7 @@ footer {
     text-decoration: none;
     font-size: 22px;
     display: block;
-    background: rgb(85, 142, 150);
+    background: #5d9fcc;
     text-align: left;
     color: white;
     margin: 0;

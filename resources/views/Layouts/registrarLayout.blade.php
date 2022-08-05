@@ -1,8 +1,6 @@
-
 @extends('Layouts.navLayout')
 
 @section('content')
-
 
     <style> 
               
@@ -17,9 +15,9 @@
             background-color: transparent;
             margin-top: 0;
             padding-top: 2px;
-  
+
         }
-     
+    
         .dropdown-container span, .dropspan-container .dropspan, .dropspanCurrent { /* needed for 'clearance request' span don't delet*/
             background: transparent;
             text-align: left;
@@ -67,80 +65,64 @@
             .sticky {
                 width: 73%;
             }
-             
+            
         }
         .profile_dd{
             top: 58px; 
             right: 330px;
             height: auto;
         }
-            
-       
+        .abutton {
+            background-color: #7488f8;
+            border: none;
+            color: white;
+            text-align: left;
+            text-decoration: none;
+            display: block;
+            font-size: 10px;
+            cursor: pointer;
+        }
+        .abutton:hover{
+            color: #f1f1f1;
+        }
+        
     </style>
+      
+       
 
- 
     <section id="columns">
         <div class="body-container">
-            <div class="column">
-            
+            <div class="column"  >
+                
                 <div>
-                    <span class="dropspanCurrent" style="background: white; color: black;">Admin</span></br>
-                    <div style="margin-right: 42px">
-                        <a href="/admin/dashboard" class="dropdown-btn" id="logU">Logged Users</a>
-                    </div>
-                    <div class="dropdown-container" style="background-color: none;">
-                        <span class="dropspanCurrent" style="padding-left: 30px;">Add New User</span> 
-                        <hr size="2" width="100%" color="black">
-                        <ul>
-                        <a href="/admin/new user" id="userA">User</a>
-                        <a href="/admin/new officer" id="officerA">Officer</a>
-                        </ul>
-                    </div>
-                    
-                </div>  
+                    </br>
+                    <a href="/registrar/new student" class="abutton"  id="newStudA"> 
+                        New Student   
+                    </a>
+                    <span class="dropspanCurrent" style="background: white; color: black; padding-left: 40px; margin-top: 10%;">Registerd Users</span></br>
 
-
-                <div class="dropspan-container">
-                    <span class="dropspan" style="padding-left: 30px;">Registerd Users</span>
-                    <hr size="2" width="100%" color="black">
-                    <ul>
-                        <a href="#" id="adminsA">Users</a>
-                        <a href="#" id="officersA">Officers</a>
+                    <ul style="margin-top: 0;">
+                        <a href="login" id="allStudA">All Student</a>
+                        <a href="login" id="regStudA">Regular Student</a>
+                        <a href="login" id="extnStudA">Extension Student</a>
+                        <a href="login" id="disStudA">Distance Student</a>
                     </ul>
+                    
+            
                 </div>
-
-            </div>
-
-            <div class="column1">
-
-                <!-- content place -->
-
-                @yield('adminContent')
-
                 
             </div>
 
-            <!-- java script dropdown -->
-            <script>
-                var dropdown = document.getElementsByClassName("dropdown-btn");
-                var i;
+            <div class="column1">
+                <!-- content place -->
 
-                for (i = 0; i < dropdown.length; i++) {
-                    dropdown[i].addEventListener("click", function() {
-                    this.classList.toggle("active");
-                    var dropdownContent = this.nextElementSibling;
-                    if (dropdownContent.style.display === "block") {
-                        dropdownContent.style.display = "none";
-                    } else {
-                        dropdownContent.style.display = "block";
-                    }
-                    });
-                }
-            </script>
+              
+                @yield('registrarContent')
+
+
+            </div>
 
         </div> 
     </section>
 
 @endsection
-
-

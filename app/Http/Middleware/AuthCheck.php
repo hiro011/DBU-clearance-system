@@ -7,14 +7,13 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
  
-
-use App\Models\Admin;
 use App\Models\AdminStaff;
 use App\Models\Officer;
 use App\Models\RegularStud;
 use App\Models\Teachers;
 use App\Models\DistanceStud;
 use App\Models\ExtensionStud;
+use App\Models\UserLogin;
 
 
 class AuthCheck
@@ -29,20 +28,23 @@ class AuthCheck
     public function handle(Request $request, Closure $next)
     {
 
-        if(!session()->has('LoggedUser') && ($request->path() !='auth/login/admin' && $request->path() !='auth/new admin')){
-            return redirect('auth/login/admin')->with('fail','You must be logged in');
+        if(!session()->has('LoggedUser') && ($request->path() !='auth/new user')){
+            return redirect('/')->with('fail','You must be logged in');
+        }
+        if(!session()->has('LoggedUser') && ($request->path() !='/Home')){
+            return redirect('/')->with('fail','You must be logged in');
         }
         
-        // $dataAdmin = ['LoggedUserInfo'=>Admin::where('email','=', session('LoggedUser'))->first()];
+        $dataAdmin = ['LoggedUserInfo'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
        
-        if(session()->has('LoggedUser') && ($request->path() == 'auth/login/admin' || $request->path() == 'auth/new admin' ) ){
+        // if(session()->has('LoggedUser') && ($request->path() == 'auth/new user' ) ){
         
-            $user = Auth::user();
-            $userAdmin = $user; // Admin::where('id','=', $user->id())->first();
+        //     $user = Auth::user();
+        //     $userAdmin = $user; // Admin::where('id','=', $user->id())->first();
 
-            if ($userAdmin){ return redirect('admin/dashboard'); }
+        //     if ($dataAdmin){ return redirect('admin/dashboard'); }
 
-        }
+        // }
 
         // if(session()->has('LoggedUser') && ($request->path() == 'auth/login/admin' || $request->path() == 'auth/new admin' ) ){
            

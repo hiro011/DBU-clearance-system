@@ -11,6 +11,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/css/main.css">
         <link rel="stylesheet" href=" bootstrap-3.1.1/css/bootstrap.min.css ">
+        <!-- <link rel="stylesheet" href="/css/loginStyle.css"> -->
+
         <script src="/jquery/jquery.js"></script>
 
         <style>
@@ -110,7 +112,22 @@
             .profile:hover .profile_dd{
                 display: block;
             }
-          
+            
+            .navbar_left a{
+                padding: 0;
+                width: 60px;
+                height: 45px;
+                border: none;
+            }
+            .navbar_left a:hover{
+                opacity: 0.6;
+            }
+            .navbar_left img{
+                width: 70px;
+                height: 50px;
+                border-radius: 8px;
+            }
+             
         </style>
 
     </head>
@@ -123,15 +140,14 @@
                     <div class="topnav">
 
                         <div class="navbar_left">
-                            <a class="active" href="/">Home</a>
+                            <a class="active" href="/" style="padding: 0;"><img src="/img/DBU-logo.png" alt="dbu-logo" ></a>
                             <span>DBU Clearance</span> 
                             <span > Processing System</span>
 
                         </div>
 
                         <div class="navbar_right">
-                        
-                            @if (session()->has('LoggedUser'))
+                            @if(session()->has('LoggedUser'))
                                 <div class="profile">
                                     <div class="icon_wrap">
                                         
@@ -141,12 +157,25 @@
                                     </div>
 
                                     <div class="profile_dd">
-                                        <span class="spanText">Admin Staff</span>
-                                        <span class="spanText" style="text-align: left;">Ahmed MehamedYesuf</span> </br>
-                                            
+                                        @if(session()->has('LoggedUser'))
+
+                                            @if($LoggedUser['role']==='0')
+                                                <span class="spanText">Admin</span>
+                                            @endif
+                                            @if($LoggedUser['role']==='1')
+                                                <span class="spanText">Officer</span>
+                                            @endif
+                                            @if($LoggedUser['role']==='2')
+                                                <span class="spanText">Clearance User</span>
+                                            @endif
+                                        
+                                            <span class="spanText" style="text-align: left;">{{$LoggedUser['name']}}</span> </br>
+                                        @endif
                                         <div class="profile_ul">
-                                            <a class="logout" href="{{ route('auth.admin.logout') }}"><img src="/img/logout-pic.png" alt="logout icon" style="width: 20px; height: 20px; margin-top: 5px; margin-right: 5px; margin-left: 5px;">
-                                            </span>Logout</a>
+                                            <a class="logout" href="{{ route('auth.logout') }}">
+                                                <img src="/img/logout-pic.png" alt="logout icon" style="width: 20px; height: 20px; margin-top: 5px; margin-right: 5px; margin-left: 5px;">
+                                                Logout
+                                            </a>
 
                                         </div>
                                     </div>
@@ -182,31 +211,12 @@
                 @yield('content')
               
             </div>
+
             <footer>
-            Copyright 2022 DBU Clearance System
-        </footer>
+                @Copyright 2022 DBU Clearance System
+            </footer>
           
         </div>
-
-        <!-- <script>
-            function myFunction() {
-            document.getElementById("myDropdown").classList.toggle("show");
-            }
-
-            // Close the dropdown menu if the user clicks outside of it
-            window.onclick = function(event) {
-            if (!event.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                }
-                }
-            }
-            }
-        </script> -->
-       
+ 
     </body>
 </html>

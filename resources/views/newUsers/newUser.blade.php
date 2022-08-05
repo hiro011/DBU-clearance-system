@@ -5,7 +5,7 @@
 
     <style>
         /* Add an active class to the active button/link */
-        .column #adminA {
+        .column #userA {
             background-color: blue;
             color: white;
         }
@@ -15,25 +15,8 @@
 
     </style>
 
-    <!-- <script>
-        var dropdown = document.getElementsByClassName("dropdown-btn");
-        var i;
-
-        for (i = 0; i < dropdown.length; i++) {
-            dropdown[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var dropdownContent = this.nextElementSibling;
-            if (dropdownContent.style.display === "block") {
-                dropdownContent.style.display = "none";
-            } else {
-                dropdownContent.style.display = "block";
-            }
-            });
-        }
-    </script> -->
-
     <div class="wrapper">
-        <div class="title">Add New Admin</div>
+        <div class="title">Add New User</div>
 
         <div class="form">
 
@@ -48,9 +31,15 @@
                 </div>
             @endif
             
-            <form action="{{ route('newUsers.saveAdmin') }}" method="post" autocomplete="on">
+            <form action="{{ route('newUsers.saveUser') }}" method="post" autocomplete="on">
 
                 @csrf
+                <div class="inputfield">
+                    <label>ID</label> </br>
+                    <input type="text" class="input" name="id" placeholder="Enter ID" 
+                        value="{{ old('id') }}"> </br>
+                    <span style="color:red;">@error('id'){{ $message }} @enderror</span>
+                </div>  
                 <div class="inputfield">
                     <label>Name</label> </br>
                     <input type="text" class="input" name="name" placeholder="Enter Name" 
@@ -69,6 +58,20 @@
                     <input type="password" class="input" name="password" placeholder="password"
                         value="{{ old('password') }}"></br>
                     <span style="color:red;">@error('password'){{ $message }} @enderror</span>
+                </div> 
+                <div class="inputfield">
+                    <label>Role</label></br>
+                    <div class="custom_select">
+                        <select id="role" name="role">
+                            <option selected disabled>Select</option>
+
+                            <option value="0" @if(old('role') === '0') selected @endif>0</option>
+                            <option value="1" @if(old('role') === '1') selected @endif>1</option>
+                            <option value="2" @if(old('role') === '2') selected @endif>2</option>
+                        </select></br>
+                        <span style="color:red;">@error('role'){{ $message }} @enderror</span>
+
+                    </div>
                 </div> 
                 
                 <div class="inputfield">
