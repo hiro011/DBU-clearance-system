@@ -10,20 +10,7 @@
             padding-right: 13%;
             background-color: gray;
         }
-        .dropdown-container{
-            display: block;
-            background-color: transparent;
-            margin-top: 0;
-            padding-top: 2px;
-
-        }
-    
-        .dropdown-container span, .dropspan-container .dropspan, .dropspanCurrent { /* needed for 'clearance request' span don't delet*/
-            background: transparent;
-            text-align: left;
-            color: darkblue;
-            margin: 0;
-        }
+      
         .alert-success{
             display: block;
             background-color: rgb(201, 235, 201);
@@ -72,57 +59,134 @@
             right: 330px;
             height: auto;
         }
+        footer{
+            width: 98%;
+        }
+ 
+    </style>
+
+    <style>
+        .column1{
+            width: 95.5%;
+            padding: 10px 20px;
+        }
+        
+        .dropspanCurrent { 
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 22px;
+            display: block;
+            background: silver;
+            text-align: center;
+            color: black;
+            margin-top: 10px;
+        }
+        .navbar2{
+            display: flex;
+            float: left;
+            width: 100%;
+            background-color: rgb(224, 235, 240);
+            margin-bottom: 10px;
+            padding-top: 5px;
+            height: auto;
+        }
+ 
+        .navbar2 a {
+            text-align:center;
+            float: left;
+            display: block;
+            padding: 8px 8px 8px 15px;
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        /* When you mouse over the navigation links, change their color */
+        .navbar2 a:hover {
+            background-color: rgb(85, 85, 221);
+            color: #f1f1f1;
+        }
+
         .abutton {
-            background-color: #7488f8;
+            background-color: #94b5d8;
             border: none;
+            border-radius: 3px;
             color: white;
             text-align: left;
             text-decoration: none;
             display: block;
             font-size: 10px;
+            margin-bottom: 10px
             cursor: pointer;
         }
         .abutton:hover{
             color: #f1f1f1;
         }
-        
+
     </style>
       
-       
+        
+    <span class="dropspanCurrent" >Registerar</span></br>
+    <div class="navbar2">
+    
+        <ul style="margin-top: 0;">
+            <a href="/officers/registrar" id="allStudA">All Student</a>
+            <a href="/officers/registrar/regular students" id="regStudA">Regular Student</a>
+            <a href="/officers/registrar/extension students" id="extnStudA">Extension Student</a>
+            <a href="/officers/registrar/distance students" id="disStudA">Distance Student</a>
 
+            <a href="/officers/registrar/new student" class="abutton"  id="newStudA">New Student</a>
+        </ul>
+        
+
+    </div>
+ 
     <section id="columns">
         <div class="body-container">
-            <div class="column"  >
+<!--             
+            <div class="column"   >
                 
                 <div>
                     </br>
-                    <a href="/registrar/new student" class="abutton"  id="newStudA"> 
+                    <a href="/officers/registrar/new student" class="abutton"  id="newStudA"> 
                         New Student   
                     </a>
-                    <span class="dropspanCurrent" style="background: white; color: black; padding-left: 40px; margin-top: 10%;">Registerd Users</span></br>
+                    <span class="dropspanCurrent" style="background: white; color: black; padding-left: 40px; margin-top: 10%;">Registerd Students</span></br>
 
                     <ul style="margin-top: 0;">
-                        <a href="login" id="allStudA">All Student</a>
-                        <a href="login" id="regStudA">Regular Student</a>
-                        <a href="login" id="extnStudA">Extension Student</a>
-                        <a href="login" id="disStudA">Distance Student</a>
+                        <a href="/officers/registrar" id="allStudA">All Student</a>
+                        <a href="/officers/registrar/regular students" id="regStudA">Regular Student</a>
+                        <a href="/officers/registrar/extension students" id="extnStudA">Extension Student</a>
+                        <a href="/officers/registrar/distance students" id="disStudA">Distance Student</a>
+            
+
                     </ul>
                     
             
                 </div>
                 
-            </div>
+            </div> -->
 
             <div class="column1">
                 <!-- content place -->
-
-              
+  
                 @yield('registrarContent')
-
-
             </div>
 
         </div> 
     </section>
+    
+    <script>
+
+        $(document).ready(function(){
+            $("#list").on('change', function(){
+                $(".inputfield1").hide();
+                $("#" + $(this).val()).fadeIn(1);
+            }).change();
+        });
+
+    </script>
+
 
 @endsection

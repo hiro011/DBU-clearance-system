@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\RegularStud;
 use App\Models\ExtensionStud;
 use App\Models\DistanceStud;
-use App\Models\Teachers;
+use App\Models\Teacher;
 use App\Models\AdminStaff;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -68,7 +68,7 @@ class UserController extends Controller
         return view('clearanceUsers.distanceStudent', $data);
     }
     function TeacherDashboard(){
-        $data = ['LoggedUserInfo'=>Teachers::where('id','=', session('LoggedUser'))->first()];
+        $data = ['LoggedUserInfo'=>Teacher::where('id','=', session('LoggedUser'))->first()];
         return view('clearanceUsers.teacher', $data);
     }
     function AdminStaffDashboard(){
@@ -161,7 +161,7 @@ class UserController extends Controller
         // $email = $request->email.$request->gmail;
 
         //Insert data into database 
-        $teachers = new Teachers;
+        $teachers = new Teacher;
         $teachers->name = $request->name;
         $teachers->email = $request->email;          // uncomment bellow code to make the input password stored hashed in database
         $teachers->password = $request->password;   // Hash::make($request->password); 
@@ -282,7 +282,7 @@ class UserController extends Controller
         ]);
 
       
-        $userInfo = Teachers::where('email','=', $request->email)->first();
+        $userInfo = Teacher::where('email','=', $request->email)->first();
 
         if (!$userInfo){
             return back()->with('fail','We did not recognise yor email address.');

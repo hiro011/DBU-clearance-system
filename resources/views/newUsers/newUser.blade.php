@@ -65,9 +65,9 @@
                         <select id="role" name="role">
                             <option selected disabled>Select</option>
 
-                            <option value="0" @if(old('role') === '0') selected @endif>0</option>
-                            <option value="1" @if(old('role') === '1') selected @endif>1</option>
-                            <option value="2" @if(old('role') === '2') selected @endif>2</option>
+                            <option value="Admin" @if(old('role') === 'Admin') selected @endif>Admin</option>
+                            <option value="Officer" @if(old('role') === 'Officer') selected @endif>Officer</option>
+                            <option value="User" @if(old('role') === 'User') selected @endif>User</option>
                         </select></br>
                         <span style="color:red;">@error('role'){{ $message }} @enderror</span>
 

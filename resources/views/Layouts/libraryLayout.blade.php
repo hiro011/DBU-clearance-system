@@ -1,55 +1,16 @@
- 
 @extends('Layouts.navLayout')
 
 @section('content')
 
-
     <style> 
-              
+         
         body {
             font-family: 'Nunito', sans-serif;
-            padding-left: 6%;
+            padding-left: 6.1%;
             padding-right: 13%;
-            background-color: gray;
-        }
-        .dropdown-container{
-            display: block;
             background-color: transparent;
-            margin-top: 0;
-            padding-top: 2px;
-  
         }
-     
-        .dropdown-container span, .dropspan-container .dropspan, .dropspanCurrent { /* needed for 'clearance request' span don't delet*/
-            background: transparent;
-            text-align: left;
-            color: darkblue;
-            margin: 0;
-        }
-        .alert-success{
-            display: block;
-            background-color: rgb(201, 235, 201);
-            text-align: center;
-            color: darkgreen;
-            height: auto;
-            border-radius: 5px;
-            width: 75%;
-            padding-top: 3%;
-            margin-bottom: 10px;
-            opacity: 0.9;
-        }
-        .alert-danger{
-            display: block;
-            background-color: rgb(241, 211, 199);
-            text-align: center;
-            color: darkred;
-            height: auto;
-            border-radius: 5px;
-            width: 75%;
-            padding-top: 3%;
-            margin-bottom: 10px;
-            opacity: 0.8;
-        }
+         
         .sticky {
             width: 70%;
         }
@@ -67,129 +28,132 @@
             .sticky {
                 width: 73%;
             }
-             
+            
         }
         .profile_dd{
             top: 58px; 
             right: 330px;
             height: auto;
         }
-            
+    
+        footer{
+            width: 98%;
+        }
        
     </style>
+      
+      
+    <style>
+        .column1{
+            width: 95%;
+            padding: 10px 20px;
+        }
+        
+        .dropspanCurrent { 
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 22px;
+            display: block;
+            background: silver;
+            text-align: center;
+            color: black;
+            margin-top: 10px;
+        }
+        .navbar2{
+            display: flex;
+            float: left;
+            width: 100%;
+            align-items: center;
+            background-color: rgb(224, 235, 240);
+            margin-bottom: 10px;
+            padding-top: 5px;
+            height: auto;
+        }
+        .navbar2 ul{
+            margin-left: 15%;
+        } 
+        .navbar2 a {
+            text-align:center;
+            float: left;
+            display: block;
+            padding: 8px 8px 8px 15px;
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
 
+        /* When you mouse over the navigation links, change their color */
+        .navbar2 a:hover {
+            background-color: rgb(85, 85, 221);
+            color: #f1f1f1;
+        }
 
+        .abutton {
+            background-color: #94b5d8;
+            border: none;
+            border-radius: 3px;
+            color: white;
+            text-align: left;
+            text-decoration: none;
+            display: block;
+            font-size: 10px;
+            margin-bottom: 10px
+            cursor: pointer;
+        }
+        .abutton:hover{
+            color: #f1f1f1;
+        }
 
+    </style>
+      
+
+    <span class="dropspanCurrent" >Library</span></br>
+    <div class="navbar2">
+    
+        <ul style="margin-top: 0;">
+            <a href="/officers/library" id="allPatronsA">All Patrons</a>
+            <a href="/officers/library/teachers" id="teachersA">Teachers</a>
+            <a href="/officers/library/admin staffs" id="adminStaffsA">Administrator Staffs</a>
+            <a href="#" id="adminStaffdA">Students</a>
+            <a href="/officers/library/new patron" class="abutton"  id="newEmployeeA">New Patron</a>
+
+        </ul>
+
+    </div>
+ 
+ 
     <section id="columns">
         <div class="body-container">
-            <div class="column">
-            
+
+            <!-- <div class="column"  >
+                
                 <div>
-                    <button class="dropdown-btn">New Patron/User</button>
-                    <div class="dropdown-container">
-                        <ul>
-                        <a href="#">Teacher</a>
-                        <a href="#">Administrator Staff</a>
-                        <a href="#">Students</a>
-                        </ul>
-                    </div>
+                    </br>
+                    <a href="/officers/HRM/new employee" class="abutton"  id="newEmployeeA"> 
+                        New Employee   
+                    </a>
+                    <span class="dropspanCurrent" style="background: white; color: black; padding-left: 40px; margin-top: 10%;">Registerd Students</span></br>
+
+                    <ul style="margin-top: 0;">
+                        <a href="/officers/HRM" id="allEmployeeA">All Employees</a>
+                        <a href="/officers/HRM/teachers" id="teachersA">Teachers</a>
+                        <a href="/officers/HRM/admin staffs" id="adminStaffdA">Administrator Staffs</a>
+                    </ul>
+
                     
-                </div>  
-                <div>
-                    <p>
-                    <hr size="3" width="100%" color="gray">
-                    </p>
-                    <hr size="3" width="100%" color="gray">
+            
                 </div>
-                <div class="dropspan-container">
-                    <span class="dropspan" style="padding-left: 8px;">Registerd Users</span>
-                    <a href="login">All Users</a>
-                    <a href="login">Teachers</a>
-                    <a href="login">Administrator Staffs</a>
-                    <a href="login">Students</a>
-                </div>
-
-
-            </div>
+                
+            </div> -->
 
             <div class="column1">
-
-                <style>
-                    
-                    .dropdown-container{
-                        display: none;
-                    }
-                    .alert-danger{
-                        display: block;
-                        background-color: rgb(241, 211, 199);
-                        text-align: center;
-                        color: darkred;
-                        height: 35px;
-                        border-radius: 5px;
-                        width: 75%;
-                        padding-top: 3%;
-                        margin-bottom: 10px;
-                        opacity: 0.8;
-                    }
-                    .alert-success{
-                        display: block;
-                        background-color: rgb(201, 235, 201);
-                        text-align: center;
-                        color: darkgreen;
-                        height: 35px;
-                        border-radius: 5px;
-                        width: 75%;
-                        padding-top: 3%;
-                        margin-bottom: 10px;
-                        opacity: 0.9;
-                    }
-                    .wrapper .form .inputfield .custom-email .input{
-                        width: 42%;
-                        outline: none;
-                        border: 1px solid #d5dbd9;
-                        font-size: 15px;
-                        padding: 8px 10px;
-                        border-radius: 3px;
-                        transition: all 0.3s ease;
-                    }
-                    .inputfield .custom-email select{
-                        padding: 4px 8px;
-                        font-size: 15px;
-                        border: 1px solid #d5dbd9;
-                        height: 35px;
-                        background-color: #e9f4fb;
-                        outline: none;
-                        border-radius: 3px;
-                        transition: all 0.3s ease;
-                    }
-                    
-                </style>
-
                 <!-- content place -->
-                    @yield('content');
-    
+  
+                @yield('libraryContent')
             </div>
-
-            <!-- java script dropdown -->
-            <script>
-                var dropdown = document.getElementsByClassName("dropdown-btn");
-                var i;
-
-                for (i = 0; i < dropdown.length; i++) {
-                    dropdown[i].addEventListener("click", function() {
-                    this.classList.toggle("active");
-                    var dropdownContent = this.nextElementSibling;
-                    if (dropdownContent.style.display === "block") {
-                        dropdownContent.style.display = "none";
-                    } else {
-                        dropdownContent.style.display = "block";
-                    }
-                    });
-                }
-            </script>
 
         </div> 
     </section>
-
+  
 @endsection
-

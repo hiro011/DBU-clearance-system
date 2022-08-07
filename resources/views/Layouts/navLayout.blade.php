@@ -10,10 +10,9 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/css/main.css">
-        <link rel="stylesheet" href=" bootstrap-3.1.1/css/bootstrap.min.css ">
-        <!-- <link rel="stylesheet" href="/css/loginStyle.css"> -->
 
         <script src="/jquery/jquery.js"></script>
+        <script src="/jquery/ajax-jquery.js"></script>
 
         <style>
             
@@ -23,7 +22,10 @@
                 box-sizing: border-box;
                 font-family: 'Montserrat';
             }
-
+            .topnav a.active:hover {
+                opacity: 0.6;
+            }
+            
             .profile img{
                 width: 45px;
                 height: 50px;
@@ -89,6 +91,30 @@
                 width: 100%;
             }
 
+            .alert-success{
+                display: block;
+                background-color: rgb(201, 235, 201);
+                text-align: center;
+                color: darkgreen;
+                height: auto;
+                border-radius: 5px;
+                width: 75%;
+                padding-top: 3%;
+                margin-bottom: 10px;
+                opacity: 0.9;
+            }
+            .alert-danger{
+                display: block;
+                background-color: rgb(241, 211, 199);
+                text-align: center;
+                color: darkred;
+                height: auto;
+                border-radius: 5px;
+                width: 75%;
+                padding-top: 3%;
+                margin-bottom: 10px;
+                opacity: 0.8;
+            }
             .profile_dd .spanText{
                 color: black;
                 font-size: 15px;
@@ -127,12 +153,65 @@
                 height: 50px;
                 border-radius: 8px;
             }
+
+            table {
+                display: block;
+                border-collapse: collapse;
+                border-spacing: 0;
+                width: 100%;
+                border: 2px solid #ddd;
+                margin-bottom: 0;
+                background-color: transparent;
+                background-color: #fff;
+                overflow-y: scroll;
+                overflow-x: auto;
+                font-size: 14px;
+            }
+            th, td {
+                text-align: left;
+                line-height: 1.42857143;
+                vertical-align: top;
+                border-bottom-width: 2px;
+            }
+
+            tr:nth-child(even){background-color: #f2f2f2}
+            table tr:nth-child(){
+            counter-reset: rowNumber;
+            }
+            table tr {
+            counter-increment: rowNumber;
+            }
+            table tr td:first-child::before {
+            content: counter(rowNumber);
+            min-width: 1em;
+            margin-right: 0.5em;
+            }
+        
+            tr:hover {
+                background-color: #f5f5f5
+            }
+    
+            @media screen and (max-width:600px) {
+                .table {
+                    width: 100%;
+                    margin-bottom: 15px;
+                    overflow-y: hidden;
+                    -ms-overflow-style: -ms-autohiding-scrollbar;
+                    border: 1px solid #ddd;
+                    margin-bottom: 0;
+                }
+    
+                th, td {
+                    border: 0;
+                }
+    
+            }
              
         </style>
-
     </head>
 
     <body>
+
         <div class="containerBox">
             <div>
 
@@ -159,13 +238,13 @@
                                     <div class="profile_dd">
                                         @if(session()->has('LoggedUser'))
 
-                                            @if($LoggedUser['role']==='0')
+                                            @if($LoggedUser['role']==='Admin')
                                                 <span class="spanText">Admin</span>
                                             @endif
-                                            @if($LoggedUser['role']==='1')
+                                            @if($LoggedUser['role']==='Officer')
                                                 <span class="spanText">Officer</span>
                                             @endif
-                                            @if($LoggedUser['role']==='2')
+                                            @if($LoggedUser['role']==='User')
                                                 <span class="spanText">Clearance User</span>
                                             @endif
                                         
@@ -191,6 +270,7 @@
                     </div>  
             
                     <!-- script for navbar -->
+                    
                     <script>
                         window.onscroll = function () { myFunction() };
 
@@ -217,6 +297,6 @@
             </footer>
           
         </div>
- 
+
     </body>
 </html>

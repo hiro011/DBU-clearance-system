@@ -22,7 +22,6 @@
     .center{
       padding: 0 25% 2%;
       margin: 5%;
-
     }
     
     .center h1 {
@@ -95,6 +94,7 @@
         .center {
             width: 100%;
             padding-left: 0;
+            margin: 0;
         }
         .column1 {
             width: 100%;
@@ -115,6 +115,7 @@
         body {
             padding-right: 6%;
         }
+       
     }
         
     .alert-danger{

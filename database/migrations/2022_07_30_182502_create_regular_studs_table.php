@@ -15,10 +15,13 @@ return new class extends Migration
     {
         Schema::create('regular_studs', function (Blueprint $table) {
             $table->id();
-            $table->text('ID_no');
-            $table->text('name');
-            $table->text('college');
-            $table->text('department');
+            $table->string('ID_no', 50)->unique();
+            $table->string('name', 50);
+            $table->string('gender', 50);
+            $table->integer('year');
+            $table->string('college', 100);
+            $table->string('department', 100);
+            $table->text('status');
             $table->timestamps();
         });
     }

@@ -1,0 +1,6 @@
+$table->text('ID_no');
+            $table->text('name');
+            $table->text('directorate');
+            $table->text('department');
+            $table->text('status');
+            

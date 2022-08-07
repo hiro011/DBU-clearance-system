@@ -54,7 +54,20 @@
                         value="{{ old('name') }}"> </br>
                     <span style="color:red;">@error('name'){{ $message }} @enderror</span>
                 </div>  
-                      
+                <div class="inputfield">
+                    <label>Gender</label></br>
+                    <div class="custom_select">
+                        <select id="gender" name="gender">
+                            <option selected disabled>Select</option>
+
+                            <option value="Male"  @if(old('gender') === 'Male') selected @endif>Male</option>
+                            <option value="Female"  @if(old('gender') === 'Female') selected @endif>Female</option>
+                            <option value="unspecified"  @if(old('gender') === 'unspecified') selected @endif>Unspecified</option>
+                        </select></br>
+                        <span style="color:red;">@error('gender'){{ $message }} @enderror</span>
+
+                    </div>
+                </div> 
                 <div>
                     <div class="inputfield">
                         <label>College</label></br>

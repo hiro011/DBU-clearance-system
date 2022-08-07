@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700|Trade+Winds&display=swap');
 
 /* body style */
+ 
   html, body {
     font-family: 'Nunito', sans-serif;
     /* font-family: "Times New Roman", Times, serif; */
@@ -201,6 +202,22 @@ footer {
     margin-top: 0;
   }
 
+  .abutton {
+    background-color: #94b5d8;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    text-align: left;
+    text-decoration: none;
+    display: block;
+    font-size: 10px;
+    cursor: pointer;
+  }
+  .abutton:hover{
+      color: #f1f1f1;
+  }
+
+
   button {
     float: left;
     background-color: #2ecce0;
@@ -281,7 +298,11 @@ footer {
   
   
   @media screen and (max-width: 600px) {
-
+    html, body {
+      padding: 0;
+      margin: 0;
+    }
+   
     .topnav a,
     a.activeHome {
       float: none;
@@ -390,11 +411,13 @@ footer {
     .topnav .profile .profile_dd .profile_ul a{
     font-size: 14px;
     }
+    .profile_dd{
+      height: auto;
+  }
+  
 
   }
 
-    
-  
 /* end of body style */
 
 /* wrapper Student information form style */

@@ -22,96 +22,38 @@
     .center{
       padding: 0 25% 2%;
       margin: 5%;
-
     }
     
     .center h1 {
         text-align: center;
         padding: 20px 0;
+        padding-left: 30px;
         border-bottom: 1px solid silver;
     }
-    .center form {
-        padding: 0 40px;
-        padding-bottom: 80px;
-        box-sizing: border-box;
-    }
-    form .txt_field {
+     
+    .txt_field {
         margin-bottom: 15px;
-        align-items: center;
-    }
-    
-    .txt_field input {
-        width: 95%;
-        padding: 8px 10px;
-        font-size: 15px;
-        border: 1px solid #d5dbd9;
-        background-color: #e9f4fb;
-        outline: none;
-        border-radius: 3px;
-        transition: all 0.3s ease;
-    }
-    .txt_field label{
-        width: 200px;
-        color: black;
-        font-size: 14px;
-    }
-
-    .center input[type="submit"]{
-        width: 100%;
-        height: 50px;
-        border: 1px solid;
-        background: #2691d9;
-        border-radius: 25px;
-        font-size: 18px;
-        color: #e9f4fb;
-        font-weight: 700;
-        cursor: pointer;
-        outline: none;
-        margin-top: 20px;
-    }
-    .center input[type="submit"]:hover{
-        border-color: #a2b4c0;
-        background: #4492c7;
-        transition: .4s;
-    }
-    form .subBtn{
-        padding-left: 20px;
+        align-items: left;
+        background-color: transparent;
     }
     
     @media screen and (max-width:420px) {
-        form .txt_field {
+        .txt_field {
             flex-direction: column;
             align-items: flex-start;
         }
-
-        form .txt_field label {
-            margin-bottom: 5px;
-        }
-
-        form .txt_field .terms {
-            flex-direction: row;
-        }
-
+ 
         .center {
             width: 100%;
             padding-left: 0;
+            margin: 0;
         }
         .column1 {
             width: 100%;
             padding-right: 0px;
 
         }
-        .center form {
-            padding: 0 ;
-            padding-bottom: 80px;
-            padding-right: 50px;
-            padding-left: 20px; 
-            position: center;
-        }
-    
-        .center input[type="submit"]{
-            height: 35px;
-        }
+       
         body {
             padding-right: 6%;
         }
@@ -123,27 +65,66 @@
         height: auto;
     }
 
+    .txt_field li{
+      border-bottom: 1px solid #f1f2f4;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+    }
+    .txt_field li a{
+        color: blue;
+        padding: 8px 0px 8px 0px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 20px;
+        display: block;
+        transition: 0.3s;
+        position: relative;
+        width: 100%;
+        text-align: center;
+    }
+
+    .txt_field span{
+        color: black;
+        font-size: 25px;
+        display: block;
+        text-align: center;
+        height: 30px;
+        padding: 10px 0 0;
+        border-bottom: 1px solid silver;
+        background-color: rgb(222, 233, 248);
+    }
+
+    .txt_field .ull  a:hover{
+        color: #3b80f9;
+        background: transparent;
+        background: #d3dff8;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        cursor: pointer;
+    }
         
   </style>
 
   
   <div class="center">
+    
+    <div class="txt_field">
+
     @if($LoggedUser)
     <h1>{{$LoggedUser['name']}}</h1>
     @endif
   
-    <div class="txt_field">
-      <ul>
-        @if($LoggedUser['role']==1)
+       
+      <div class="ull">
+        @if($LoggedUser['role']=== 'Officer')
 
           @if($officer)
-
-        
           
             @if($officer['college'] === 'Officers')
               <span>Officer</span>
               @if($officer['department'] === 'HRM')
-                <li><a href="test">HRM Officer</a></li>
+                <li><a href="/officers/HRM">HRM Officer</a></li>
               @endif
               @if($officer['department'] === 'Dining')
                 <li><a href="/officers/dining office">Dining Officer</a></li>
@@ -380,7 +361,8 @@
           <li><a href="test">Distance Student</a></li>
           @endif
         @endif
-      </ul>
+       
+      </div>
     </div>
 
   </div>

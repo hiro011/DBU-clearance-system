@@ -1,7 +1,7 @@
  
-@extends('Layouts.registrarLayout')
+@extends('Layouts.libraryLayout')
 
-@section('registrarContent')
+@section('libraryContent')
 
     <style>
         .inputfield select{
@@ -13,18 +13,15 @@
         }
 
         /* Add an active class to the active button/link */
-        .column #officerA {
+        #newPatronA {
             background-color: blue;
             color: white;
         }
-        .dropdown-container{
-            display: block;
-        }
-
+      
     </style> 
 
     <div class="wrapper">
-        <div class="title">Add New Officer</div>
+        <div class="title">Add New Patron</div>
         
         <div class="form">
 
@@ -39,28 +36,28 @@
                 </div>
             @endif
 
-            <form action="{{ route('newUsers.saveStudent') }}" method="post">
+            <form action="{{ route('newUsers.savePatron') }}" method="post">
 
                 @csrf
                 <div class="inputfield">
-                    <label>Program</label></br>
+                    <label>Catagory</label></br>
                     <div class="custom_select">
-                        <select id="program" name="program">
+                        <select id="catagory" name="catagory">
                             <option selected disabled>Select</option>
-                            <option value="Regular"  @if(old('program') === 'Regular') selected @endif>Regular Student</option>
-                            <option value="Extension"  @if(old('program') === 'Extension') selected @endif>Extension Student</option>
-                            <option value="Distance"  @if(old('program') === 'Distance') selected @endif>Distance Student</option>
+                            <option value="Teacher"  @if(old('program') === 'Teacher') selected @endif>Teacher</option>
+                            <option value="Admin_Staff"  @if(old('program') === 'Admin_Staff') selected @endif>Administrator Staff</option>
+                            <option value="Student"  @if(old('program') === 'Student') selected @endif>Student</option>
                         </select></br>
-                        <span style="color:red;">@error('program'){{ $message }} @enderror</span>
+                        <span style="color:red;">@error('catagory'){{ $message }} @enderror</span>
 
                     </div>
-                </div> 
+                </div>
                 
                 <div class="inputfield">
-                    <label>ID</label> </br>
-                    <input type="text" class="input" name="id" placeholder="Enter ID" 
-                        value="{{ old('id') }}"> </br>
-                    <span style="color:red;">@error('id'){{ $message }} @enderror</span>
+                    <label>Card Number</label> </br>
+                    <input type="text" class="input" name="card_no" placeholder="Enter card number" 
+                        value="{{ old('card_no') }}"> </br>
+                    <span style="color:red;">@error('card_no'){{ $message }} @enderror</span>
                 </div>  
                 <div class="inputfield">
                     <label>Name</label> </br>
@@ -68,7 +65,34 @@
                         value="{{ old('name') }}"> </br>
                     <span style="color:red;">@error('name'){{ $message }} @enderror</span>
                 </div>  
-                      
+                <div class="inputfield">
+                    <label>Gender</label></br>
+                    <div class="custom_select">
+                        <select id="gender" name="gender">
+                            <option selected disabled>Select</option>
+
+                            <option value="Male"  @if(old('gender') === 'Male') selected @endif>Male</option>
+                            <option value="Female"  @if(old('gender') === 'Female') selected @endif>Female</option>
+                            <option value="unspecified"  @if(old('gender') === 'unspecified') selected @endif>Unspecified</option>
+                        </select></br>
+                        <span style="color:red;">@error('gender'){{ $message }} @enderror</span>
+
+                    </div>
+                </div> 
+                 
+                <div class="inputfield">
+                    <label>Guarentor Name</label> </br>
+                    <input type="text" class="input" name="guarentor_name" placeholder="Enter guarentor name" 
+                        value="{{ old('guarentor_name') }}"> </br>
+                    <span style="color:red;">@error('guarentor_name'){{ $message }} @enderror</span>
+                </div>  
+                <div class="inputfield">
+                    <label>Guarentor Phone</label> </br>
+                    <input type="text" class="input" name="guarentor_phone" placeholder="Enter guarentor name" 
+                        value="{{ old('guarentor_phone') }}"> </br>
+                    <span style="color:red;">@error('guarentor_phone'){{ $message }} @enderror</span>
+                </div>  
+                
                 <div>
                     <div class="inputfield">
                         <label>College</label></br>
@@ -76,7 +100,6 @@
                             <select id="college" name="college" onchange="college(this)">
                                 <option selected disabled>Select</option>
 
-                                <option value="Officers"  @if(old('college') === 'Officers') selected @endif>Directorate Officers</option>
                                 <option value="Engineering"  @if(old('college') === 'Engineering') selected @endif>College of Engineering</option>
                                 <option value="Computing"  @if(old('college') === 'Computing') selected @endif>College of Computing Sciences</option>
                                 <option value="Freshman"  @if(old('college') === 'Freshman') selected @endif>Freshman College</option>
@@ -108,31 +131,6 @@
                             </div> 
                         </div> 
 
-                        <!-- Directorate Officers -->
-                        <div id="Officers" class="inputfield1">
-                            <div class="inputfield">
-                                <label>Department</label></br>
-                                <div class="custom_select">
-                                    <select name="department">
-                                        <option selected disabled>Select(Directorate Officers)</option>
-                                        <option value="Anti Corruption">Anti Corruption Officer</option>
-                                        <option value="Cashier">Cashier Officer</option>
-                                        <option value="Dining">Dining Officer</option>
-                                        <option value="EngCollege Finance">EngCollege Finance Officer</option>
-                                        <option value="Finance">Finance Officer</option>
-                                        <option value="General Service">General Service Officer</option>
-                                        <option value="HRM">HRM Officer</option>
-                                        <option value="ICT Property">ICT Property Officer</option>
-                                        <option value="Library">Library Officer</option>
-                                        <option value="Property Officer">Property Officer</option>
-                                        <option value="Registrar">Registrar Officer</option>
-                                        <option value="Research">Research Officer</option>
-                                        <option value="StudResidence">Student Residence Office</option>
-
-                                    </select>
-                                </div>
-                            </div> 
-                        </div>
                         <!-- College of Engineering -->
                         <div id="Engineering" class="inputfield1">
                             <div class="inputfield">
@@ -166,6 +164,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <!-- College of Education -->
                         <div id="Education" class="inputfield1">
                             <div class="inputfield">
@@ -180,6 +179,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <!-- College of Law -->
                         <div id="Law" class="inputfield1">
                             <div class="inputfield">
@@ -192,6 +192,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <!-- College of Social Science & Humanities -->
                         <div id="Social-Science" class="inputfield1">
                             <div class="inputfield">
@@ -211,6 +212,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <!-- College of Agriculture & Natural Science -->
                         <div id="Agriculture" class="inputfield1">
                             <div class="inputfield">
@@ -227,6 +229,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <!-- College of Natural & Computational -->
                         <div id="Computational" class="inputfield1">
                             <div class="inputfield">
@@ -246,6 +249,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <!-- College of Business & Economics -->
                         <div id="Business" class="inputfield1">
                             <div class="inputfield">
@@ -263,6 +267,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <span style="color:red;">@error('department'){{ $message }} @enderror</span>
 
                     </div>

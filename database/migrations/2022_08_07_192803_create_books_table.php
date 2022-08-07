@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admin_staff', function (Blueprint $table) {
+        Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->text('ID_no');
-            $table->text('name');
-            $table->text('directorate');
-            $table->text('department');
+            $table->string('barcode', 100);
+            $table->text('title');
+            $table->text('library');
+            $table->text('location');
+            $table->string('add_by', 50);
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admin_staff');
+        Schema::dropIfExists('books');
     }
 };
