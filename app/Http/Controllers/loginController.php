@@ -82,6 +82,7 @@ class loginController extends Controller
         return view('officers.registrar.registrar')->with($data)->with($regStudTable)->with($extnStudTable)
                                                     ->with($disStudTable);
     } 
+    
     function tableTest(){
         $regStudTable = ['regStudTable'=>DB::select('select * from regular_studs')];
         $extnStudTable = ['extnStudTable'=>DB::select('select * from extension_studs')];
@@ -102,7 +103,13 @@ class loginController extends Controller
    
     function diningDashboard(){ 
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
-        return view('officers.diningOfficer', $data);
+
+        $cafeTable = ['regStudTable'=>DB::select('select * from regular_studs')];
+        $nonCafeTable = ['extnStudTable'=>DB::select('select * from extension_studs')];
+
+        return view('officers.dining.diningOfficer')->with($data)->with($regStudTable)->with($extnStudTable)
+                                                    ->with($disStudTable);
+
     }
     
     function electricalDashboard(){
@@ -113,13 +120,13 @@ class loginController extends Controller
     function newUserRegister(){
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
 
-        return view('newUsers.newUser', $data);
+        return view('admin.newUser', $data);
     }
 
     function newOfficerRegister(){
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
 
-        return view('newUsers.newOfficer', $data);
+        return view('admin.newOfficer', $data);
     }
     
     function logout(){
@@ -133,7 +140,7 @@ class loginController extends Controller
 
         //Validate requests
         $request->validate([
-            'id'=>'required|unique:user_logins',
+            'ID_no'=>'required|unique:user_logins',
             'name'=>'required',
             'email'=>'required|email|unique:user_logins',
             'password' => 'required|min:4|max:12',
@@ -144,7 +151,7 @@ class loginController extends Controller
 
         //Insert data into database
         $userLogin = new UserLogin;
-        $userLogin->ID_no = $request->id;
+        $userLogin->ID_no = $request->ID_no;
         $userLogin->name = $request->name;
         $userLogin->email = $request->email;
         $userLogin->password = $request->password;
@@ -163,7 +170,7 @@ class loginController extends Controller
         
         //Validate requests
         $request->validate([
-            'id'=>'required|unique:officers',
+            'ID_no'=>'required|unique:officers',
             'name'=>'required',
             'gender'=>'required',
             'college'=>'required',
@@ -175,12 +182,12 @@ class loginController extends Controller
 
         //Insert data into database
         $officer = new Officer;
-        $officer->ID_no = $request->id;
+        $officer->ID_no = $request->ID_no;
         $officer->name = $request->name;
         $officer->gender = $request->gender;
         $officer->college = $request->college;
         $officer->department = $request->department;
-        $userLogin->add_by = $dataI->name;
+        $officer->add_by = $dataI->name;
         $save = $officer->save();
 
         if($save){

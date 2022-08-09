@@ -9,6 +9,9 @@
             background-color: blue;
             color: white;
         }
+        table{
+            font-size: 13px;
+        }
             
     </style>
     
@@ -48,9 +51,9 @@
                         <td>{{ $user->guarentor_name }}</td>
                         <td>{{ $user->guarentor_phone }}</td>
                         <td>{{ $user->level_of_education }}</td>
-                        <td>{{ $user->jop_title }}</td>
-                        <td>{{ $user->salery }}</td>
-                        <td>{{ $user->created_at }}</td>
+                        <td>{{ $user->job_title }}</td>
+                        <td>{{ $user->salary }}</td>
+                        <td>{{ date('d-m-Y', strtotime($user->created_at)) }}</td>
                     </tr>
 
                 @endforeach

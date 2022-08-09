@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('gender', 50);
             $table->string('catagory', 100);
             $table->string('college', 100);
-            $table->string('department', 100);
-            $table->string('guarentor_name', 50)->nullable();
-            $table->integer('guarentor_phone')->nullable();
+            $table->string('department', 100)->nullable();
+            $table->string('email', 255)->nullable();
+            $table->integer('phone')->nullable();
             $table->string('add_by', 50);
             $table->timestamps();
         });

@@ -10,10 +10,10 @@
         background-color: blue;
         color: white;
     }
-    
+     
   </style>
 
-  <div  style=" overflow-x:auto; overflow-y:auto;">
+  <div class="table-container" >
     <!-- <h2 style="text-align: center;">Registered Users</h2><hr> -->
 
     <table border = "1" >

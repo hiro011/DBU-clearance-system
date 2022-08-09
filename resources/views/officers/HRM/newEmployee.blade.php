@@ -7,7 +7,7 @@
         .inputfield select{
             cursor: pointer;
         }
-        .inputfield1{
+        .inputfield1, .inputfield002{
             display: none;
             cursor: pointer;
         }
@@ -54,14 +54,12 @@
                 
                 <div class="inputfield">
                     <label>ID</label> </br>
-                    <input type="text" class="input" name="id" placeholder="Enter ID" 
-                        value="{{ old('id') }}"> </br>
+                    <input type="text" class="input" name="id" placeholder="Enter ID" value="{{ old('id') }}"> </br>
                     <span style="color:red;">@error('id'){{ $message }} @enderror</span>
                 </div>  
                 <div class="inputfield">
                     <label>Name</label> </br>
-                    <input type="text" class="input" name="name" placeholder="Enter Name" 
-                        value="{{ old('name') }}"> </br>
+                    <input type="text" class="input" name="name" placeholder="Enter Name" value="{{ old('name') }}"> </br>
                     <span style="color:red;">@error('name'){{ $message }} @enderror</span>
                 </div>  
                 <div class="inputfield">
@@ -80,67 +78,72 @@
                 </div> 
                 <div class="inputfield">
                     <label>Birth Date</label> </br>
-                    <!-- <input type="text" class="input" name="birth_date" placeholder="Enter birth date" 
-                        value="{{ old('birth_date') }}"> </br> -->
-                        <input type="date" id="start" class="input" name="birth_date" value="{{ old('birth_date') }}">
+                    <input type="date" id="start" class="input" name="birth_date" value="{{ old('birth_date') }}"></br>
                     <span style="color:red;">@error('birth_date'){{ $message }} @enderror</span>
                 </div>  
                 <div class="inputfield">
                     <label>Guarentor Name</label> </br>
-                    <input type="text" class="input" name="guarentor_name" placeholder="Enter guarentor name" 
-                        value="{{ old('guarentor_name') }}"> </br>
+                    <input type="text" class="input" name="guarentor_name" placeholder="Enter guarentor name" value="{{ old('guarentor_name') }}"> </br>
                     <span style="color:red;">@error('guarentor_name'){{ $message }} @enderror</span>
                 </div>  
                 <div class="inputfield">
                     <label>Guarentor Phone</label> </br>
-                    <input type="text" class="input" name="guarentor_phone" placeholder="Enter guarentor name" 
-                        value="{{ old('guarentor_phone') }}"> </br>
+                    <input type="text" class="input" name="guarentor_phone" placeholder="Enter guarentor phone" value="{{ old('guarentor_phone') }}"> </br>
                     <span style="color:red;">@error('guarentor_phone'){{ $message }} @enderror</span>
                 </div>  
                 <div class="inputfield">
-                    <label>Level of Education</label> </br>
-                    <input type="text" class="input" name="level_of_education" placeholder="Enter level of education" 
-                        value="{{ old('level_of_education') }}"> </br>
-                    <span style="color:red;">@error('level_of_education'){{ $message }} @enderror</span>
+                    <label>Level of Education</label></br>
+                    <div class="custom_select">
+                        <select id="status" name="level_of_education">
+                            <option value="none"  @if(old('level_of_education') === 'none') selected @endif>None</option>
+                            <option value="Class_1-4"  @if(old('level_of_education') === 'Class_1-4') selected @endif>Class 1-4</option>
+                            <option value="Class_5-8"  @if(old('level_of_education') === 'Class_5-8') selected @endif>Class 5-8</option>
+                            <option value="High-school"  @if(old('level_of_education') === 'High-school') selected @endif>High-school</option>
+                            <option value="Deploma"  @if(old('level_of_education') === 'Deploma') selected @endif>Deploma</option>
+                            <option value="Bachelor"  @if(old('level_of_education') === 'Bachelor') selected @endif>Bachelor</option>
+                            <option value="Master"  @if(old('level_of_education') === 'Master') selected @endif>Master</option>
+                            <option value="PHD"  @if(old('level_of_education') === 'PHD') selected @endif>PHD</option>
+                            <option value="Doctoral"  @if(old('level_of_education') === 'Doctoral') selected @endif>Doctoral</option>
+                        </select></br>
+                        <span style="color:red;">@error('level_of_education'){{ $message }} @enderror</span>
+
+                    </div>
                 </div>  
                 <div class="inputfield">
                     <label>Job Title</label> </br>
-                    <input type="text" class="input" name="jop_title" placeholder="Enter jop title" 
-                        value="{{ old('jop_title') }}"> </br>
-                    <span style="color:red;">@error('jop_title'){{ $message }} @enderror</span>
+                    <input type="text" class="input" name="job_title" placeholder="Enter jop title" value="{{ old('job_title') }}"> </br>
+                    <span style="color:red;">@error('job_title'){{ $message }} @enderror</span>
                 </div>  
-                <div class="inputfield">
-                    <label>Age</label> </br>
-                    <input type="text" class="input" name="age" placeholder="Enter age" 
-                        value="{{ old('age') }}"> </br>
-                    <span style="color:red;">@error('age'){{ $message }} @enderror</span>
-                </div>  
+                
                 <div class="inputfield">
                     <label>Salary</label> </br>
-                    <input type="text" class="input" name="age" placeholder="Enter salary" 
+                    <input type="text" class="input" name="salary" placeholder="Enter salary" 
                         value="{{ old('salary') }}"> </br>
                     <span style="color:red;">@error('salary'){{ $message }} @enderror</span>
                 </div>  
-                
                 <div class="inputfield">
                     <label>Status</label></br>
                     <div class="custom_select">
                         <select id="status" name="status">
                             <option selected disabled>Select</option>
-                            <option value="OnGoing"  @if(old('status') === 'OnGoing') selected @endif>On Going</option>
+                            <option value="On-work"  @if(old('status') === 'On-work') selected @endif>On Work</option>
                             <option value="Transfered"  @if(old('status') === 'Transfered') selected @endif>Transfered</option>
-                            <option value="Leave"  @if(old('status') === 'Leave') selected @endif>Dismissed</option>
+                            <option value="Dismissed"  @if(old('status') === 'Dismissed') selected @endif>Dismissed</option>
                         </select></br>
                         <span style="color:red;">@error('program'){{ $message }} @enderror</span>
 
                     </div>
                 </div>  
+
                 <div>
                     <div class="inputfield">
                         <label>College</label></br>
                         <div class="custom_select">
                             <select id="college" name="college" onchange="college(this)">
                                 <option selected disabled>Select</option>
+                                <option value="Human-Resource-Directorate"  @if(old('college') === 'Human-Resource-Directorate') selected @endif>Human Resource Directorate</option>
+                                <option value="Finance-Directorate"  @if(old('college') === 'Finance-Directorate') selected @endif>Finance Directorate</option>
+                                <option value="Library-Directorate"  @if(old('college') === 'Library-Directorate') selected @endif>Library Directorate</option>
 
                                 <option value="Engineering"  @if(old('college') === 'Engineering') selected @endif>College of Engineering</option>
                                 <option value="Computing"  @if(old('college') === 'Computing') selected @endif>College of Computing Sciences</option>
@@ -156,9 +159,9 @@
 
                         </div>
                     </div> 
-                    
+                
                     <div>
-                    
+                        
                         <!--  Freshman College -->
                         <div id="Freshman" class="inputfield1">
                             <div class="inputfield">
@@ -180,7 +183,7 @@
                                 <div class="custom_select">
                                     <select name="department">
                                         <option selected disabled>Select (College of Engineering)</option>
-                                        <option value="Electrical & Computer Engineering">Electrical & Computer Engineering </option>
+                                        <option value="Electrical Engineering">Electrical & Computer Engineering </option>
                                         <option value="Mechanical  Engineering">Mechanical  Engineering </option>
                                         <option value="Civil Engineering">Civil Engineering</option>
                                         <option value="Chemical Engineering">Chemical Engineering</option>
@@ -329,6 +332,17 @@
         $(document).ready(function(){
             $("#college").on('change', function(){
                 $(".inputfield1").hide();
+                $("#" + $(this).val()).fadeIn(1);
+            }).change();
+        });
+
+    </script>
+
+    <script>
+
+        $(document).ready(function(){
+            $("#employee_type").on('change', function(){
+                $(".inputfield002").hide();
                 $("#" + $(this).val()).fadeIn(1);
             }).change();
         });

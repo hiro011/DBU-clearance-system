@@ -81,16 +81,16 @@
                 </div> 
                  
                 <div class="inputfield">
-                    <label>Guarentor Name</label> </br>
-                    <input type="text" class="input" name="guarentor_name" placeholder="Enter guarentor name" 
-                        value="{{ old('guarentor_name') }}"> </br>
-                    <span style="color:red;">@error('guarentor_name'){{ $message }} @enderror</span>
+                    <label>Email</label> </br>
+                    <input type="text" class="input" name="email" placeholder="Enter email" 
+                        value="{{ old('email') }}"> </br>
+                    <span style="color:red;">@error('email'){{ $message }} @enderror</span>
                 </div>  
                 <div class="inputfield">
-                    <label>Guarentor Phone</label> </br>
-                    <input type="text" class="input" name="guarentor_phone" placeholder="Enter guarentor name" 
-                        value="{{ old('guarentor_phone') }}"> </br>
-                    <span style="color:red;">@error('guarentor_phone'){{ $message }} @enderror</span>
+                    <label>Phone</label> </br>
+                    <input type="text" class="input" name="phone" placeholder="Enter phone" 
+                        value="{{ old('phone') }}"> </br>
+                    <span style="color:red;">@error('phone'){{ $message }} @enderror</span>
                 </div>  
                 
                 <div>
@@ -99,7 +99,9 @@
                         <div class="custom_select">
                             <select id="college" name="college" onchange="college(this)">
                                 <option selected disabled>Select</option>
-
+                                <option value="Human-Resource-Directorate"  @if(old('college') === 'Human-Resource-Directorate') selected @endif>Human Resource Directorate</option>
+                                <option value="Finance-Directorate"  @if(old('college') === 'Finance-Directorate') selected @endif>Finance Directorate</option>
+                                <option value="Library-Directorate"  @if(old('college') === 'Library-Directorate') selected @endif>Library Directorate</option>
                                 <option value="Engineering"  @if(old('college') === 'Engineering') selected @endif>College of Engineering</option>
                                 <option value="Computing"  @if(old('college') === 'Computing') selected @endif>College of Computing Sciences</option>
                                 <option value="Freshman"  @if(old('college') === 'Freshman') selected @endif>Freshman College</option>

@@ -13,7 +13,13 @@
  
   .containerBox {
     background-color: #ffffff;
+    /* padding: 0; */
+    margin: 10px;
   }
+  /* .containerBox2{
+      padding: 0;
+  } */
+
 
   .full-height {
     height: 100vh;
@@ -73,7 +79,7 @@ footer {
     z-index: 1;
     top: 0;
   }
-
+  
   .sticky {
     position: fixed;
     top: 0;
@@ -242,6 +248,7 @@ footer {
 
   .column1 {
     float: left;
+    display: block;
     width: 50%;
     background-color: rgb(178, 217, 250);
     margin-top: 0;
@@ -299,8 +306,8 @@ footer {
   
   @media screen and (max-width: 600px) {
     html, body {
-      padding: 0;
-      margin: 0;
+      padding: 2%;
+      /* margin: 0; */
     }
    
     .topnav a,

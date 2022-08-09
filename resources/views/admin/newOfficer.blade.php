@@ -13,7 +13,7 @@
         }
 
         /* Add an active class to the active button/link */
-        .column #officerA {
+        #officerA {
             background-color: blue;
             color: white;
         }
@@ -41,12 +41,12 @@
 
             <form action="{{ route('newUsers.saveOfficer') }}" method="post">
 
-            @csrf
+                @csrf
                 <div class="inputfield">
                     <label>ID</label> </br>
-                    <input type="text" class="input" name="id" placeholder="Enter ID" 
-                        value="{{ old('id') }}"> </br>
-                    <span style="color:red;">@error('id'){{ $message }} @enderror</span>
+                    <input type="text" class="input" name="ID_no" placeholder="Enter ID" 
+                        value="{{ old('ID_no') }}"> </br>
+                    <span style="color:red;">@error('ID_no'){{ $message }} @enderror</span>
                 </div>  
                 <div class="inputfield">
                     <label>Name</label> </br>
@@ -75,7 +75,7 @@
                             <select id="college" name="college" onchange="college(this)">
                                 <option selected disabled>Select</option>
 
-                                <option value="Officers"  @if(old('college') === 'Officers') selected @endif>Directorate Officers</option>
+                                <option value="Directorate"  @if(old('college') === 'Directorate') selected @endif>Directorate Officers</option>
                                 <option value="Engineering"  @if(old('college') === 'Engineering') selected @endif>College of Engineering</option>
                                 <option value="Computing"  @if(old('college') === 'Computing') selected @endif>College of Computing Sciences</option>
                                 <option value="Freshman"  @if(old('college') === 'Freshman') selected @endif>Freshman College</option>
@@ -108,7 +108,7 @@
                         </div> 
 
                         <!-- Directorate Officers -->
-                        <div id="Officers" class="inputfield1">
+                        <div id="Directorate" class="inputfield1">
                             <div class="inputfield">
                                 <label>Department</label></br>
                                 <div class="custom_select">
@@ -139,7 +139,7 @@
                                 <div class="custom_select">
                                     <select name="department">
                                         <option selected disabled>Select (College of Engineering)</option>
-                                        <option value="Electrical & Computer Engineering">Electrical & Computer Engineering </option>
+                                        <option value="Electrical Engineering">Electrical Engineering </option>
                                         <option value="Mechanical  Engineering">Mechanical  Engineering </option>
                                         <option value="Civil Engineering">Civil Engineering</option>
                                         <option value="Chemical Engineering">Chemical Engineering</option>

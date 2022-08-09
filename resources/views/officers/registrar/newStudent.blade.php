@@ -93,12 +93,12 @@
                     <div class="custom_select">
                         <select id="status" name="status">
                             <option selected disabled>Select</option>
-                            <option value="OnGoing"  @if(old('status') === 'OnGoing') selected @endif>On Going</option>
+                            <option value="Dismissed"  @if(old('status') === 'Dismissed') selected @endif>Dismissed</option>
+                            <option value="On-Class"  @if(old('status') === 'On-Class') selected @endif>On Class</option>
                             <option value="Transfered"  @if(old('status') === 'Transfered') selected @endif>Transfered</option>
-                            <option value="Leave"  @if(old('status') === 'Leave') selected @endif>Dismissed</option>
-                            <option value="Leave"  @if(old('status') === 'Leave') selected @endif>withdraw</option>
+                            <option value="Withdraw"  @if(old('status') === 'Withdraw') selected @endif>Withdraw</option>
                         </select></br>
-                        <span style="color:red;">@error('program'){{ $message }} @enderror</span>
+                        <span style="color:red;">@error('status'){{ $message }} @enderror</span>
 
                     </div>
                 </div>  
@@ -147,7 +147,7 @@
                                 <div class="custom_select">
                                     <select name="department">
                                         <option selected disabled>Select (College of Engineering)</option>
-                                        <option value="Electrical & Computer Engineering">Electrical & Computer Engineering </option>
+                                        <option value="Electrical Engineering">Electrical Engineering </option>
                                         <option value="Mechanical  Engineering">Mechanical  Engineering </option>
                                         <option value="Civil Engineering">Civil Engineering</option>
                                         <option value="Chemical Engineering">Chemical Engineering</option>

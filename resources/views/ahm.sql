@@ -43,5 +43,29 @@ INSERT INTO `regular_studs` (`ID_no`, `name`, `gender`, `year`, `college`, `depa
 ('00427', 'YENEW TAMIR', 'Male', 2, 'Business', 'Logistics', 'on class'),
 ('01129', 'HAFTOM TEKLAY', 'Male', 1, 'Freshman', 'Natural Freshman', 'on class');
  
+INSERT INTO `employees` (`ID_no`, `name`, `gender`, `birth_date`, `employee_type`, `guarentor_name`, `guarentor_phone`, `level_of_education`, `job_title`, `age`, `salary`) VALUES
+('00464', 'ANDUALEM ENYEW', 'ANDUALEM ENYEW', '1990-04-05', 'Teacher', 'seid ali', 956233556, 'Bachelor', teacher, 32, NULL);
+('00464', 'ANDUALEM ENYEW', 'ANDUALEM ENYEW', '1990-04-05', 'Teacher', 'seid ali', 956233556, 'Bachelor', teacher, 32, NULL);
 
+
+INSERT INTO `admin_staff` (`ID_no`, `name`, `gender`, `college`, `department`, `status`) VALUES
+( '00002', 'testHRM', 'unspecified', 'Directorate', 'HRM', 'Ahmed Mehamedyesuf'),
+( '00003', 'testLibrary', 'Male', 'Directorate', 'Library', 'Ahmed Mehamedyesuf'),
+( '00004', 'testRegistrar', 'unspecified', 'Directorate', 'Registrar', 'Ahmed Mehamedyesuf'),
+( '00005', 'testDining', 'unspecified', 'Directorate', 'Dining', 'Ahmed Mehamedyesuf'),
+('00343', 'HAGOS	FISAHA', 'Male', 'Engineering', 'Electrical & Computer Engineering', 'Ahmed Mehamedyesuf'),
+('00513', 'MARU WUBENEH', 'Male', 'Directorate', 'Registrar', 'Ahmed Mehamedyesuf'),
+('00519', 'GIRMA	ANIMUT', 'Male', 'Directorate', 'Library', 'Ahmed Mehamedyesuf'),
+('00529', 'YENESEW	MULUNEH', 'Male', 'Directorate', 'StudResidence', 'Ahmed Mehamedyesuf'),
+('00530', 'YIHUN	YIMENU', 'Male', 'Directorate', 'Dining', 'Ahmed Mehamedyesuf'),
+('00561', 'WENDMAYEWU	ASMARE', 'Male', 'Directorate', 'EngCollege Finance', 'Ahmed Mehamedyesuf'),
+('00563', 'BEAKAL	MITIKU', 'Male', 'Directorate', 'HRM', 'Ahmed Mehamedyesuf'),
+( '00567', 'KIDANU	ADERA', 'Male', 'Directorate', 'Anti Corruption', 'Ahmed Mehamedyesuf'),
+('00570', 'MULUKEN JEMERE', 'Male', 'Engineering', 'Mechanical  Engineering', 'Ahmed Mehamedyesuf'),
+( '00605', 'DEGNET	GONCHE', 'Male', 'Directorate', 'Cashier', 'Ahmed Mehamedyesuf'),
+( '00607', 'BINIAM	EMEYE', 'Male', 'Directorate', 'Finance', 'Ahmed Mehamedyesuf'),
+( '00611', 'GURSHA	BELETF', 'Male', 'Directorate', 'ICT Property', 'Ahmed Mehamedyesuf'),
+('00635', 'ASEBELIGN	CHEBUD', 'Male', 'Directorate', 'Research', 'Ahmed Mehamedyesuf'),
+( '00641', 'DEJEN	KEBEDE', 'Male', 'Directorate', 'General Service', 'Ahmed Mehamedyesuf'),
+( '00654', 'GETINET	ZEWUDIE', 'Male', 'Directorate', 'Property Officer', 'Ahmed Mehamedyesuf');
 

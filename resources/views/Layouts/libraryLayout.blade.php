@@ -115,7 +115,7 @@
             <a href="/officers/library" id="allPatronsA">All Patrons</a>
             <a href="/officers/library/teachers" id="teachersA">Teachers</a>
             <a href="/officers/library/admin staffs" id="adminStaffsA">Administrator Staffs</a>
-            <a href="#" id="adminStaffdA">Students</a>
+            <a href="/officers/library/students" id="studentA">Students</a>
             <a href="/officers/library/new patron" class="abutton"  id="newEmployeeA">New Patron</a>
 
         </ul>

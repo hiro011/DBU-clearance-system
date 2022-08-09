@@ -159,17 +159,19 @@
                 border-collapse: collapse;
                 border-spacing: 0;
                 width: 100%;
+                height: 100vh;
                 border: 2px solid #ddd;
-                margin-bottom: 0;
+                margin-bottom: 5px;
                 background-color: transparent;
                 background-color: #fff;
                 overflow-y: scroll;
                 overflow-x: auto;
-                font-size: 14px;
+                font-size: 16px;
             }
             th, td {
                 text-align: left;
-                line-height: 1.42857143;
+                /* line-height: 1.42857143; */
+                line-height: 2.5;
                 vertical-align: top;
                 border-bottom-width: 2px;
             }

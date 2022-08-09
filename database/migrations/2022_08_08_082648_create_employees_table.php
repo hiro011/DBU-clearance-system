@@ -20,12 +20,12 @@ return new class extends Migration
             $table->string('gender', 50);
             $table->date('birth_date');
             $table->string('employee_type', 50);
-            $table->string('guarentor_name', 50)->nullable();
-            $table->integer('guarentor_phone')->nullable();
+            $table->string('guarentor_name', 50);
+            $table->integer('guarentor_phone');
             $table->text('level_of_education')->nullable();
-            $table->text('jop_title')->nullable();
+            $table->text('job_title')->nullable();
             $table->integer('age');
-            $table->float('salary');
+            $table->string('salary', 50)->nullable();
             $table->timestamps();
         });
     }

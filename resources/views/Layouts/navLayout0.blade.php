@@ -225,14 +225,14 @@
                 }
     
             }
-             
+           
         </style>
     </head>
 
     <body>
 
         <div class="containerBox">
-            <div>
+            <div class="containerBox2">
 
                 <section id="navbar">
                     <div class="topnav">
@@ -312,7 +312,7 @@
             </div>
 
             <footer>
-                @Copyright 2022 DBU Clearance System
+                <p>&copy; 2022 DBU Clearance System</p>
             </footer>
           
         </div>

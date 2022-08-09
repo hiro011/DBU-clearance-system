@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use DB;
-
+// use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 use App\Models\Officer;
 use App\Models\UserLogin;
@@ -14,7 +15,7 @@ use App\Models\AdminStaff;
 use App\Models\RegularStud;
 use App\Models\ExtensionStud;
 use App\Models\DistanceStud;
-use App\Models\employees;
+use App\Models\Employee;
 use App\Models\LibraryUsers;
 
 
@@ -107,11 +108,6 @@ class OfficerController extends Controller
 
 
     // HRM
-    function newEmployeeRegister(){
-        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
-
-        return view('officers.HRM.newEmployee', $data);
-    }
     function teacherLists(){ 
         $teacherTable = ['teacherTable'=>DB::select('select * from teachers')];
 
@@ -126,6 +122,11 @@ class OfficerController extends Controller
         return view('officers.HRM.hrmAdminStaff')->with($data)->with($adminStaffTable);
         
     }
+    function newEmployeeRegister(){
+        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
+
+        return view('officers.HRM.newEmployee', $data);
+    }
     function newEmployeeSave(Request $request){
         
         //Validate requests
@@ -138,13 +139,12 @@ class OfficerController extends Controller
             'birth_date'=>'required',
             'guarentor_name'=>'required',
             'guarentor_phone'=>'required',
-            'salary'=>'required',
             'college'=>'required',
-            'department'=>'required'
         ]);
 
+         
         //Insert data into database
-        $employee = new employees;
+        $employee = new Employee;
         $employee->ID_no = $request->id;
         $employee->name = $request->name;
         $employee->gender = $request->name;
@@ -155,8 +155,10 @@ class OfficerController extends Controller
         $employee->level_of_education = $request->level_of_education;
         $employee->job_title = $request->job_title;
         $employee->age = Carbon::parse($request->birth_date)->diff(Carbon::now())->y;
+        // $employee->age = \Carbon::parse($request->birth_date)->age;
         $employee->salary = $request->salary;
         $save = $employee->save();
+        $employee_type = $request->employee_type;
 
         if($employee_type === 'Teacher'){
             //Insert data into database
@@ -175,7 +177,7 @@ class OfficerController extends Controller
             $Admin_Staff->ID_no = $request->id;
             $Admin_Staff->name = $request->name;
             $Admin_Staff->gender = $request->name;
-            $Admin_Staff->directorate = $request->college;
+            $Admin_Staff->college = $request->college;
             $Admin_Staff->department = $request->department;
             $Admin_Staff->status = $request->status;
             $save = $Admin_Staff->save();
@@ -207,6 +209,12 @@ class OfficerController extends Controller
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
         return view('officers.library.libraryAdminStaff')->with($data)->with($adminStaffTable);
     }
+    function libraryStudents(){ 
+        $studentTable = ['studentTable'=>LibraryUsers::where('catagory', '=', 'Student')];
+
+        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
+        return view('officers.library.libraryStudent')->with($data)->with($studentTable);
+    }
     function newPatronSave(Request $request){
         
         //Validate requests
@@ -217,7 +225,6 @@ class OfficerController extends Controller
             'name'=>'required',
             'gender'=>'required',
             'college'=>'required',
-            'department'=>'required'
         ]);
     
             $dataI = UserLogin::where('id','=', session('LoggedUser'))->first();
@@ -228,8 +235,8 @@ class OfficerController extends Controller
             $patron->catagory = $request->catagory;
             $patron->name = $request->name;
             $patron->gender = $request->gender;
-            $patron->guarentor_name = $request->guarentor_name;
-            $patron->guarentor_phone = $request->guarentor_phone;
+            $patron->email = $request->email;
+            $patron->phone = $request->phone;
             $patron->college = $request->college;
             $patron->department = $request->department;
             $patron->add_by = $dataI->name;

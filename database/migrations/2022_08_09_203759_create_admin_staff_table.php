@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name', 50);
             $table->string('gender', 50);
             $table->string('college', 100);
-            $table->string('department', 100);
+            $table->string('department', 100)->nullable();
             $table->string('status', 50);
             $table->timestamps();
         });

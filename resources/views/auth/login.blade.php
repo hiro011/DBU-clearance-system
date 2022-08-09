@@ -152,61 +152,64 @@
   </style>
 
   
-  <div class="center">
-    <h1>Login</h1>
+    <div class="center">
+        <h1>Login</h1>
 
-    <form action="{{ route('auth.check') }}" method="post">
-    
-      @if(Session::get('fail'))
-        <div class="alert-danger" >
-          {{ Session::get('fail') }}
+        <form action="{{ route('auth.check') }}" method="post">
+        
+        @if(Session::get('fail'))
+            <div class="alert-danger" >
+            {{ Session::get('fail') }}
+            </div>
+        @endif
+
+        @csrf
+        <div class="txt_field">
+            <label>Email</label>
+            <input type="text" class="" name="email" placeholder="email" class="input" value="{{ old('email') }}">
+            <span style="color: red;">@error('email'){{ $message }} @enderror</span>
         </div>
-      @endif
+        <div class="txt_field">
+            <label>Password</label>
+            <a href="" style="float: right; color: red;">Forgot Password?</a>
+            <input type="password" name="password" placeholder="password" class="input">
+            <span style="color: red;">@error('password'){{ $message }} @enderror</span>
+        </div>
 
-      @csrf
-      <div class="txt_field">
-        <label>Email</label>
-        <input type="text" class="" name="email" placeholder="email" class="input" value="{{ old('email') }}">
-        <span style="color: red;">@error('email'){{ $message }} @enderror</span>
-      </div>
-      <div class="txt_field">
-        <label>Password</label>
-        <a href="" style="float: right; color: red;">Forgot Password?</a>
-        <input type="password" name="password" placeholder="password" class="input">
-        <span style="color: red;">@error('password'){{ $message }} @enderror</span>
-      </div>
+        <div class="subBtn">
+        <input id="myButton" type="submit" value="Login">
+        </div>
 
-      <div class="subBtn">
-      <input id="myButton" type="submit" value="Login">
-      </div>
+        </form>
+    </div>
 
-    </form>
-  </div>
-  <script>
-                    var allFields = document.querySelectorAll(".input");
+    <!-- script for down key to go to next inputfield -->
+    <script>
+        var allFields = document.querySelectorAll(".input");
 
-                    for (var i = 0; i < allFields.length; i++) {
+        for (var i = 0; i < allFields.length; i++) {
 
-                        allFields[i].addEventListener("keyup", function(event) {
+            allFields[i].addEventListener("keyup", function(event) {
 
-                        if (event.keyCode === 40) {
-                            console.log('Enter clicked')
-                            event.preventDefault();
-                            if (this.parentElement.nextElementSibling.querySelector('input')) {
-                                this.parentElement.nextElementSibling.querySelector('input').focus();
-                            }
-                        }
-                        if (event.keyCode === 38) {
-                            console.log('Enter clicked')
-                            event.preventDefault(); 
-                            if (this.parentElement.previousElementSibling.querySelector('input')) {
-                                this.parentElement.previousElementSibling.querySelector('input').focus();
-                            }
-                        }
-                        });
-
+                if (event.keyCode === 40) {
+                    console.log('Enter clicked')
+                    event.preventDefault();
+                    if (this.parentElement.nextElementSibling.querySelector('input')) {
+                        this.parentElement.nextElementSibling.querySelector('input').focus();
                     }
-                </script>
+                }
+                if (event.keyCode === 38) {
+                    console.log('Enter clicked')
+                    event.preventDefault(); 
+                    if (this.parentElement.previousElementSibling.querySelector('input')) {
+                        this.parentElement.previousElementSibling.querySelector('input').focus();
+                    }
+                }
+            });
+
+        }
+    </script>
+
 
 
  

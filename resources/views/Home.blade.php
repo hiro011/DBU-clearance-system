@@ -121,7 +121,7 @@
 
           @if($officer)
           
-            @if($officer['college'] === 'Officers')
+            @if($officer['college'] === 'Directorate')
               <span>Officer</span>
               @if($officer['department'] === 'HRM')
                 <li><a href="/officers/HRM">HRM Officer</a></li>
@@ -165,7 +165,7 @@
               
             @endif
 
-            @if($officer['college'] !== 'Officers')
+            @if($officer['college'] !== 'Directorate')
             <span>Department Officer</span>
             @endif
  

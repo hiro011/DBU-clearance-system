@@ -5,7 +5,7 @@
           
     <style> 
      
-        #allPatronsA{
+        #studentA{
             background-color: blue;
             color: white;
         }
@@ -25,16 +25,13 @@
                 <th>Catagory</th>
                 <th>College</th>
                 <th>Department</th>
-                <th>Email</th>
-                <th>Phone</th>
                 <th>Add By</th>
-                <th>Created Date</th>
             </tr>
             </thead>
             
             <tbody>
 
-                @foreach ($patronTable as $user)
+                @foreach ($studentTable as $user)
                     <tr>
                         <td></td>
                         <td>{{ $user->Card_no }}</td>
@@ -43,10 +40,7 @@
                         <td>{{ $user->catagory }}</td>
                         <td>{{ $user->college }}</td>
                         <td>{{ $user->department }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->phone }}</td>
                         <td>{{ $user->add_by }}</td>
-                        <td>{{ $user->created_at }}</td>
                     </tr>
 
                 @endforeach

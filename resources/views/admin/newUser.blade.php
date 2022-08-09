@@ -5,7 +5,7 @@
 
     <style>
         /* Add an active class to the active button/link */
-        .column #userA {
+        #userA {
             background-color: blue;
             color: white;
         }
@@ -36,9 +36,9 @@
                 @csrf
                 <div class="inputfield">
                     <label>ID</label> </br>
-                    <input type="text" class="input" name="id" placeholder="Enter ID" 
-                        value="{{ old('id') }}"> </br>
-                    <span style="color:red;">@error('id'){{ $message }} @enderror</span>
+                    <input type="text" class="input" name="ID_no" placeholder="Enter ID" 
+                        value="{{ old('ID_no') }}"> </br>
+                    <span style="color:red;">@error('ID_no'){{ $message }} @enderror</span>
                 </div>  
                 <div class="inputfield">
                     <label>Name</label> </br>
