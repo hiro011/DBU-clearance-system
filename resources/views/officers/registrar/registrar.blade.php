@@ -2,6 +2,7 @@
 
 @section('registrarContent')
 
+
               
     <style> 
      
@@ -13,6 +14,8 @@
             color: black; 
             opacity: 0.8;
         }
+       
+        
     </style>
     
     
@@ -33,6 +36,7 @@
             <div class="abtnCont">
                 <button class="abtn" onclick="toggleText()">Change Status</button>
             </div>
+            
 
         </div>
 
@@ -129,79 +133,87 @@
              
         </div>
         
+        <div class="container">
+            <br />
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                </div>
+                <div class="panel-body">
+                <div class="table-responsive">
+                    @csrf
+                    <table id="editable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Gender</th>
+                                <th>Year</th>
+                                <th>program</th>
+                                <th>College</th>
+                                <th>Department</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                    
+                        <tbody>
 
-        <div class="table1" style="margin-top: 20px;">
-            <table border = "1" >
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Gender</th>
-                    <th>Year</th>
-                    <th>program</th>
-                    <th>College</th>
-                    <th>Department</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-                
-                <tbody>
+                            @foreach ($studTable as $user)
+                                
+                                <tr>
+                                    <td></td>
+                                    <td>{{ $user->ID_no }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->gender }}</td>
+                                    <td>{{ $user->year }}</td>
+                                    <td>{{ $user->program }}</td>
+                                    <td>{{ $user->college }}</td>
+                                    <td>{{ $user->department }}</td>
+                                    <td>{{ $user->status }}</td>
+                                </tr>
 
-                    @foreach ($regStudTable as $user)
-                        
-                        <tr>
-                            <td></td>
-                            <td>{{ $user->ID_no }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->gender }}</td>
-                            <td>{{ $user->year }}</td>
-                            <td>Regular</td>
-                            <td>{{ $user->college }}</td>
-                            <td>{{ $user->department }}</td>
-                            <td>{{ $user->status }}</td>
-                        </tr>
+                            @endforeach
 
-                    @endforeach
-
-                    @foreach ($extnStudTable as $user)
-                        <tr>
-                        <td></td>
-                            <td>{{ $user->ID_no }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->gender }}</td>
-                            <td>{{ $user->year }}</td>
-                            <td>Extension</td>
-                            <td>{{ $user->college }}</td>
-                            <td>{{ $user->department }}</td>
-                            <td>{{ $user->status }}</td>
-                        </tr>
-                    @endforeach
-
-                    @foreach ($disStudTable as $user)
-
-                        <tr>
-                            <td></td>
-                            <td>{{ $user->ID_no }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->gender }}</td>
-                            <td>{{ $user->year }}</td>
-                            <td>Distance</td>
-                            <td>{{ $user->college }}</td>
-                            <td>{{ $user->department }}</td>
-                            <td>{{ $user->status }}</td>
-                        </tr>
-                        
-                    @endforeach
-
-                
-                </tbody>
-            </table>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+            </div>
         </div>
-        
+
     </div>
 
+    <script type="text/javascript">
+        $(document).ready(function(){
+            
+            $.ajaxSetup({
+            headers:{
+                'X-CSRF-Token' : $("input[name=_token]").val()
+            }
+            });
 
+            $('#editable').Tabledit({
+            url:'{{ route("tabledit.registrarTableEdit") }}',
+            dataType:"json",
+            columns:{
+                identifier:[0, 'id'],
+                identifier:[1, 'ID_no'], 
+                editable:[[2, 'name'], [3, 'gender', '{"Male":"Male", "Female":"Female", "Unspecified":"Unspecified"}'],
+                [4, 'year'], [5, 'program', '{"Regular":"Regular", "Extension":"Extension", "Distance":"Distance"}'], [6, 'college'], 
+                [7, 'department'], [8, 'status', '{"On-Class":"On-Class", "Dismissed":"Dismissed", "Withdrow":"Withdrow", "Transfered":"Transfered"}']]
+            },
+            restoreButton:false,
+            onSuccess:function(data, textStatus, jqXHR)
+            {
+                if(data.action == 'delete')
+                {
+                $('#'+data.id).remove();
+                }
+            }
+            });
+
+        });  
+    </script>
 
 @endsection
 

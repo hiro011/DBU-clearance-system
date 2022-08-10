@@ -255,20 +255,10 @@
                                     </div>
 
                                     <div class="profile_dd">
-                                        @if(session()->has('LoggedUser'))
 
-                                            @if($LoggedUser['role']==='Admin')
-                                                <span class="spanText">Admin</span>
-                                            @endif
-                                            @if($LoggedUser['role']==='Officer')
-                                                <span class="spanText">Officer</span>
-                                            @endif
-                                            @if($LoggedUser['role']==='User')
-                                                <span class="spanText">Clearance User</span>
-                                            @endif
-                                        
-                                            <span class="spanText" style="text-align: left;">{{$LoggedUser['name']}}</span> </br>
-                                        @endif
+                                        <span class="spanText">{{$LoggedUser['role']}} user</span> </br>
+                                        <span class="spanText" style="text-align: left;">{{$LoggedUser['name']}}</span> </br>
+
                                         <div class="profile_ul">
                                             <a class="logout" href="{{ route('auth.logout') }}">
                                                 <img src="/img/logout-pic.png" alt="logout icon" style="width: 20px; height: 20px; margin-top: 5px; margin-right: 5px; margin-left: 5px;">

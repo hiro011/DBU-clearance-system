@@ -161,6 +161,55 @@
                     </div> 
                 
                     <div>
+                        <!-- Finance-Directorate -->
+                        <div id="Finance-Directorate" class="inputfield1">
+                            <div class="inputfield">
+                                <label>Department</label></br>
+                                <div class="custom_select">
+                                    <select name="department">
+                                        <option value="Finance">Finance Office</option>
+                                        <option value="Cashier">Cashier</option>
+                                    </select>
+                                </div>
+                            </div> 
+                        </div>
+                        
+                        <!-- Library-Directorate -->
+                        <div id="Library-Directorate" class="inputfield1">
+                            <div class="inputfield">
+                                <label>Department</label></br>
+                                <div class="custom_select">
+                                    <select name="department">
+                                        <option value="Main-Library">Library </option>
+                                        <option value="Social-Library">Library </option>
+                                        <option value="Law-Library">Library </option>
+                                    </select>
+                                </div>
+                            </div> 
+                        </div>
+
+                        <!-- Human-Resource-Directorate -->
+                        <div id="Human-Resource-Directorate" class="inputfield1">
+                            <div class="inputfield">
+                                <label>Department</label></br>
+                                <div class="custom_select">
+                                    <select name="department">
+                                        <option selected disabled>Select(Human-Resource-Directorate)</option>
+                                        <option value="Anti Corruption">Anti Corruption </option>
+                                        <option value="Dining">Dining </option>
+                                        <option value="EngCollege Finance">Engineering College Finance </option>
+                                        <option value="General Service">General Service Officer</option>
+                                        <option value="HRM">Human Resource Management </option>
+                                        <option value="ICT Property">ICT Property </option>
+                                        <option value="Property Officer">Property </option>
+                                        <option value="Registrar">Registrar </option>
+                                        <option value="Research">Research </option>
+                                        <option value="StudResidence">Student Residence</option>
+
+                                    </select>
+                                </div>
+                            </div> 
+                        </div>
                         
                         <!--  Freshman College -->
                         <div id="Freshman" class="inputfield1">

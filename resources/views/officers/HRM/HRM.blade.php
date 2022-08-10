@@ -9,8 +9,27 @@
             background-color: blue;
             color: white;
         }
+        #allEmployeeA:hover{
+            color: black; 
+            opacity: 0.8;
+        }
         table{
             font-size: 13px;
+        }
+        button{
+            width: 40px;
+            color: black;
+            font-size: 14px;
+            border-radius: 4px;
+            border: none;
+            background-color: transparent;
+            background-color: #71a3da;
+        }
+        .container input{
+            max-width: 100px;
+        }
+        .container select{
+            cursor: pointer;
         }
             
     </style>

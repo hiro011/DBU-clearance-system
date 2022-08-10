@@ -6,8 +6,8 @@
               
         body {
             font-family: 'Nunito', sans-serif;
-            padding-left: 6%;
-            padding-right: 13%;
+            padding-left: 4%;
+            padding-right: 4%;
             background-color: gray;
         }
       
@@ -36,7 +36,7 @@
             opacity: 0.8;
         }
         .sticky {
-            width: 68.6%;
+            width: 78.5%;
         }
         #navbar .active{
             border: 1px solid;
@@ -56,11 +56,26 @@
         }
         .profile_dd{
             top: 58px; 
-            right: 330px;
+            right: 250px;
             height: auto;
         }
         footer{
-            width: 98%;
+            width: 98.2%;
+        }
+        button{
+            width: 40px;
+            color: black;
+            font-size: 14px;
+            border-radius: 4px;
+            border: none;
+            background-color: transparent;
+            background-color: #71a3da;
+        }
+        .container input{
+            max-width: 100px;
+        }
+        .container select{
+            cursor: pointer;
         }
  
     </style>
@@ -136,6 +151,7 @@
             border: none;
             background-color: #71a3da;
         }
+        
         .searchit{
             align-items: center;
             width: 60%;
@@ -239,6 +255,7 @@
             <a href="/officers/registrar/distance students" id="disStudA">Distance Student</a>
 
             <a href="/officers/registrar/new student" class="abutton"  id="newStudA">New Student</a>
+            <a href="officers" class="abutton"  id="reqCA" style="margin-left: 10px;">Request Clearance</a>
         </ul>
         
 
@@ -312,3 +329,13 @@
     </script>
 
 @endsection
+
+@section('headerLinks')
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>            
+    <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
+
+@endsection
+
+

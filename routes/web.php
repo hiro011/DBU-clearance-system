@@ -54,31 +54,14 @@ Route::get('/livewire', function () {
 
     return view('welcome');
 });
- 
-Route::get('/search',[SearchController::class, 'search'])->name('search');
-Route::get('/find',[SearchController::class, 'find'])->name('web.find');
 
-// ------------ User controller ---------------------------------------------------------//
-    // user save 
-    Route::post('/registrar/new RegularStudent/save', [UserController::class, 'RegStudsave'])->name('newUsers.saveRegStud');
-    Route::post('/registrar/new ExtensionStudent/save', [UserController::class, 'ExtnStudsave'])->name('newUsers.saveExtnStud');
-    Route::post('/registrar/new DistanceStudent/save', [UserController::class, 'DisStudsave'])->name('newUsers.saveDisStud');
 
-    // user check 
-    Route::post('/auth/RegStudUser/check', [UserController::class, 'RegStudcheck'])->name('auth.RegStuduser.check');
-    Route::post('/auth/ExtStudUser/check', [UserController::class, 'ExtnStudcheck'])->name('auth.ExtnStuduser.check');
-    Route::post('/auth/DisStudUser/check', [UserController::class, 'DisStudcheck'])->name('auth.DisStuduser.check');
-    Route::post('/auth/TeacherUser/check', [UserController::class, 'Teachercheck'])->name('auth.Teacheruser.check');
-    Route::post('/auth/AdminStaffUser/check', [UserController::class, 'AdminStaffcheck'])->name('auth.AdminStaffuser.check');
 
-    // user login
-    Route::get('/auth/login/extensionStud', [UserController::class,  'ExtnStudlogin'])->name('auth.loginExtensionStud');
-    Route::get('/auth/login/distanceStud', [UserController::class,   'DisStudlogin'])->name('auth.loginDistanceStud');
-    Route::get('/auth/login/teacher', [UserController::class,   'Teacherlogin'])->name('auth.loginTeacher');
-    Route::get('/auth/login/adminStaff', [UserController::class,'AdminStafflogin'])->name('auth.loginAdminStaff');
-    Route::get('/auth/login/regularStud', [UserController::class,   'RegStudlogin'])->name('auth.loginRegularStud');
-// ------------------------ End user --------------------------------------------------------------- //
+Route::get('/tabledit02', [SearchController::class, 'index']);
 
+
+
+  
 
 // ------------------ User Dashboard middleware -----------------------------------------------------//
     Route::group(['middleware'=>['AuthCheckRegStud']], function(){
@@ -141,7 +124,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/officers/library/admin staffs', [OfficerController::class, 'libraryAdminStaffs']);
     Route::get('/officers/library/students', [OfficerController::class, 'libraryStudents']);
     
-    // registrar 
+    // registrar tabledit
     Route::get('/officers/registrar', [loginController::class, 'registrarDashboard']);
     Route::get('/officers/registrar/new student', [OfficerController::class, 'newStudentRegister'])->name('officers.registrar.newStudent');
     Route::get('/officers/registrar/regular students', [OfficerController::class, 'regStudList']);
@@ -152,10 +135,13 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/officers/registrar/search regular', [SearchController::class, 'registrarRegSearch'])->name('registrar.regSearch');
     Route::get('/officers/registrar/search extension', [SearchController::class, 'registrarExtnSearch'])->name('registrar.extnSearch');
     Route::get('/officers/registrar/search distance', [SearchController::class, 'registrarDisSearch'])->name('registrar.disSearch');
+    
     Route::post('/officers/registrar/update status', [SearchController::class, 'registerUpdateStatus'])->name('registrar.registerUpdateStatus');
     Route::post('/officers/registrar/update regular', [SearchController::class, 'registerUpdateReg'])->name('registrar.registerUpdateReg');
     Route::post('/officers/registrar/update extension', [SearchController::class, 'registerUpdateExtn'])->name('registrar.registerUpdateExtn');
     Route::post('/officers/registrar/update distance', [SearchController::class, 'registerUpdateDis'])->name('registrar.registerUpdateDis');
+
+    Route::post('/tabledit/action', [SearchController::class, 'registrarTableEdit'])->name('tabledit.registrarTableEdit');
 
     
     // student residence

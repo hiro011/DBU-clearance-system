@@ -17,51 +17,6 @@ use DB;
 class SearchController extends Controller
 {
     //
-    function search(){
-
-       
-        // if( isset($_GET['query']) && strlen($_GET['query']) > 1){
-
-        //     $search_text = $_GET['query'];
-        //     $countries = DB::table('country')->where('Name','LIKE','%'.$search_text.'%')->paginate(2);
-        //     // $countries->appends($request->all());
-        //     return view('search',['countries'=>$countries]);
-            
-        // }else{
-        //      return view('search');
-        // }
-        return view('search');
-       
-    }
-    function find(Request $request){
-        $request->validate([
-          'query'=>'required|min:2'
-       ]);
-
-       $search_text = $request->input('query');
-       $countries = DB::table('country')
-                  ->where('Name','LIKE','%'.$search_text.'%')
-                //   ->orWhere('SurfaceArea','<', 10)
-                //   ->orWhere('LocalName','like','%'.$search_text.'%')
-                  ->paginate(2);
-        return view('search',['countries'=>$countries]);
-
-    }
-
-    function SearchUser(){
-        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
-        
-        // $regStudTable = ['studentTable'=>RegularStud::where('ID_no', 'LIKE','%'.$search_text.'%')];
-        // $extnStudTable = ['studentTable'=>ExtensionStud::where('ID_no', 'LIKE','%'.$search_text.'%')];
-        // $disStudTable = ['studentTable'=>DistanceStud::where('ID_no', 'LIKE','%'.$search_text.'%')];
-        
-        return view('search');
-        // ->with($data)->with($regStudTable)
-        //             ->with($extnStudTable)->with($disStudTable);
-
-    }
-    // 
-
 
 
     function registrarAllSearch(Request $request){
@@ -238,7 +193,7 @@ class SearchController extends Controller
         $regStudTable = DB::table('regular_studs')
                             ->where($select, $value)
                             ->update(['status' => $status]);
-        return redirect('/officers/registrar/regular student');
+        return redirect('/officers/registrar/regular students');
     }
     function registerUpdateExtn(Request $request){
         //validate request input
@@ -257,7 +212,6 @@ class SearchController extends Controller
                             ->update(['status' => $status]);
         return redirect('/officers/registrar/extension students');
     }
-                    
     function registerUpdateDis(Request $request){
         //validate request input
         $request->validate([
@@ -277,5 +231,101 @@ class SearchController extends Controller
         return redirect('/officers/registrar/distance students');
     }
 
+    function index(){
+        $data = DB::table('regular_studs')->get();
+        $data1 = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
+
+
+        return view('tableEdit', compact('data'));
+    }
+
+    function actionLiveSearch(Request $request){
+        if($request->ajax()){
+            $output = '';
+            $query = $request->get('query');
+            if($query != '')
+            {
+            $data = DB::table('tbl_customer')
+                ->where('CustomerName', 'like', '%'.$query.'%')
+                ->orWhere('Address', 'like', '%'.$query.'%')
+                ->orWhere('City', 'like', '%'.$query.'%')
+                ->orWhere('PostalCode', 'like', '%'.$query.'%')
+                ->orWhere('Country', 'like', '%'.$query.'%')
+                ->orderBy('CustomerID', 'desc')
+                ->get();
+                
+            }
+            else
+            {
+            $data = DB::table('tbl_customer')
+                ->orderBy('CustomerID', 'desc')
+                ->get();
+            }
+            $total_row = $data->count();
+            if($total_row > 0)
+            {
+            foreach($data as $row)
+            {
+                $output .= '
+                <tr>
+                <td>'.$row->CustomerName.'</td>
+                <td>'.$row->Address.'</td>
+                <td>'.$row->City.'</td>
+                <td>'.$row->PostalCode.'</td>
+                <td>'.$row->Country.'</td>
+                </tr>
+                ';
+            }
+            }
+            else
+            {
+            $output = '
+            <tr>
+                <td align="center" colspan="5">No Data Found</td>
+            </tr>
+            ';
+            }
+            $data = array(
+            'table_data'  => $output,
+            'total_data'  => $total_row
+            );
+
+            echo json_encode($data);
+        }
+    }
+
+    function registrarTableEdit(Request $request){
+        if($request->ajax()){
+    		if($request->action == 'edit'){
+    			$data = array(
+    				'name'	 => 	$request->name,
+    				'ID_no'	 => 	$request->ID_no,
+    				'gender' =>     $request->gender,
+                    'year'   =>     $request->year,
+                    'college' =>    $request->college,
+                    'department' => $request->department,
+                    'status' => $request->status,
+    			);
+
+                $regdata = ['LoggedUser'=>RegularStud::where('ID_no','=', $request->ID_no)->first()];
+                $extndata = ['LoggedUser'=>ExtensionStud::where('ID_no','=', $request->ID_no)->first()];
+                $disdata = ['LoggedUser'=>DistanceStud::where('ID_no','=', $request->ID_no)->first()];
+
+                $program = $request->program;
+
+                DB::table('students')
+                    ->where('ID_no', $request->ID_no)
+                    ->update($data);
+                
+    		}
+    		if($request->action == 'delete'){
+                DB::table('students')
+                        ->where('ID_no', $request->ID_no)
+                        ->delete();
+                         
+    		}
+    		return response()->json($request);
+    	}
+    }
 
 }

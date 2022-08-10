@@ -75,12 +75,9 @@ class loginController extends Controller
     }
 
     function registrarDashboard(){
-        $regStudTable = ['regStudTable'=>DB::select('select * from regular_studs')];
-        $extnStudTable = ['extnStudTable'=>DB::select('select * from extension_studs')];
-        $disStudTable = ['disStudTable'=>DB::select('select * from distance_studs')];
+        $studTable = ['studTable'=>DB::select('select * from students')];
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
-        return view('officers.registrar.registrar')->with($data)->with($regStudTable)->with($extnStudTable)
-                                                    ->with($disStudTable);
+        return view('officers.registrar.registrar')->with($data)->with($studTable);
     } 
     
     function tableTest(){
@@ -99,6 +96,20 @@ class loginController extends Controller
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
         return view('clearanceUsers0.teacherForm')->with($data)->with($regStudTable)->with($extnStudTable)
                                         ->with($disStudTable);
+    } 
+
+    function clearanceUser(){
+        
+        $regUser = RegularStud::where('ID_no','=', $userInfo->ID_no)->first();
+        $extnUser = ExtensionStud::where('ID_no','=', $userInfo->ID_no)->first();
+        $disUser = DistanceStud::where('ID_no','=', $userInfo->ID_no)->first();
+        $teacherUser = Teacher::where('ID_no','=', $userInfo->ID_no)->first();
+        $adminStaffUser = AdminStaff::where('ID_no','=', $userInfo->ID_no)->first();
+ 
+        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
+
+        return view('clearanceUsers.clearanceUser')->with($data)->with($regUser)->with($extnUser)
+                                    ->with($disUser)->with($teacherUser)->with($adminStaffUser);
     } 
    
     function diningDashboard(){ 
@@ -214,15 +225,74 @@ class loginController extends Controller
 
             if(Hash::check($request->password, $password)){
 
+
                 $role = $userInfo->role;
                 if($role==='Admin'){
                     $request->session()->put('LoggedUser', $userInfo->id);
                     return redirect('/admin/dashboard');
-                }else {
+                }elseif($role==='HRM') {
+                    $request->session()->put('LoggedUser', $userInfo->id);
+    
+                    return redirect('/officers/HRM');
+                }elseif($role==='Property-Office') {
                     $request->session()->put('LoggedUser', $userInfo->id);
 
-                    return redirect('/Home');
+                    return redirect('/officers/property office');
+                }elseif($role==='General-Service') {
+                    $request->session()->put('LoggedUser', $userInfo->id);
+
+                    return redirect('/officers/general service');
+                }elseif($role==='Research') {
+                    $request->session()->put('LoggedUser', $userInfo->id);
+
+                    return redirect('/officers/research');
+                }elseif($role==='ICT-Property') {
+                    $request->session()->put('LoggedUser', $userInfo->id);
+
+                    return redirect('/officers/ict property');
+                }elseif($role==='Finance') {
+                    $request->session()->put('LoggedUser', $userInfo->id);
+
+                    return redirect('/officers/finance');
+                }elseif($role==='Cashier') {
+                    $request->session()->put('LoggedUser', $userInfo->id);
+
+                    return redirect('/officers/cashier');
+                }elseif($role==='Anti-Corruption') {
+                    $request->session()->put('LoggedUser', $userInfo->id);
+
+                    return redirect('/officers/anti corruption');
+                }elseif($role==='EngCollege-Finance') {
+                    $request->session()->put('LoggedUser', $userInfo->id);
+
+                    return redirect('/officers/engineering finance');
+                }elseif($role==='StudResidence') {
+                    $request->session()->put('LoggedUser', $userInfo->id);
+
+                    return redirect('/officers/student residence');
+                }elseif($role==='Department-Head') {
+                    $request->session()->put('LoggedUser', $userInfo->id);
+
+                    return redirect('/officers/department head');
+                }elseif($role==='Dining') {
+                    $request->session()->put('LoggedUser', $userInfo->id);
+
+                    return redirect('/officers/dining');
+                }elseif($role==='Registrar') {
+                    $request->session()->put('LoggedUser', $userInfo->id);
+
+                    return redirect('/officers/registrar');
+                }elseif($role==='Library') {
+                    $request->session()->put('LoggedUser', $userInfo->id);
+
+                    return redirect('/officers/library');
+                }elseif($role==='User') {
+                    $request->session()->put('LoggedUser', $userInfo->id);
+
+                    return redirect('/clearance user');
                 }
+
+
             }else{
                 return back()->with('fail','Incorrect password.');
             }

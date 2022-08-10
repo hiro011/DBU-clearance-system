@@ -86,7 +86,7 @@
 
     .txt_field span{
         color: black;
-        font-size: 25px;
+        font-size: 22px;
         display: block;
         text-align: center;
         height: 30px;

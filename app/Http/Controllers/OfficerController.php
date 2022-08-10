@@ -147,7 +147,7 @@ class OfficerController extends Controller
         $employee = new Employee;
         $employee->ID_no = $request->id;
         $employee->name = $request->name;
-        $employee->gender = $request->name;
+        $employee->gender = $request->gender;
         $employee->birth_date = $request->birth_date;
         $employee->employee_type = $request->employee_type;
         $employee->guarentor_name = $request->guarentor_name;

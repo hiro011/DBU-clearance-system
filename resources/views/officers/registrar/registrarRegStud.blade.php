@@ -15,9 +15,6 @@
         }
           
     </style>
-    
-    
-
 
     <div  style=" overflow-x:auto;">
         <!-- <h2 style="text-align: center;">Regular Students</h2><hr> -->
@@ -41,7 +38,7 @@
         </div>
 
         <div id="sDiv2"class="searchDiv2" >  
-            <form method="POST" action="{{ route('registrar.registerUpdateExtn') }}" class="searchForm">
+            <form method="POST" action="{{ route('registrar.registerUpdateReg') }}" class="searchForm">
                 @csrf
                 <div class="chooseField">
                     <label>Select</label></br>
@@ -118,45 +115,86 @@
                 
         </div>
     
-        <table border = "1" >
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Gender</th>
-                <th>Year</th>
-                <th>program</th>
-                <th>College</th>
-                <th>Department</th>
-                <th>Status</th>
-            </tr>
-            </thead>
-            
-            <tbody>
-
-                @foreach ($regStudTable as $user)
+        <div class="container">
+            <br />
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                </div>
+                <div class="panel-body">
+                <div class="table-responsive">
+                    @csrf
+                    <table id="editable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Gender</th>
+                                <th>Year</th>
+                                <th>program</th>
+                                <th>College</th>
+                                <th>Department</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
                     
-                    <tr>
-                        <td></td>
-                        <td>{{ $user->ID_no }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->gender }}</td>
-                        <td>{{ $user->year }}</td>
-                        <td>Regular</td>
-                        <td>{{ $user->college }}</td>
-                        <td>{{ $user->department }}</td>
-                        <td>{{ $user->status }}</td>
-                    </tr>
+                        <tbody>
 
-                @endforeach
-           
-            
-            </tbody>
-        </table>
+                            @foreach ($regStudTable as $user)
+                                
+                                <tr>
+                                    <td></td>
+                                    <td>{{ $user->ID_no }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->gender }}</td>
+                                    <td>{{ $user->year }}</td>
+                                    <td>Regular</td>
+                                    <td>{{ $user->college }}</td>
+                                    <td>{{ $user->department }}</td>
+                                    <td>{{ $user->status }}</td>
+                                </tr>
+
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
-      
+    <script type="text/javascript">
+        $(document).ready(function(){
+            
+            $.ajaxSetup({
+            headers:{
+                'X-CSRF-Token' : $("input[name=_token]").val()
+            }
+            });
+
+            $('#editable').Tabledit({
+            url:'{{ route("tabledit.action") }}',
+            dataType:"json",
+            columns:{
+                identifier:[0, 'id'],
+                editable:[[1, 'ID_no'], [2, 'name'], [3, 'gender', '{"Male":"Male", "Female":"Female", "Unspecified":"Unspecified"}'],
+                [4, 'year'], [5, 'program', '{"Regular":"Regular", "Extension":"Extension", "Distance":"Distance"}'], [6, 'college'], 
+                [7, 'department'], [8, 'status', '{"On-Class":"On-Class", "Dismissed":"Dismissed", "Withdrow":"Withdrow", "Transfered":"Transfered"}']]
+            },
+            restoreButton:false,
+            onSuccess:function(data, textStatus, jqXHR)
+            {
+                if(data.action == 'delete')
+                {
+                $('#'+data.id).remove();
+                }
+            }
+            });
+
+        });  
+    </script>
+
 
 @endsection

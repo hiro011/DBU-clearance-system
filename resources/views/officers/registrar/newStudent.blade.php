@@ -13,9 +13,13 @@
         }
 
         /* Add an active class to the active button/link */
-        .column #officerA {
+        #newStudA {
             background-color: blue;
             color: white;
+        }
+        #newStudA:hover {
+            color: black;
+            opacity: 0.8;
         }
         .dropdown-container{
             display: block;

@@ -66,7 +66,20 @@
                             <option selected disabled>Select</option>
 
                             <option value="Admin" @if(old('role') === 'Admin') selected @endif>Admin</option>
-                            <option value="Officer" @if(old('role') === 'Officer') selected @endif>Officer</option>
+                            <option value="HRM" @if(old('role') === 'HRM') selected @endif>HRM</option>
+                            <option value="Library" @if(old('role') === 'Library') selected @endif>Library</option>
+                            <option value="Registrar" @if(old('role') === 'Registrar') selected @endif>Registrar</option>
+                            <option value="Dining" @if(old('role') === 'Dining') selected @endif>Dining</option>
+                            <option value="Department-Head" @if(old('role') === 'Department-Head') selected @endif>Department-Head</option>
+                            <option value="StudResidence" @if(old('role') === 'StudResidence') selected @endif>StudResidence</option>
+                            <option value="EngCollege-Finance" @if(old('role') === 'EngCollege-Finance') selected @endif>EngCollege-Finance</option>
+                            <option value="Anti-Corruption" @if(old('role') === 'Anti-Corruption') selected @endif>Anti-Corruption</option>
+                            <option value="Cashier" @if(old('role') === 'Cashier') selected @endif>Cashier</option>
+                            <option value="Finance" @if(old('role') === 'Finance') selected @endif>Finance</option>
+                            <option value="ICT-Property" @if(old('role') === 'ICT-Property') selected @endif>ICT Property</option>
+                            <option value="Research" @if(old('role') === 'Research') selected @endif>Research</option>
+                            <option value="General-Service" @if(old('role') === 'General-Service') selected @endif>General-Service</option>
+                            <option value="Property-Office" @if(old('role') === 'Property-Office') selected @endif>Property-Office</option>
                             <option value="User" @if(old('role') === 'User') selected @endif>User</option>
                         </select></br>
                         <span style="color:red;">@error('role'){{ $message }} @enderror</span>

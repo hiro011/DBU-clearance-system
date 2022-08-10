@@ -22,53 +22,40 @@
             <table id="editable" class="table table-bordered table-striped">
               <thead>
                 <tr>
-                <th>#</th>
-                <th>Id</th>
-                <th>Name</th>
-                <th>program</th>
-                <th>College</th>
-                <th>Department</th>
-                <th>Add by</th>
-                <th>Updated at </th>
+                  <!-- <th>ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Gender</th>
+                   -->
+                  <th>#</th>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Gender</th>
+                  <th>Year</th>
+                  <th>program</th>
+                  <th>College</th>
+                  <th>Department</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach ($regStudTable as $user)
-                    <tr>
-                        <td></td>
-                        <td>{{ $user->ID_no }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>Regular</td>
-                        <td>{{ $user->college }}</td>
-                        <td>{{ $user->department }}</td>
-                        <td>add_by</td>
-                        <td>{{ $user->updated_at }}</td>
-                    </tr>
-                @endforeach
-                @foreach ($extnStudTable as $user)
-                    <tr>
-                        <td></td>
-                        <td>{{ $user->ID_no }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>Extension</td>
-                        <td>{{ $user->college }}</td>
-                        <td>{{ $user->department }}</td>
-                        <td>add_by</td>
-                        <td>{{ $user->updated_at }}</td>
-                    </tr>
-                @endforeach
-                @foreach ($disStudTable as $user)
-                    <tr>
-                        <td></td>
-                        <td>{{ $user->ID_no }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>Distance</td>
-                        <td>{{ $user->college }}</td>
-                        <td>{{ $user->department }}</td>
-                        <td>add_by</td>
-                        <td>{{ $user->updated_at }}</td>
-                    </tr>
-                @endforeach
+               
+                
+                @foreach ($data as $user)
+                                
+                  <tr>
+                      <td></td>
+                      <td>{{ $user->ID_no }}</td>
+                      <td>{{ $user->name }}</td>
+                      <td>{{ $user->gender }}</td>
+                      <td>{{ $user->year }}</td>
+                      <td>Regular</td>
+                      <td>{{ $user->college }}</td>
+                      <td>{{ $user->department }}</td>
+                      <td>{{ $user->status }}</td>
+                  </tr>
+
+              @endforeach
               </tbody>
             </table>
           </div>
@@ -79,30 +66,32 @@
 </html>
 
 <script type="text/javascript">
-    $(document).ready(function(){
+  $(document).ready(function(){
     
-        $.ajaxSetup({
-            headers:{
-            'X-CSRF-Token' : $("input[name=_token]").val()
-            }
-        });
+    $.ajaxSetup({
+      headers:{
+        'X-CSRF-Token' : $("input[name=_token]").val()
+      }
+    });
 
-        $('#editable').Tabledit({
-            url:'{{ route("tabledit.action") }}',
-            dataType:"json",
-            columns:{
-            identifier:[0, 'id'],
-            editable:[[1, 'first_name'], [2, 'last_name'], [3, 'gender', '{"1":"Male", "2":"Female"}']]
-            },
-            restoreButton:false,
-            onSuccess:function(data, textStatus, jqXHR)
-            {
-            if(data.action == 'delete')
-            {
-                $('#'+data.id).remove();
-            }
-            }
-        });
+    $('#editable').Tabledit({
+      url:'{{ route("tabledit.action") }}',
+      dataType:"json",
+      columns:{
+        identifier:[0, 'id'],
+        editable:[[1, 'ID_no'], [2, 'name'], [3, 'gender', '{"1":"Male", "2":"Female", "3":"Unspecified"}'],
+                [4, 'year'], [5, 'program', '{"1":"Regular", "2":"Extension", "3":"Distance"}'], [6, 'college'], 
+                [7, 'department'], [8, 'status', '{"1":"On-Class", "2":"Dismissed", "3":"Withdrow", "4":"Transfered"}']]
+        },
+      restoreButton:false,
+      onSuccess:function(data, textStatus, jqXHR)
+      {
+        if(data.action == 'delete')
+        {
+          $('#'+data.id).remove();
+        }
+      }
+    });
 
-    });  
+  });  
 </script>

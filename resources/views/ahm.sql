@@ -44,28 +44,45 @@ INSERT INTO `regular_studs` (`ID_no`, `name`, `gender`, `year`, `college`, `depa
 ('01129', 'HAFTOM TEKLAY', 'Male', 1, 'Freshman', 'Natural Freshman', 'on class');
  
 INSERT INTO `employees` (`ID_no`, `name`, `gender`, `birth_date`, `employee_type`, `guarentor_name`, `guarentor_phone`, `level_of_education`, `job_title`, `age`, `salary`) VALUES
-('00464', 'ANDUALEM ENYEW', 'ANDUALEM ENYEW', '1990-04-05', 'Teacher', 'seid ali', 956233556, 'Bachelor', teacher, 32, NULL);
-('00464', 'ANDUALEM ENYEW', 'ANDUALEM ENYEW', '1990-04-05', 'Teacher', 'seid ali', 956233556, 'Bachelor', teacher, 32, NULL);
+('00513', 'MARU WUBENEH', 'Male', '1994-04-05', 'Admin Staff', 'seid YENESEW', 955233556, 'Bachelor', 'Registrar officer', 28, NULL),
+('00519', 'GIRMA ANIMUT', 'Male', '1990-04-05', 'Admin Staff', 'MULUNEH ali', 956233556, 'Bachelor', 'Law-Library', 32, NULL),
+('00529', 'YENESEW	MULUNEH', 'Male', '1990-04-05', 'Admin Staff', 'MULUNEH ali', 956233556, 'Bachelor', 'Studet Residence', 32, NULL),
+('00530', 'YIHUN	YIMENU', 'Male', '1990-04-05', 'Admin Staff', 'MULUNEH ali', 956233556, 'Bachelor', 'Dining', 32, NULL),
+('00561', 'WENDMAYEWU	ASMARE', 'Male', '1990-04-05', 'Admin Staff', 'MULUNEH ali', 956233556, 'Bachelor', 'EngCollege Finance', 32, NULL),
+('00563', 'BEAKAL	MITIKU', 'Male', '1990-04-05', 'Admin Staff', 'MULUNEH ali', 956233556, 'Bachelor', 'HRM', 32, NULL),
+( '00567', 'KIDANU	ADERA', 'Male', '1990-04-05', 'Admin Staff', 'MULUNEH ali', 956233556, 'Bachelor', 'EngCollege Finance', 32, NULL),
+('00570', 'MULUKEN JEMERE', 'Male', '1990-04-05', 'Admin Staff', 'MULUNEH ali', 956233556, 'Bachelor', 'Anti Corruption', 32, NULL),
+('00654', 'GETINET	ZEWUDIE', 'Male', '1990-04-05', 'Admin Staff', 'MULUNEH ali', 956233556, 'Bachelor', 'Property Officer', 32, NULL),
+('00641', 'DEJEN	KEBEDE', 'Male', '1990-04-05', 'Admin Staff', 'MULUNEH ali', 956233556, 'Bachelor', 'General Service', 32, NULL),
+('00635', 'ASEBELIGN CHEBUD', 'Male', '1990-04-05', 'Admin Staff', 'MULUNEH ali', 956233556, 'Bachelor', 'Research officer', 32, NULL),
+('00611', 'GURSHA	BELETF', 'Male', '1990-04-05', 'Admin Staff', 'MULUNEH ali', 956233556, 'Bachelor', 'ICT Property', 32, NULL),
+('00607', 'BINIAM	EMEYE', 'Male', '1990-04-05', 'Admin Staff', 'MULUNEH ali', 956233556, 'Bachelor', 'Finance', 32, NULL),
+('00605', 'DEGNET	GONCHE', 'Male', '1990-04-05', 'Admin Staff', 'MULUNEH ali', 956233556, 'Bachelor', 'Cashier', 32, NULL);
+
+INSERT INTO `employees` (`ID_no`, `name`, `gender`, `birth_date`, `employee_type`, `guarentor_name`, `guarentor_phone`, `level_of_education`, `job_title`, `age`, `salary`) VALUES
+( '00002', 'testHRM',  'Male', '1990-04-05', 'Admin Staff', 'MULUNEH ali', 956233556, 'Bachelor', 'HRM', 32, NULL),
+( '00003', 'testLibrary',  'Male', '1990-04-05', 'Admin Staff', 'MULUNEH ali', 956233556, 'Bachelor', 'Main-Library', 32, NULL),
+( '00004', 'testRegistrar',  'Male', '1990-04-05', 'Admin Staff', 'MULUNEH ali', 956233556, 'Bachelor', 'Registrar', 32, NULL),
+( '00005', 'testDining',  'Male', '1990-04-05', 'Admin Staff', 'MULUNEH ali', 956233556, 'Bachelor', 'Dining', 32, NULL),
 
 
 INSERT INTO `admin_staff` (`ID_no`, `name`, `gender`, `college`, `department`, `status`) VALUES
-( '00002', 'testHRM', 'unspecified', 'Directorate', 'HRM', 'Ahmed Mehamedyesuf'),
-( '00003', 'testLibrary', 'Male', 'Directorate', 'Library', 'Ahmed Mehamedyesuf'),
-( '00004', 'testRegistrar', 'unspecified', 'Directorate', 'Registrar', 'Ahmed Mehamedyesuf'),
-( '00005', 'testDining', 'unspecified', 'Directorate', 'Dining', 'Ahmed Mehamedyesuf'),
-('00343', 'HAGOS	FISAHA', 'Male', 'Engineering', 'Electrical & Computer Engineering', 'Ahmed Mehamedyesuf'),
-('00513', 'MARU WUBENEH', 'Male', 'Directorate', 'Registrar', 'Ahmed Mehamedyesuf'),
-('00519', 'GIRMA	ANIMUT', 'Male', 'Directorate', 'Library', 'Ahmed Mehamedyesuf'),
-('00529', 'YENESEW	MULUNEH', 'Male', 'Directorate', 'StudResidence', 'Ahmed Mehamedyesuf'),
-('00530', 'YIHUN	YIMENU', 'Male', 'Directorate', 'Dining', 'Ahmed Mehamedyesuf'),
-('00561', 'WENDMAYEWU	ASMARE', 'Male', 'Directorate', 'EngCollege Finance', 'Ahmed Mehamedyesuf'),
-('00563', 'BEAKAL	MITIKU', 'Male', 'Directorate', 'HRM', 'Ahmed Mehamedyesuf'),
-( '00567', 'KIDANU	ADERA', 'Male', 'Directorate', 'Anti Corruption', 'Ahmed Mehamedyesuf'),
-('00570', 'MULUKEN JEMERE', 'Male', 'Engineering', 'Mechanical  Engineering', 'Ahmed Mehamedyesuf'),
-( '00605', 'DEGNET	GONCHE', 'Male', 'Directorate', 'Cashier', 'Ahmed Mehamedyesuf'),
-( '00607', 'BINIAM	EMEYE', 'Male', 'Directorate', 'Finance', 'Ahmed Mehamedyesuf'),
-( '00611', 'GURSHA	BELETF', 'Male', 'Directorate', 'ICT Property', 'Ahmed Mehamedyesuf'),
-('00635', 'ASEBELIGN	CHEBUD', 'Male', 'Directorate', 'Research', 'Ahmed Mehamedyesuf'),
-( '00641', 'DEJEN	KEBEDE', 'Male', 'Directorate', 'General Service', 'Ahmed Mehamedyesuf'),
-( '00654', 'GETINET	ZEWUDIE', 'Male', 'Directorate', 'Property Officer', 'Ahmed Mehamedyesuf');
+( '00002', 'testHRM', 'unspecified', 'Human-Resource-Directorate', 'HRM', 'On-Work'),
+( '00003', 'testLibrary', 'Male', 'Library-Directorate', 'Main-Library', 'On-Work'),
+( '00004', 'testRegistrar', 'unspecified', 'Human-Resource-Directorate', 'Registrar', 'On-Work'),
+( '00005', 'testDining', 'unspecified', 'Human-Resource-Directorate', 'Dining', 'On-Work'),
+('00513', 'MARU WUBENEH', 'Male', 'Human-Resource-Directorate', 'Registrar', 'On-Work'),
+('00519', 'GIRMA	ANIMUT', 'Male', 'Library-Directorate', 'Law-Library', 'On-Work'),
+('00529', 'YENESEW	MULUNEH', 'Male', 'Human-Resource-Directorate', 'StudResidence', 'On-Work'),
+('00530', 'YIHUN	YIMENU', 'Male', 'Human-Resource-Directorate', 'Dining', 'On-Work'),
+('00561', 'WENDMAYEWU	ASMARE', 'Male', 'Human-Resource-Directorate', 'EngCollege Finance', 'On-Work'),
+('00563', 'BEAKAL	MITIKU', 'Male', 'Human-Resource-Directorate', 'HRM', 'On-Work'),
+( '00567', 'KIDANU	ADERA', 'Male', 'Human-Resource-Directorate', 'Anti Corruption', 'On-Work'),
+('00570', 'MULUKEN JEMERE', 'Male', 'Engineering', 'Mechanical  Engineering', 'On-Work'),
+( '00605', 'DEGNET	GONCHE', 'Male', 'Finance-Directorate', 'Cashier', 'On-Work'),
+( '00607', 'BINIAM	EMEYE', 'Male', 'Finance-Directorate', 'Finance', 'On-Work'),
+( '00611', 'GURSHA	BELETF', 'Male', 'Human-Resource-Directorate', 'ICT Property', 'On-Work'),
+('00635', 'ASEBELIGN CHEBUD', 'Male', 'Human-Resource-Directorate', 'Research', 'On-Work'),
+( '00641', 'DEJEN	KEBEDE', 'Male', 'Human-Resource-Directorate', 'General Service', 'On-Work'),
+( '00654', 'GETINET	ZEWUDIE', 'Male', 'Human-Resource-Directorate', 'Property Officer', 'On-Work');
 
