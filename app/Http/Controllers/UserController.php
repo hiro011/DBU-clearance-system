@@ -1,15 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Hash;
 
+use App\Models\UserLogin;
+use App\Models\Teacher;
+use App\Models\AdminStaff;
 use App\Models\RegularStud;
 use App\Models\ExtensionStud;
 use App\Models\DistanceStud;
-use App\Models\Teacher;
-use App\Models\AdminStaff;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-
+use App\Models\Officer;
+use App\Models\Students;
+use DB;
 
 class UserController extends Controller
 {
@@ -30,6 +32,11 @@ class UserController extends Controller
     }
     function AdminStafflogin(){
         return view('auth.loginAdminStaff');
+    }
+    function clearanceDashboard(){
+        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
+
+        return view('clearanceUsers.clearance')->with($data);
     }
 
     // Form
@@ -199,132 +206,7 @@ class UserController extends Controller
     }
      
     // check
-    function RegStudcheck(Request $request){
-        //validate request input
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:4|max:12'
-        ]);
-
-      
-        $userInfo = RegularStud::where('email','=', $request->email)->first();
-
-        if (!$userInfo){
-            return back()->with('fail','We did not recognise yor email address.');
-        }else{
-            Hash::make($request->password);
-            $password = Hash::make($userInfo->password); // hash the database password
-
-            if(Hash::check($request->password, $password)){
-                $request->session()->put('LoggedUser', $userInfo->id);
-                return redirect('/user/regular student'); 
-            }else{
-                return back()->with('fail','Incorrect password.');
-            }
-        }
-
-    }
-    function ExtnStudcheck(Request $request){
-        //validate request input
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:4|max:12'
-        ]);
-
-      
-        $userInfo = ExtensionStud::where('email','=', $request->email)->first();
-
-        if (!$userInfo){
-            return back()->with('fail','We did not recognise yor email address.');
-        }else{
-            Hash::make($request->password);
-            $password = Hash::make($userInfo->password); // hash the database password
-
-            if(Hash::check($request->password, $password)){
-                $request->session()->put('LoggedUser', $userInfo->id);
-                return redirect('/user/extension student'); 
-            }else{
-                return back()->with('fail','Incorrect password.');
-            }
-        }
-
-    }
-    function DisStudcheck(Request $request){
-        //validate request input
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:4|max:12'
-        ]);
-
-      
-        $userInfo = DistanceStud::where('email','=', $request->email)->first();
-
-        if (!$userInfo){
-            return back()->with('fail','We did not recognise yor email address.');
-        }else{
-            Hash::make($request->password);
-            $password = Hash::make($userInfo->password); // hash the database password
-
-            if(Hash::check($request->password, $password)){
-                $request->session()->put('LoggedUser', $userInfo->id);
-                return redirect('/user/distance student'); 
-            }else{
-                return back()->with('fail','Incorrect password.');
-            }
-        }
-
-    }
-    function Teachercheck(Request $request){
-        //validate request input
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:4|max:12'
-        ]);
-
-      
-        $userInfo = Teacher::where('email','=', $request->email)->first();
-
-        if (!$userInfo){
-            return back()->with('fail','We did not recognise yor email address.');
-        }else{
-            Hash::make($request->password);
-            $password = Hash::make($userInfo->password); // hash the database password
-
-            if(Hash::check($request->password, $password)){
-                $request->session()->put('LoggedUser', $userInfo->id);
-                return redirect('/user/teacher'); 
-            }else{
-                return back()->with('fail','Incorrect password.');
-            }
-        }
-
-    }
-    function AdminStaffcheck(Request $request){
-        //validate request input
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:4|max:12'
-        ]);
-
-      
-        $userInfo = AdminStaff::where('email','=', $request->email)->first();
-
-        if (!$userInfo){
-            return back()->with('fail','We did not recognise yor email address.');
-        }else{
-            Hash::make($request->password);
-            $password = Hash::make($userInfo->password); // hash the database password
-
-            if(Hash::check($request->password, $password)){
-                $request->session()->put('LoggedUser', $userInfo->id);
-                return redirect('/user/admin staff'); 
-            }else{
-                return back()->with('fail','Incorrect password.');
-            }
-        }
-
-    }
-   
+    
 
 
     

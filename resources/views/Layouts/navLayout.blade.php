@@ -4,24 +4,26 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-        
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>            
-        <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
-        <script src="/jquery/jquery-tabledit/jquery.tabledit.min.js"></script>
-        <script src="/jquery/jquery-tabledit/jquery.tabledit.js"></script>
-        <script src="/jquery/jquery-5.js"></script>
-        <script src="/jquery/table-edit-02.js"></script>
-        <script src="/jquery/ajax-jquery.js"></script>
+        <title>DBU Clearance System</title>
 
         @yield('headerLinks')
-
-        <title>DBU Clearance System</title>
  
         <!-- Fonts -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/table.css">
 
+        <script type="text/javascript" src="/jquery/jquery-tabledit/jquery.tabledit.min.js"></script>
+        <script type="text/javascript" src="/jquery/jquery-tabledit/jquery.tabledit.js"></script>
+        <script type="text/javascript" src="/jquery/jquery-5.js"></script>
+        <script type="text/javascript" src="/jquery/table-edit-02.js"></script>
+        <script type="text/javascript" src="/jquery/ajax-jquery.js"></script>
+        <script type="text/javascript" src="/jquery/ajax-query-02.js"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>            
+        <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
 
         <style>
             
@@ -219,6 +221,7 @@
             }
              
         </style>
+
     </head>
 
     <body>
@@ -247,20 +250,8 @@
                                     </div>
 
                                     <div class="profile_dd">
-                                        @if(session()->has('LoggedUser'))
-
-                                            @if($LoggedUser['role']==='Admin')
-                                                <span class="spanText">Admin</span>
-                                            @endif
-                                            @if($LoggedUser['role']==='Officer')
-                                                <span class="spanText">Officer</span>
-                                            @endif
-                                            @if($LoggedUser['role']==='User')
-                                                <span class="spanText">Clearance User</span>
-                                            @endif
-                                        
-                                            <span class="spanText" style="text-align: left;">{{$LoggedUser['name']}}</span> </br>
-                                        @endif
+                                        <span class="spanText" style="text-align: left;">{{$LoggedUser['role']}}</span> </br>
+                                        <span class="spanText" style="text-align: left;">{{$LoggedUser['name']}}</span> </br>
                                         <div class="profile_ul">
                                             <a class="logout" href="{{ route('auth.logout') }}">
                                                 <img src="/img/logout-pic.png" alt="logout icon" style="width: 20px; height: 20px; margin-top: 5px; margin-right: 5px; margin-left: 5px;">
@@ -308,6 +299,7 @@
             </footer>
           
         </div>
+        @yield('bottomScripts')
 
     </body>
 </html>

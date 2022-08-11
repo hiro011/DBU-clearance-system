@@ -2,41 +2,17 @@
 
 @section('content')
 
-    <style> 
-              
+
+    <style>
+      
         body {
             font-family: 'Nunito', sans-serif;
             padding-left: 4%;
             padding-right: 4%;
             background-color: gray;
         }
-      
-        .alert-success{
-            display: block;
-            background-color: rgb(201, 235, 201);
-            text-align: center;
-            color: darkgreen;
-            height: auto;
-            border-radius: 5px;
-            width: 75%;
-            padding-top: 3%;
-            margin-bottom: 10px;
-            opacity: 0.9;
-        }
-        .alert-danger{
-            display: block;
-            background-color: rgb(241, 211, 199);
-            text-align: center;
-            color: darkred;
-            height: auto;
-            border-radius: 5px;
-            width: 75%;
-            padding-top: 3%;
-            margin-bottom: 10px;
-            opacity: 0.8;
-        }
         .sticky {
-            width: 78.5%;
+            width: 78.3%;
         }
         #navbar .active{
             border: 1px solid;
@@ -62,25 +38,7 @@
         footer{
             width: 98.2%;
         }
-        button{
-            width: 40px;
-            color: black;
-            font-size: 14px;
-            border-radius: 4px;
-            border: none;
-            background-color: transparent;
-            background-color: #71a3da;
-        }
-        .container input{
-            max-width: 100px;
-        }
-        .container select{
-            cursor: pointer;
-        }
- 
-    </style>
-
-    <style>
+  
         .column1{
             width: 95.5%;
             padding: 10px 20px;
@@ -140,111 +98,8 @@
         }
 
     </style>
-      
-    <style>
-            
-        .search-btn{
-            width: 80px;
-            color: black;
-            font-size: 14px;
-            border-radius: 4px;
-            border: none;
-            background-color: #71a3da;
-        }
-        
-        .searchit{
-            align-items: center;
-            width: 60%;
-            height: 100%;
-            outline: none;
-            border: 1px solid #d5dbd9;
-            font-size: 15px;
-            padding: 8px 10px;
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-        .searchForm{
-            margin-left: 20%;
-            display: flex;
-            float: left;
-            margin-bottom: 15px;
-            height: 40px;
-            width: 50%;
-        }
-        
-        .custom_select select{
-            height: 100%;
-            border-radius: 1px;
-            color: black;
-            font-size: 14px;
-            border-radius: 3px;
-            cursor: pointer;
-            border-color: lightgreen;
-        }
-        .searchDiv, .searchDiv2{
-            display: flex; 
-            float: left;
-            width: 100vh;
-
-        }
-        .abtnCont{
-            display: block;
-            padding-top: 3px;
-            height: 40px;
-        }
-        .abtn {
-            color: black;
-            font-size: 14px;
-            border-radius: 4px;
-            border: none;
-            background-color: #94b5d8;
-            padding: 10px;
-            text-align: center;
-            margin-left: 20px;
-            text-decoration: none;
-            width: 130px;
-            cursor: pointer; 
-        }
-        .abtn:hover{
-            color: #f1f1f1;
-            background-color: blue;
-        }
-        .chooseField1{
-            display: none;
-        }
-        
-        .searchDiv2 {
-            margin-bottom: 20px;
-            color: darkred;
-        }
-        .searchDiv2 select{
-            /* width: 80px; */
-            height: 40px;
-            min-width: 130px;
-        }
-            
-        .searchDiv2 .search-btn{
-            margin-top: 23px;
-            width: 80px;
-        }
-        .search-btn:hover{
-            opacity: 0.7;
-            color: white;
-        }
-        .searchDiv2 input{
-            height: 35px;
-            border-width: 1px;
-            border-color: lightgreen;
-            box-shadow: none; 
-        }
-        .searchDiv2{
-            display: none;
-        }
-        .chooseField label{
-            margin-left: 10px;
-        }
-    </style>
-        
+   
+   
     <span class="dropspanCurrent" >Registerar</span></br>
     <div class="navbar2">
     
@@ -297,7 +152,12 @@
 
         </div> 
     </section>
-    
+
+
+@endsection
+
+@section('bottomScripts')
+
     <script>
 
         $(document).ready(function(){
@@ -306,10 +166,6 @@
                 $("#" + $(this).val()).fadeIn(1);
             }).change();
         });
-
-    </script>
-
-    <script>
 
         $(document).ready(function(){
             $("#select_c").on('change', function(){
@@ -328,6 +184,37 @@
         }
     </script>
 
+    <script type="text/javascript">
+        $(document).ready(function(){
+            
+            $.ajaxSetup({
+            headers:{
+                'X-CSRF-Token' : $("input[name=_token]").val()
+            }
+            });
+
+            $('#editable').Tabledit({
+            url:'{{ route("tabledit.registrarTableEdit") }}',
+            dataType:"json",
+            columns:{
+                identifier:[0, 'id'],
+                identifier:[1, 'ID_no'], 
+                editable:[[2, 'name'], [3, 'gender', '{"Male":"Male", "Female":"Female", "Unspecified":"Unspecified"}'],
+                [4, 'year'], [5, 'program', '{"Regular":"Regular", "Extension":"Extension", "Distance":"Distance"}'], [6, 'college'], 
+                [7, 'department'], [8, 'status', '{"On-Class":"On-Class", "Dismissed":"Dismissed", "Withdrow":"Withdrow", "Transfered":"Transfered"}']]
+            },
+            restoreButton:false,
+            onSuccess:function(data, textStatus, jqXHR)
+            {
+                if(data.action == 'delete')
+                {
+                $('#'+data.id).remove();
+                }
+            }
+            });
+
+        });  
+    </script>
 @endsection
 
 @section('headerLinks')
@@ -335,6 +222,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>            
     <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
+
+    <script type="text/javascript" src="/jquery/jquery-tabledit/jquery.tabledit.min.js"></script>
+    <script type="text/javascript" src="/jquery/jquery-tabledit/jquery.tabledit.js"></script>
+    <script type="text/javascript" src="/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/jquery/jquery-5.js"></script>
+    <script type="text/javascript" src="/jquery/table-edit-02.js"></script>
+    <script type="text/javascript" src="/jquery/ajax-jquery.js"></script>
+    <script type="text/javascript" src="/jquery/ajax-query-02.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
 
 @endsection
 

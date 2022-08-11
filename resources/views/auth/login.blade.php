@@ -6,11 +6,8 @@
   <style>
 
     body {
-        /* font-family: 'Nunito', sans-serif; */
-        font-family: "Times New Roman", Times, serif;
         padding-left: 10%;
         padding-right: 10%;
-        background-color: gray;
     }
     
     .topnav a.active:hover {
@@ -21,7 +18,7 @@
     }
     .center{
       padding: 0 25% 2%;
-      margin: 5%;
+      margin: 4%;
     }
     
     .center h1 {
@@ -147,6 +144,9 @@
         top: 58px; 
         right: 330px;
         height: auto;
+    }
+    footer{
+        width: 97.7%;
     }
         
   </style>

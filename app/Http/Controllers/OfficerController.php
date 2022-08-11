@@ -15,6 +15,7 @@ use App\Models\AdminStaff;
 use App\Models\RegularStud;
 use App\Models\ExtensionStud;
 use App\Models\DistanceStud;
+use App\Models\Students;
 use App\Models\Employee;
 use App\Models\LibraryUsers;
 
@@ -25,29 +26,53 @@ class OfficerController extends Controller
     function newStudentRegister(){
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
 
-        return view('officers.registrar.newStudent', $data);
+        // return view('officers.registrar.newStudent', $data);
+        $Display4 = ['new' => true];
+        $Display = ['all' => false];
+        $Display1 = ['reg' => false];
+        $Display2 = ['extn' => false];
+        $Display3 = ['dis' => false];
+        return view('officers.registrar.registrar')->with($data)->with($Display)->with($Display4)
+                                                    ->with($Display1)->with($Display2)->with($Display3);
+
     }
     function regStudList(){ 
-        $regStudTable = ['regStudTable'=>DB::select('select * from regular_studs')];
-
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
-        return view('officers.registrar.registrarRegStud')->with($data)->with($regStudTable);
-        
+        $regStudTable = ['studTable'=>Students::where('program','=', 'Regular')->get()];
+        $Display4 = ['new' => false];
+        $Display = ['all' => false];
+        $Display1 = ['reg' => true];
+        $Display2 = ['extn' => false];
+        $Display3 = ['dis' => false];
+        return view('officers.registrar.registrar')->with($data)->with($regStudTable)->with($Display)
+                    ->with($Display4)->with($Display1)->with($Display2)->with($Display3);
+
     }
     function extnStudList(){ 
-        $extnStudTable = ['extnStudTable'=>DB::select('select * from extension_studs')];
-
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
-        return view('officers.registrar.registrarExtnStud')->with($data)->with($extnStudTable);
-        
+        $regStudTable = ['studTable'=>Students::where('program','=', 'Extension')->get()];
+        $Display = ['all' => false];
+        $Display4 = ['new' => false];
+        $Display1 = ['reg' => false];
+        $Display2 = ['extn' => true];
+        $Display3 = ['dis' => false];
+        return view('officers.registrar.registrar')->with($data)->with($regStudTable)->with($Display)
+                    ->with($Display4)->with($Display1)->with($Display2)->with($Display3);
+
     }
     function disStudList(){ 
-        $disStudTable = ['disStudTable'=>DB::select('select * from distance_studs')];
-
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
-        return view('officers.registrar.registrarDisStud')->with($data)->with($disStudTable);
-        
+        $regStudTable = ['studTable'=>Students::where('program','=', 'Distance')->get()];
+        $Display = ['all' => false];
+        $Display4 = ['new' => false];
+        $Display1 = ['reg' => false];
+        $Display2 = ['extn' => false];
+        $Display3 = ['dis' => true];
+        return view('officers.registrar.registrar')->with($data)->with($regStudTable)->with($Display)
+                            ->with($Display4)->with($Display1)->with($Display2)->with($Display3);
+
     }
+
     function newStudentSave(Request $request){
         
         //Validate requests

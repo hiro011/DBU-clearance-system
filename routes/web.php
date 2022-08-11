@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RegularStudController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\UpdateController;
 
 use App\Http\Livewire\post;
 use App\Http\Livewire\Login;
@@ -59,7 +60,11 @@ Route::get('/livewire', function () {
 
 Route::get('/tabledit02', [SearchController::class, 'index']);
 
+Route::get('/livesearch', [SearchController::class, 'actionLiveSearch'])->name('live_search.action');
 
+
+Route::get('/live_search', 'LiveSearch@index');
+Route::get('/live_search/action', 'LiveSearch@action')->name('live_search.action');
 
   
 
@@ -100,14 +105,19 @@ Route::post('/HRM/new employee/save', [OfficerController::class, 'newEmployeeSav
 Route::post('/registrar/new student/save', [OfficerController::class, 'newStudentSave'])->name('newUsers.saveStudent');
 Route::post('/library/new user/save', [OfficerController::class, 'newPatronSave'])->name('newUsers.savePatron');
 
-Route::get('/officers/registrar/test', [loginController::class, 'registrarTestDashboard']);
+Route::get('/live_search',  [SearchController::class, 'index001']);
+Route::get('/live_search/action', [SearchController::class, 'liveSearch'])->name('live_search.action');
+// Route::get('/liveSearch/action', [SearchController::class, 'live_Search'])->name('livesearch.action');
 
-Route::get('/searchTest', [SearchController::class, 'SearchUser'])->name('search');
-Route::get('/table test', [loginController::class, 'tableTest']);
 
 Route::group(['middleware'=>['AuthCheck']], function(){
 
-    Route::get('/Home', [loginController::class, 'HomeDashboard']);
+    // Route::get('/Home', [loginController::class, 'HomeDashboard']);
+
+    // clearance 
+    Route::get('/clearance', [loginController::class, 'clearanceDashboard']);
+    Route::get('/clearance/regular student', [loginController::class, 'clearanceDashboard']);
+    
 
     // admin routes ----------------------------------------------------------- //
     Route::get('/admin/new user', [loginController::class, 'newUserRegister'])->name('newUsers.newUser');
@@ -119,14 +129,14 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 
     // library
     Route::get('/officers/library', [loginController::class, 'libraryDashboard']);
-    Route::get('/officers/library/new patron', [OfficerController::class, 'newPatronRegister'])->name('officers.registrar.newStudent');
+    Route::get('/officers/library/new patron', [OfficerController::class, 'newPatronRegister'])->name('officers.library.newPatron');
     Route::get('/officers/library/teachers', [OfficerController::class, 'libraryTeachers']);
     Route::get('/officers/library/admin staffs', [OfficerController::class, 'libraryAdminStaffs']);
     Route::get('/officers/library/students', [OfficerController::class, 'libraryStudents']);
     
-    // registrar tabledit
+    // registrar 
     Route::get('/officers/registrar', [loginController::class, 'registrarDashboard']);
-    Route::get('/officers/registrar/new student', [OfficerController::class, 'newStudentRegister'])->name('officers.registrar.newStudent');
+    Route::get('/officers/registrar/new student', [OfficerController::class, 'newStudentRegister'])->name('officers.registrar');
     Route::get('/officers/registrar/regular students', [OfficerController::class, 'regStudList']);
     Route::get('/officers/registrar/extension students', [OfficerController::class, 'extnStudList']);
     Route::get('/officers/registrar/distance students', [OfficerController::class, 'disStudList']);
@@ -136,12 +146,9 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/officers/registrar/search extension', [SearchController::class, 'registrarExtnSearch'])->name('registrar.extnSearch');
     Route::get('/officers/registrar/search distance', [SearchController::class, 'registrarDisSearch'])->name('registrar.disSearch');
     
-    Route::post('/officers/registrar/update status', [SearchController::class, 'registerUpdateStatus'])->name('registrar.registerUpdateStatus');
-    Route::post('/officers/registrar/update regular', [SearchController::class, 'registerUpdateReg'])->name('registrar.registerUpdateReg');
-    Route::post('/officers/registrar/update extension', [SearchController::class, 'registerUpdateExtn'])->name('registrar.registerUpdateExtn');
-    Route::post('/officers/registrar/update distance', [SearchController::class, 'registerUpdateDis'])->name('registrar.registerUpdateDis');
-
-    Route::post('/tabledit/action', [SearchController::class, 'registrarTableEdit'])->name('tabledit.registrarTableEdit');
+    Route::post('/officers/registrar/update status', [UpdateController::class, 'registerUpdateStatus'])->name('registrar.registerUpdateStatus');
+    
+    Route::post('/registrar/tabledit', [UpdateController::class, 'registrarTableEdit'])->name('tabledit.registrarTableEdit');
 
     
     // student residence

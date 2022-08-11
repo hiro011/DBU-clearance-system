@@ -12,6 +12,7 @@ use App\Models\RegularStud;
 use App\Models\ExtensionStud;
 use App\Models\DistanceStud;
 use App\Models\Officer;
+use App\Models\Students;
 use DB;
 
 class loginController extends Controller
@@ -46,7 +47,6 @@ class loginController extends Controller
 
         return view('admin.adminView')->with($data)->with($usersList);
     }
-
     function libraryDashboard(){
         $patronTable = ['patronTable'=>DB::select('select * from library_users')];
 
@@ -61,55 +61,55 @@ class loginController extends Controller
         return view('officers.HRM.HRM')->with($data)->with($adminStaffTable)
                                 ->with($employeeTable)->with($teacherTable);
     }
-
     function studResidenceDashboard(){
         $data = ['LoggedUserInfo'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
         return view('officers.residenceOffice', $data);
     }
 
-    function officersList(){ 
-        $usersList = ['officerLoginTable'=>DB::select('select * from officers')];
-
-        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
-        return view('admin.officersList')->with($data)->with($usersList);
-    }
-
     function registrarDashboard(){
         $studTable = ['studTable'=>DB::select('select * from students')];
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
-        return view('officers.registrar.registrar')->with($data)->with($studTable);
+        $Display = ['all' => true];
+        $Display1 = ['reg' => false];
+        $Display4 = ['new' => false];
+        $Display2 = ['extn' => false];
+        $Display3 = ['dis' => false];
+        return view('officers.registrar.registrar')->with($data)->with($studTable)->with($data)
+                ->with($Display)->with($Display1)->with($Display2)->with($Display3)->with($Display4);
     } 
-    
-    function tableTest(){
-        $regStudTable = ['regStudTable'=>DB::select('select * from regular_studs')];
-        $extnStudTable = ['extnStudTable'=>DB::select('select * from extension_studs')];
-        $disStudTable = ['disStudTable'=>DB::select('select * from distance_studs')];
-        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
-        return view('test001')->with($data)->with($regStudTable)->with($extnStudTable)
-                                                    ->with($disStudTable);
-    } 
-
-    function registrarTestDashboard(){
-        $regStudTable = ['regStudTable'=>DB::select('select * from regular_studs')];
-        $extnStudTable = ['extnStudTable'=>DB::select('select * from extension_studs')];
-        $disStudTable = ['disStudTable'=>DB::select('select * from distance_studs')];
-        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
-        return view('clearanceUsers0.teacherForm')->with($data)->with($regStudTable)->with($extnStudTable)
-                                        ->with($disStudTable);
-    } 
-
-    function clearanceUser(){
-        
-        $regUser = RegularStud::where('ID_no','=', $userInfo->ID_no)->first();
-        $extnUser = ExtensionStud::where('ID_no','=', $userInfo->ID_no)->first();
-        $disUser = DistanceStud::where('ID_no','=', $userInfo->ID_no)->first();
-        $teacherUser = Teacher::where('ID_no','=', $userInfo->ID_no)->first();
-        $adminStaffUser = AdminStaff::where('ID_no','=', $userInfo->ID_no)->first();
  
-        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
+    function clearanceDashboard(){
+        $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
+        $data = ['LoggedUser'=>$loggedUser];
 
-        return view('clearanceUsers.clearanceUser')->with($data)->with($regUser)->with($extnUser)
-                                    ->with($disUser)->with($teacherUser)->with($adminStaffUser);
+        $regstud=Students::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first();
+        $extnstud=Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first();
+        $disstud=Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first();
+        $teachers=Teacher::where('ID_no','=', $loggedUser->ID_no)->first();
+        $adminstaffs=AdminStaff::where('ID_no','=', $loggedUser->ID_no)->first();
+
+        $regUser = ['regStud'=>$regstud];
+        $extnUser = ['extnStud'=>$extnstud];
+        $disUser = ['disStud'=>$disstud];
+        $teacherUser = ['teacher'=>$teachers];
+        $adminStaffUser = ['adminstaff'=>$adminstaffs];
+ 
+        if($regstud){
+            return view('clearanceUsers.regularStudent')->with($data)->with($regUser)->with($extnUser)
+                                        ->with($disUser)->with($teacherUser)->with($adminStaffUser);
+        }elseif($extnstud){
+            return view('clearanceUsers.extensionStudent')->with($data)->with($regUser)->with($extnUser)
+                                        ->with($disUser)->with($teacherUser)->with($adminStaffUser);
+        }elseif($disstud){
+            return view('clearanceUsers.distanceStudent')->with($data)->with($regUser)->with($extnUser)
+                                        ->with($disUser)->with($teacherUser)->with($adminStaffUser);
+        }elseif($teachers){
+            return view('clearanceUsers.teacher')->with($data)->with($regUser)->with($extnUser)
+                                        ->with($disUser)->with($teacherUser)->with($adminStaffUser);
+        }elseif($adminstaffs){
+            return view('clearanceUsers.adminStaff')->with($data)->with($regUser)->with($extnUser)
+                                        ->with($disUser)->with($teacherUser)->with($adminStaffUser);
+        }
     } 
    
     function diningDashboard(){ 
@@ -122,23 +122,21 @@ class loginController extends Controller
                                                     ->with($disStudTable);
 
     }
-    
     function electricalDashboard(){
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
         return view('depOfficerView.electricalDep', $data);
     }
-     
     function newUserRegister(){
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
 
         return view('admin.newUser', $data);
     }
 
-    function newOfficerRegister(){
-        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
+    // function newOfficerRegister(){
+    //     $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
 
-        return view('admin.newOfficer', $data);
-    }
+    //     return view('admin.newOfficer', $data);
+    // }
     
     function logout(){
         if(session()->has('LoggedUser')){
@@ -177,36 +175,36 @@ class loginController extends Controller
         }
     }
 
-    function newOfficerSave(Request $request){
+    // function newOfficerSave(Request $request){
         
-        //Validate requests
-        $request->validate([
-            'ID_no'=>'required|unique:officers',
-            'name'=>'required',
-            'gender'=>'required',
-            'college'=>'required',
-            'department'=>'required'
-        ]);
+    //     //Validate requests
+    //     $request->validate([
+    //         'ID_no'=>'required|unique:officers',
+    //         'name'=>'required',
+    //         'gender'=>'required',
+    //         'college'=>'required',
+    //         'department'=>'required'
+    //     ]);
 
-        // $email = $request->email.$request->gmail;
-        $dataI = UserLogin::where('id','=', session('LoggedUser'))->first();
+    //     // $email = $request->email.$request->gmail;
+    //     $dataI = UserLogin::where('id','=', session('LoggedUser'))->first();
 
-        //Insert data into database
-        $officer = new Officer;
-        $officer->ID_no = $request->ID_no;
-        $officer->name = $request->name;
-        $officer->gender = $request->gender;
-        $officer->college = $request->college;
-        $officer->department = $request->department;
-        $officer->add_by = $dataI->name;
-        $save = $officer->save();
+    //     //Insert data into database
+    //     $officer = new Officer;
+    //     $officer->ID_no = $request->ID_no;
+    //     $officer->name = $request->name;
+    //     $officer->gender = $request->gender;
+    //     $officer->college = $request->college;
+    //     $officer->department = $request->department;
+    //     $officer->add_by = $dataI->name;
+    //     $save = $officer->save();
 
-        if($save){
-        return back()->with('success','New User has been successfuly added to database');
-        }else{
-            return back()->with('fail','Something went wrong, try again later');
-        }
-    }
+    //     if($save){
+    //     return back()->with('success','New User has been successfuly added to database');
+    //     }else{
+    //         return back()->with('fail','Something went wrong, try again later');
+    //     }
+    // }
 
     function check(Request $request){
         //validate request input
@@ -289,7 +287,7 @@ class loginController extends Controller
                 }elseif($role==='User') {
                     $request->session()->put('LoggedUser', $userInfo->id);
 
-                    return redirect('/clearance user');
+                    return redirect('/clearance');
                 }
 
 
