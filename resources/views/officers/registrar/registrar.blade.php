@@ -220,7 +220,7 @@
             background-color: #71a3da;
         }
         .container{
-            padding-right: 240px;
+            padding-right: 180px;
             padding-left: 10px;
         }
         .container input{
@@ -300,7 +300,7 @@
             <a href="/officers/registrar/distance students" id="disStudA">Distance Student</a>
 
             <a href="/officers/registrar/new student" class="abutton"  id="newStudA">New Student</a>
-            <a href="officers" class="abutton"  id="reqCA" style="margin-left: 10px;">Request Clearance</a>
+            <a href="/clearance/administrator staff" class="abutton"  id="reqCA" style="margin-left: 10px;">Request Clearance</a>
         </ul>
         
 
@@ -578,7 +578,7 @@
                                 </div>
                             @endif
 
-                            <form action="{{ route('newUsers.saveStudent') }}" method="post">
+                            <form action="{{ route('newUsers.saveStudent') }}" method="POST">
 
                                 @csrf
                                 <div class="inputfield">

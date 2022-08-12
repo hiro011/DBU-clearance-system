@@ -1,293 +1,366 @@
 
-@extends('Layouts.navLayout')
+@extends('Layouts.clearanceLayout')
 
-@section('content')
+@section('clearanceContent')
 
     <style>
-        .profile_dd{
-            top: 58px; 
-            right: 240px;
-            height: auto;
-        }
-        #navbar .active{
-            border: 1px solid;
+        #regStudA {
+            background-color: blue;
             color: white;
-        }
-        
-        @media screen and (max-width:420px) {
-            
-            body {
-                padding-right: 6%;
-                font-family: "Times New Roman", Times, serif;
-            }
-            .profile_dd{
-                top: 58px; 
-                right: 310px;
-                height: auto;
-            }
-        }
+        } 
+        #regStudA:hover {
+            opacity: 0.8;
+            color: black;
+        } 
     </style>
 
     <section id="columns">
         <div class="body-container">
-            <div class="column" style="padding-top: 50px;">
-                <span class="dropspanCurrent" style="padding-left: 73px;">Regular Student</span></br>
-                <hr size="3" width="100%" color="gray">
-                <a href="/user/regular student" class="requestA" style="border-radius: 4px;">Request Form</a>
-                <a href="/user/regular student/form" class="submitA" style="border-radius: 4px;">Clearance Submit Form</a>
-                <hr size="3" width="100%" color="gray">
-
-            </div>  
-
             <div class="column1" >
 
-    <style>
-        .submitA {
-            background-color: blue;
-            color: white;
-        } 
-        .accordion-container {
-            margin: 8%;
-            max-width: 400px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
-            overflow: hidden;
-            font-family: "Quicksand", sans-serif;
-            background: #b9ebff;
-        }
-        .accordion-container .accordion{
-            margin: 2%;
-            background: #8dcee7;
-            opacity: 1;
-            border-radius: 8px;
-            align-self: center;
-            /* grid-template-columns: 1.3fr 6fr 0.5fr; */
-        }
+                @if(!$regStudResidence)
+                    <style>
+                        .residence{
+                            border-left: 12px solid #47D764;
+                        } 
+                        .residence .success{
+                            display: inline;
+                        }
+                    </style>
+                @endif
+                @if($regStudResidence)
+                    <style>
+                        .residence{
+                            border-left: 12px solid #ff355b;
+                        }
+                        .residence .fail{
+                            display: inline;
+                        }
+                    </style>
+                @endif
 
-        .accordion__label,
-        .accordion__content {
-            padding: 14px 20px;
-        }
-       
-        .accordion__label {
-            display: flex;
-            color: black;
-            font-weight: 500;
-            cursor: pointer;
-            align-self: center;
-            position: relative;
-            transition: background 0.1s;
-        }
+                @if(!$regDining)
+                    <style>
+                        .dining{
+                            border-left: 12px solid #47D764;
+                        } 
+                        .dining .success{
+                            display: inline;
+                        }
+                    </style>
+                @endif
+                @if($regDining)
+                    <style>
+                        .dining{
+                            border-left: 12px solid #ff355b;
+                        }
+                        .dining .fail{
+                            display: inline;
+                        }
+                    </style>
+                @endif
+                    
+                @if(!$regRegistrar)
+                    <style>
+                        .registrar{
+                            border-left: 12px solid #47D764;
+                        } 
+                        .registrar .success{
+                            display: inline;
+                        }
+                    </style>
+                @endif
+                @if($regRegistrar)
+                    <style>
+                        .registrar{
+                            border-left: 12px solid #ff355b;
+                        }
+                        .registrar .fail{
+                            display: inline;
+                        }
+                    </style>
+                @endif
 
-        .accordion__label:hover {
-            background: rgba(0, 0, 0, 0.1);
-        }
+                @if(!$regLibrary)
+                    <style>
+                        .library{
+                            border-left: 12px solid #47D764;
+                        } 
+                        .library .success{
+                            display: inline;
+                        }
+                    </style>
+                @endif
+                @if($regLibrary)
+                    <style>
+                        .library{
+                            border-left: 12px solid #ff355b;
+                        }
+                        .library .fail{
+                            display: inline;
+                        }
+                    </style>
+                @endif
+                    
+                @if(!$regDepHead)
+                    <style>
+                        .department{
+                            border-left: 12px solid #47D764;
+                        } 
+                        .department .success{
+                            display: inline;
+                        }
+                    </style>
+                @endif
+                @if($regDepHead)
+                    <style>
+                        .department{
+                            border-left: 12px solid #ff355b;
+                        }
+                        .department .fail{
+                            display: inline;
+                        }
+                    </style>
+                @endif
+                    
 
-        .accordion__label::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            right: 20px;
-            width: 12px;
-            height: 6px;
-            /* background-image: url('data:image/svg+xml;utf8,<svg width="100" height="50" xmlns="/img/caret-down-outline.svg"><polygon points="0,0 100,0 50,50" style="fill:%23FFFFFF99;" /></svg>'); */
-            background-size: contain;
-            transition: transform 0.4s;
-        }
+                <div class="accordion-container">
 
-        .accordion__content {
-            background: #ffffff;
-            line-height: 1.6;
-            font-size: 0.85em;
-            display: none;
-        }
+                    @if (Session::get('success'))
+                        <div class="alert-success">
+                            {{ Session::get('success')}}
+                        </div>
+                    @endif
+                    @if (Session::get('fail'))
+                        <div class="alert-danger">
+                            {{ Session::get('fail')}}
+                        </div>
+                    @endif
+                    <form action="{{ route('newUsers.saveStudent') }}" method="POST">
 
-        .accordion__input {
-            display: none;
-        }
+                        @csrf
+                        <div class="accordion department">
+                            <input type="checkbox" name="example_accordion" id="section1" class="accordion__input">
+                            <label for="section1" class="accordion__label">
+                                @if(!$regDepHead)
+                                <img src="/img/success-icon.png" alt="success-icon" class="success">
+                                @endif
+                                @if($regDepHead)
+                                <img src="/img/error-icon.png" alt="error-icon" class="fail">
+                                @endif
+                                
+                                <img src="/img/caret-down-outline.svg" alt="down-icon" class="acc-down-icon">
+                                <span style="margin-left: 3px;">{{ $regStud['department'] }} department</span>
+                            </label>
 
-        .accordion__input:checked ~ .accordion__content {
-            display: block;
-        }
+                            <div class="accordion__content">
+                                @if(!$regDepHead)
+                                    <p style="color: green; ">Approved</p>
+                                    <p>
+                                        Your department have approved your Clearance,
+                                        you can procceed to the next clearance
+                                    </p>
+                                @endif
+                                @if($regDepHead)
+                                    <p style="color: red;"> Declined </p>
+                                    <p>
+                                        You didnt get the approval of your department, 
+                                        you have to ask permission from your department before you request clearance,
+                                        if there is any problem you can go check in your department office
+                                    </p>
+                                @endif
+                                    
+                            </div>
+                        </div>
+                        @if($noRegistrar === true)
+                        <span style="color:red; margin-left: 40px;"> 
+                            Error you didn't get approval from your department 
+                        </span>
+                        @endif
+                        <div class="accordion library">
+                            <input type="checkbox" name="example_accordion" id="section2" class="accordion__input">
+                            <label for="section2" class="accordion__label">
+                                @if(!$regLibrary)
+                                <img src="/img/success-icon.png" alt="success-icon" class="success">
+                                @endif
+                                @if($regLibrary)
+                                <img src="/img/error-icon.png" alt="error-icon" class="fail">
+                                @endif
+                                
+                                <img src="/img/caret-down-outline.svg" alt="down-icon" class="acc-down-icon">
+                                <span style="margin-left: 3px;">Main Library</span>
+                            </label>
 
-        .accordion__input:checked ~ .accordion__label::after {
-            transform: translateY(-50%) rotate(0.5turn);
-        }
-        .accordion__input:checked ~ .acc-down-icon::after{
-            transform: rotate(180deg);
-        }
-       
+                            <div class="accordion__content">
+                                @if(!$regLibrary)
+                                    <p style="color: green; ">Approved</p>
+                                    <p>
+                                        The Main Library have approved your Clearance,
+                                        you can procceed to the next clearance
+                                    </p>
+                                @endif
+                                @if($regLibrary)
+                                    <p style="color: red;"> Declined </p>
+                                    <p>
+                                        You didnt get the approval of the main library, 
+                                        that means you have checkouts you didnt return, 
+                                        you have to return the checkouts before requesting clearance,
+                                        if there is any problem you can go check in the main library
+                                    </p>
+                                @endif
+                                    
+                            </div>
+                        </div>
+                        @if($noLibrary === true)
+                        <span style="color:red; margin-left: 40px;"> 
+                            Error you didn't get approval from library 
+                        </span>
+                        @endif
+                        <div class="accordion residence">
+                            <input type="checkbox" name="example_accordion" id="section3" class="accordion__input">
+                            <label for="section3" class="accordion__label">
 
-        .submit-btn-container{
-            align-items: center;
-        }
+                                @if($regStudResidence)
+                                    @if(($regStudResidence->status)==='leave')
+                                    <img src="/img/success-icon.png" alt="success-icon" class="success">
+                                    @endif
+                                    @if(($regStudResidence->status)==='stay')
+                                    <img src="/img/error-icon.png" alt="error-icon" class="fail">
+                                    @endif
+                                @endif
+                                @if(!$regStudResidence)
+                                    <img src="/img/success-icon.png" alt="success-icon" class="success">
+                                @endif
+                                <img src="/img/caret-down-outline.svg" alt="down-icon" class="acc-down-icon">
+                                <span style="margin-left: 3px;">Student Residence Office</span>
+                            </label>
 
-        .accordion-container .submit-btn {
-            font-size: 16px;
-            margin: 5%;
-            border: none;
-            border-radius: 5px;
-            float: left;
-            background-color: #009578;
-            color: white;
-            cursor: pointer;
-            width: 50%;
-            height: 40px;
-        }
+                            <div class="accordion__content">
+                                @if($regStudResidence)
+                                    @if(($regStudResidence->status)==='leave')
+                                        <p style="color: green; ">Approved</p>
+                                        <p>
+                                            The student residence office  have approved your Clearance,
+                                            you can procceed to the next clearance
+                                        </p>
+                                    @endif
+                                    @if(($regStudResidence->status)==='stay')
+                                        <p style="color: red;"> Declined </p>
+                                        <p>
+                                            You didnt get the approval of the student residence office, 
+                                            that means you didn't submit your dorm and dorm materials, 
+                                            you have to give back your dorm materials before requesting clearance,
+                                            if there is any problem you can go check in the student residence office,
+                                        </p>
+                                    @endif
+                                @endif
+                                @if(!$regStudResidence)
+                                    <p style="color: green; ">Approved</p>
+                                    <p>
+                                        Your request have been approved ,
+                                        you can procceed to the next clearance
+                                    </p>
+                                @endif
 
-        .accordion-container .submit-btn:hover {
-            opacity: 0.8;
-        }
+                            </div>
+                        </div>
+                        @if($noResidence === true)
+                        <span style="color:red; margin-left: 40px;"> 
+                            Error you didn't get approval from residence office 
+                        </span>
+                        @endif
+                        <div class="accordion dining">
+                            <input type="checkbox" name="example_accordion" id="section4" class="accordion__input">
+                            <label for="section4" class="accordion__label">
+                                @if(!$regDining)
+                                <img src="/img/success-icon.png" alt="success-icon" class="success">
+                                @endif
+                                @if($regDining)
+                                <img src="/img/error-icon.png" alt="error-icon" class="fail">
+                                @endif
+                                
+                                <img src="/img/caret-down-outline.svg" alt="down-icon" class="acc-down-icon">
+                                <span style="margin-left: 3px;">Dining Office</span>
+                            </label>
 
-        .accordion img{
-            width: 25px; 
-            height: 25px;
-        }
-        .acc-down-icon{
-            width: 15px; 
-            height: 15px;
-        }
-       
-    </style>
+                            <div class="accordion__content">
+                                @if(!$regDining)
+                                    <p style="color: green; ">Approved</p>
+                                    <p>
+                                        Dining Office have approved your Clearance,
+                                        you can procceed to the next clearance
+                                    </p>
+                                @endif
+                                @if($regDining)
+                                    <p style="color: red;"> Declined </p>
+                                    <p>
+                                        You didnt get the approval of the dining office, 
+                                        that means you are non-cafe user, 
+                                        you have to ask dining office to remove you from non cafe lists before requesting clearance,
+                                        if there is any problem you can go check in the dining office
+                                    </p>
+                                @endif
+                                    
+                            </div>
+                        </div>
+                        @if($noDining === true)
+                        <span style="color:red; margin-left: 40px;"> 
+                            Error you didn't get approval from dining office 
+                        </span>
+                        @endif
+                        <div class="accordion registrar">
+                            <input type="checkbox" name="example_accordion" id="section5" class="accordion__input">
+                            <label for="section5" class="accordion__label">
+                                @if(($regRegistrar->status)!=='On-Class')
+                                <img src="/img/success-icon.png" alt="success-icon" class="success">
+                                @endif
+                                @if(($regRegistrar->status)==='On-Class')
+                                <img src="/img/error-icon.png" alt="error-icon" class="fail">
+                                @endif
+                                
+                                <img src="/img/caret-down-outline.svg" alt="down-icon" class="acc-down-icon">
+                                <span style="margin-left: 3px;">Registrar Office</span>
+                            </label>
 
-    <!-- warning  -->
-<!--     
-    <style>
-        .accordion{
-            border-left: 12px solid #FFC021;
-        } 
-        .accordion .warning{
-            display: inline;
-        }
-        
-    </style> -->
+                            <div class="accordion__content">
+                                @if(($regRegistrar->status)!=='On-Class')
+                                    <p style="color: green; ">Approved</p>
+                                    <p>
+                                        The Registrar office have approved your Clearance,
+                                        you can procceed to the next clearance
+                                    </p>
+                                @endif
+                                @if(($regRegistrar->status)==='On-Class')
+                                    <p style="color: red;"> Declined </p>
+                                    <p>
+                                        Your status is " {{ $regRegistrar->status }} "
+                                        You didnt get the approval of the registrar office, 
+                                        that means you didn't get permission from registrar, 
+                                        you have to get permission from registrar before requesting clearance,
+                                        if there is any problem you can go check in the registrar office,
+                                    </p>
+                                @endif
+                                    
+                            </div>
+                        </div>
+                        @if($noRegistrar === true)
+                        <span style="color:red; margin-left: 40px;"> 
+                            Error you didn't get approval from registrar office
+                        </span>
+                        @endif
+                        <div class="submit-btn-container">
+                            <input type="button" value="Request" class="submit-btn">
+                        </div>
+                    </form>
 
-    <!-- success  -->
-    <style>
-        .accordion{
-            border-left: 12px solid #47D764;
-        } 
-        .accordion .success{
-            display: inline;
-        }
-
-    </style>
-
-    <!-- fail  -->
-<!--     
-    <style>
-        .accordion{
-            border-left: 12px solid #ff355b;
-        }
-        .accordion .fail{
-            display: inline;
-        }
-    </style> -->
-
-
-    <div class="accordion-container">
-
-        <div class="accordion">
-             
-            <div class="container-1">
-                <input type="checkbox" name="example_accordion" id="section1" class="accordion__input">
-                <label for="section1" class="accordion__label">
-
-                    <img src="/img/success-icon.png" alt="success-icon" class="success">
-                    <!-- <img src="/img/error-icon.png" alt="error-icon" class="fail">
-                    <img src="/img/warning-icon.png" alt="warning-icon" class="warning"> -->
-    
-                    <img src="/img/caret-down-outline.svg" alt="down-icon" class="acc-down-icon">
-                    <span style="margin-left: 5px;"> Department</span>
-                </label>
-                <div class="accordion__content">
-                    <p>Remark</p>
-                    <p>
-                        Pass 
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam sit reiciendis, ipsam quaerat,
-                        aperiam perspiciatis ad ullam architecto impedit natus illo nostrum molestias voluptas earum a
-                        voluptatibus fugiat fuga facere!
-                    </p>
-                    <p>
-                        Fail 
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam sit reiciendis, ipsam quaerat,
-                        aperiam perspiciatis ad ullam architecto impedit natus illo nostrum molestias voluptas earum a
-                        voluptatibus fugiat fuga facere!
-                    </p>
                 </div>
-            </div>
-        </div>
 
-        <div class="accordion">
-            <input type="checkbox" name="example_accordion" id="section2" class="accordion__input">
-            <label for="section2" class="accordion__label">
-                <img src="/img/success-icon.png" alt="success-icon" class="success">
-                <!-- <img src="/img/error-icon.png" alt="error-icon" class="fail">
-                <img src="/img/warning-icon.png" alt="warning-icon" class="warning"> -->
 
-                <img src="/img/caret-down-outline.svg" alt="down-icon" class="acc-down-icon">
-                <span style="margin-left: 5px;">Main Library</span>
-            </label>
-            <div class="accordion__content">
-            <p>Section #2</p>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam sit reiciendis, ipsam quaerat,
-                aperiam perspiciatis ad ullam architecto impedit natus illo nostrum molestias voluptas earum a
-                voluptatibus fugiat fuga facere!
-            </p>
             </div>
-        </div>
 
-        <div class="accordion">
-            <input type="checkbox" name="example_accordion" id="section3" class="accordion__input">
-            <label for="section3" class="accordion__label">Residence Office</label>
-            <div class="accordion__content">
-            <p>Section #3</p>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam sit reiciendis, ipsam quaerat,
-                aperiam perspiciatis ad ullam architecto impedit natus illo nostrum molestias voluptas earum a
-                voluptatibus fugiat fuga facere!
-            </p>
-            </div>
-        </div>
-
-        <div class="accordion">
-            <input type="checkbox" name="example_accordion" id="section4" class="accordion__input">
-            <label for="section4" class="accordion__label">Registrar</label>
-            <div class="accordion__content">
-            <p>Section #3</p>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam sit reiciendis, ipsam quaerat,
-                aperiam perspiciatis ad ullam architecto impedit natus illo nostrum molestias voluptas earum a
-                voluptatibus fugiat fuga facere!
-            </p>
-            </div>
-        </div>
-         <div class="accordion">
-            <input type="checkbox" name="example_accordion" id="section4" class="accordion__input">
-            <label for="section4" class="accordion__label">Dining Office</label>
-            <div class="accordion__content">
-            <p>Section #3</p>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam sit reiciendis, ipsam quaerat,
-                aperiam perspiciatis ad ullam architecto impedit natus illo nostrum molestias voluptas earum a
-                voluptatibus fugiat fuga facere!
-            </p>
-            </div>
-        </div>
         
-        <div class="submit-btn-container">
-            <input type="button" value="submit" class="submit-btn">
-        </div>
-    </div>
-
-
-    </div>
-
-    
-</div> 
-</section>
+        </div> 
+    </section>
 
 
 @endsection

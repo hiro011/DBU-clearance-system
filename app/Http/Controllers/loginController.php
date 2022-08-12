@@ -49,9 +49,16 @@ class loginController extends Controller
     }
     function libraryDashboard(){
         $patronTable = ['patronTable'=>DB::select('select * from library_users')];
-
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
-        return view('officers.library.library')->with($data)->with($patronTable);
+        
+        $Display4 = ['new' => false];
+        $Display = ['all' => true];
+        $Display1 = ['teachers' => false];
+        $Display2 = ['adminstaffs' => false];
+        $Display3 = ['students' => false];
+        return view('officers.library.library')->with($data)->with($patronTable)->with($Display)
+                    ->with($Display4)->with($Display1)->with($Display2)->with($Display3);
+
     }
     function hrmDashboard(){
         $adminStaffTable = ['adminStaffTable'=>DB::select('select * from admin_staff')];
@@ -80,7 +87,7 @@ class loginController extends Controller
  
     function clearanceDashboard(){
         $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
-        $data = ['LoggedUser'=>$loggedUser];
+        // $data = ['LoggedUser'=>$loggedUser];
 
         $regstud=Students::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first();
         $extnstud=Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first();
@@ -88,27 +95,32 @@ class loginController extends Controller
         $teachers=Teacher::where('ID_no','=', $loggedUser->ID_no)->first();
         $adminstaffs=AdminStaff::where('ID_no','=', $loggedUser->ID_no)->first();
 
-        $regUser = ['regStud'=>$regstud];
-        $extnUser = ['extnStud'=>$extnstud];
-        $disUser = ['disStud'=>$disstud];
-        $teacherUser = ['teacher'=>$teachers];
-        $adminStaffUser = ['adminstaff'=>$adminstaffs];
+        // $regUser = ['regStud'=>$regstud];
+        // $extnUser = ['extnStud'=>$extnstud];
+        // $disUser = ['disStud'=>$disstud];
+        // $teacherUser = ['teacher'=>$teachers];
+        // $adminStaffUser = ['adminstaff'=>$adminstaffs];
  
         if($regstud){
-            return view('clearanceUsers.regularStudent')->with($data)->with($regUser)->with($extnUser)
-                                        ->with($disUser)->with($teacherUser)->with($adminStaffUser);
+            return redirect('/clearance/regular student');
+            // ->with($data)->with($regUser)->with($extnUser)
+            //                             ->with($disUser)->with($teacherUser)->with($adminStaffUser);
         }elseif($extnstud){
-            return view('clearanceUsers.extensionStudent')->with($data)->with($regUser)->with($extnUser)
-                                        ->with($disUser)->with($teacherUser)->with($adminStaffUser);
+            return redirect('/clearance/extension student');
+            // ->with($data)->with($regUser)->with($extnUser)
+            //                             ->with($disUser)->with($teacherUser)->with($adminStaffUser);
         }elseif($disstud){
-            return view('clearanceUsers.distanceStudent')->with($data)->with($regUser)->with($extnUser)
-                                        ->with($disUser)->with($teacherUser)->with($adminStaffUser);
+            return redirect('/clearance/distance student');
+            // ->with($data)->with($regUser)->with($extnUser)
+            //                             ->with($disUser)->with($teacherUser)->with($adminStaffUser);
         }elseif($teachers){
-            return view('clearanceUsers.teacher')->with($data)->with($regUser)->with($extnUser)
-                                        ->with($disUser)->with($teacherUser)->with($adminStaffUser);
+            return redirect('/clearance/teacher');
+            // ->with($data)->with($regUser)->with($extnUser)
+            //                             ->with($disUser)->with($teacherUser)->with($adminStaffUser);
         }elseif($adminstaffs){
-            return view('clearanceUsers.adminStaff')->with($data)->with($regUser)->with($extnUser)
-                                        ->with($disUser)->with($teacherUser)->with($adminStaffUser);
+            return redirect('/clearance/administrator staff');
+            // ->with($data)->with($regUser)->with($extnUser)
+            //                             ->with($disUser)->with($teacherUser)->with($adminStaffUser);
         }
     } 
    
@@ -205,6 +217,7 @@ class loginController extends Controller
     //         return back()->with('fail','Something went wrong, try again later');
     //     }
     // }
+    
 
     function check(Request $request){
         //validate request input

@@ -1,11 +1,8 @@
- 
 
 @extends('Layouts.navLayout')
 
 @section('content')
              
-
-  
     <style>
         .profile_dd{
             top: 58px; 
@@ -27,14 +24,7 @@
         .dropdown-container{
             display: block;
         }
-        .column {
-            float: left;
-            width: 30%;
-            background-color: rgb(224, 235, 240);
-            margin-top: 0;
-            padding-top: 3%;
-            height: auto;
-        }
+         
         .containerBox{
             background-color: #9db9c0;
         }
@@ -47,6 +37,8 @@
             margin-top: 0;
             padding: 10px;
             margin-left: 23%;
+            align-self: center;
+
         }
          
         .body-container {
@@ -56,20 +48,20 @@
         .column a{
             border-radius: 4px;
         }
- 
+
+    </style>
+
+    <style>
+        
         body {
             font-family: 'Nunito', sans-serif;
             padding-left: 8%;
             padding-right: 8%;
+            height: 100vh;
         }
         .sticky {
             width: 71.3%;
         }
-        
-        footer{
-            width: 98%;
-        }
-
         @media screen and (max-width:600px) {
                 
             body {
@@ -86,24 +78,15 @@
             .sticky {
                 width: 78.5%;
             }
-            .column {
-                display: block;
-                float: left;
-                /* width: 100%; */
-                background-color: rgb(224, 235, 240);
-                margin-top: 0;
-                padding-top: 3%;
-                height: auto;
-                margin-left: 0;
-                width: 95%;
-            }  
+          
             .column1 {
                 display: flex;
                 float: center;
-                width: 80%;
+                width: 90%;
                 margin-top: 0;
-                /* margin: 50px; */
+                margin-left: 0;
                 /* padding: 30px; */
+                height: auto;
             }
             footer{
                 width: 90%;
@@ -140,6 +123,11 @@
             
         }
         
+      
+        footer{
+            width: 98%;
+        }
+
         .dropspanCurrent { 
             padding: 8px 8px 8px 10px;
             text-decoration: none;
@@ -171,6 +159,7 @@
             padding: 8px 8px 8px 15px;
             color: rgb(0, 0, 0);
             text-decoration: none;
+            border: 1px groove lightblue;
             font-size: 16px;
             transition: 0.3s;
         }
@@ -183,6 +172,118 @@
 
     </style>
  
+    <!-- accordion style -->
+    <style>
+        .submitA {
+            background-color: blue;
+            color: white;
+        } 
+        .accordion-container {
+            margin: 8%;
+            max-width: 400px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+            font-family: "Quicksand", sans-serif;
+            background: #b9ebff;
+        }
+        .accordion-container .accordion{
+            margin: 2%;
+            background: #8dcee7;
+            opacity: 1;
+            border-radius: 8px;
+            align-self: center;
+            /* grid-template-columns: 1.3fr 6fr 0.5fr; */
+        }
+
+        .accordion__label,
+        .accordion__content {
+            padding: 14px 20px;
+        }
+       
+        .accordion__label {
+            display: flex;
+            color: black;
+            font-weight: 500;
+            cursor: pointer;
+            align-self: center;
+            position: relative;
+            transition: background 0.1s;
+        }
+
+        .accordion__label:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .accordion__label::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 20px;
+            width: 12px;
+            height: 6px;
+            /* background-image: url('data:image/svg+xml;utf8,<svg width="100" height="50" xmlns="/img/caret-down-outline.svg"><polygon points="0,0 100,0 50,50" style="fill:%23FFFFFF99;" /></svg>'); */
+            background-size: contain;
+            transition: transform 0.4s;
+        }
+
+        .accordion__content {
+            background: #ffffff;
+            line-height: 1.6;
+            font-size: 0.85em;
+            display: none;
+        }
+
+        .accordion__input {
+            display: none;
+        }
+
+        .accordion__input:checked ~ .accordion__content {
+            display: block;
+        }
+
+        .accordion__input:checked ~ .accordion__label::after {
+            transform: translateY(-50%) rotate(0.5turn);
+        }
+        .accordion__input:checked ~ .acc-down-icon::after{
+            transform: rotate(180deg);
+        }
+       
+
+        .submit-btn-container{
+            align-items: center;
+        }
+
+        .accordion-container .submit-btn {
+            font-size: 16px;
+            margin: 5%;
+            border: none;
+            border-radius: 5px;
+            float: left;
+            background-color: #009578;
+            color: white;
+            cursor: pointer;
+            width: 50%;
+            height: 40px;
+        }
+
+        .accordion-container .submit-btn:hover {
+            opacity: 0.8;
+        }
+
+        .accordion img{
+            width: 25px; 
+            height: 25px;
+        }
+        .acc-down-icon{
+            width: 15px; 
+            height: 15px;
+        }
+       
+    </style>
+
+
     <section id="columns">
         <span class="dropspanCurrent" >Clearance Form</span></br>
 
@@ -211,86 +312,52 @@
         <div class="body-container">
             
 
-  
-        <style>
+                @yield('clearanceContent')
             
-            #regStudA {
-                background-color: blue;
-                color: white;
-            } 
-            #regStudA:hover {
-                opacity: 0.8;
-                color: black;
-            } 
-        </style>
-    
+        
+        </div> 
+    </section>
 
-    <div class="column1" >
+    <!-- script for select options -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    
-        <div class="wrapper" style="margin-top: 0;">
+    <script>
 
-            <div class="title">Regular Student Form</div>
-            <div class="form">
-                <form action="" method="post">
+        $(document).ready(function(){
+            $("#college").on('change', function(){
+                $(".inputfield1").hide();
+                $("#" + $(this).val()).fadeIn(1);
+            }).change();
+        });
 
-                    <div class="inputfield"> 
-                        <label>Name</label> </br>
-                        <input type="text" class="input" name="name" placeholder="Enter Your Name" value="{{ old('name') }}"> </br>
-                        <span style="color: red;">@error('name'){{ $message }} @enderror</span>
-                    </div>  
-                        
-                    <div class="inputfield">
-                        <label>ID</label></br>
-                        <input type="text" class="input" name="id" placeholder="Enter Your ID" value="{{ old('email') }}"> </br>
-                        <span style="color: red;">@error('id'){{ $message }} @enderror</span>
-                    </div>  
+    </script>
 
-                    <div class="inputfield">
-                        <label>Gender</label></br>
-                        <div class="custom_select">
-                            <select id="gender" name="gender">
-                                <option selected disabled>Select</option>
+    <script>
+        var allFields = document.querySelectorAll(".input");
 
-                                <option value="Male"  @if(old('gender') === 'Male') selected @endif>Male</option>
-                                <option value="Female"  @if(old('gender') === 'Female') selected @endif>Female</option>
-                            </select></br>
-                            <span style="color:red;">@error('gender'){{ $message }} @enderror</span>
+        for (var i = 0; i < allFields.length; i++) {
 
-                        </div>
-                    </div> 
+            allFields[i].addEventListener("keyup", function(event) {
 
-                    <div class="inputfield">
-                        <label>Year</label></br>
-                        <input type="text" class="input" name="year" placeholder="Enter Year" value="{{ old('email') }}"></br>
-                        <span style="color: red;">@error('year'){{ $message }} @enderror</span>
-                    </div>
+            if (event.keyCode === 40) {
+                console.log('Enter clicked')
+                event.preventDefault();
+                if (this.parentElement.nextElementSibling.querySelector('input')) {
+                    this.parentElement.nextElementSibling.querySelector('input').focus();
+                }
+            }
+            if (event.keyCode === 38) {
+                console.log('Enter clicked')
+                event.preventDefault(); 
+                if (this.parentElement.previousElementSibling.querySelector('input')) {
+                    this.parentElement.previousElementSibling.querySelector('input').focus();
+                }
+            }
+            });
 
-                    <div class="inputfield">
-                        <label>Reason</label></br>
-                        <div class="custom_select">
-                            <select id="reason" name="reason">
-                                <option selected disabled>Select</option>
-                                <option value="end_of_year">End of Acadamic Year</option>
-                                <option value="withdrow">Withdrow</option>
-                                <option value="transfer">Transfer</option>
-                                <option value="readmission">Readmission</option>
-                            </select></br>
-                            <span style="color: red;">@error('reason'){{ $message }} @enderror</span>
-                        </div>
-                    </div> 
-
-                       
-                    <div class="inputfield" style="margin-top: 20px;">
-                        <input type="submit" value="Submit" class="btn">
-                    </div>
-                </form>
-                
-            </div>
-        </div>	
-    
-    </div>
-
+        }
+    </script>
 
 @endsection
+
 

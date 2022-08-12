@@ -1,12 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\StudentViewController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\RegularStudController;
+
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\OfficerController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\RegularStudController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UpdateController;
 
@@ -105,9 +107,20 @@ Route::post('/HRM/new employee/save', [OfficerController::class, 'newEmployeeSav
 Route::post('/registrar/new student/save', [OfficerController::class, 'newStudentSave'])->name('newUsers.saveStudent');
 Route::post('/library/new user/save', [OfficerController::class, 'newPatronSave'])->name('newUsers.savePatron');
 
+Route::post('/clearance/new user/save', [UserController::class, 'clearanceUserSave'])->name('newUsers.saveClearanceUser');
+
+Route::post('/clearance/regular student/form', [UserController::class, 'clearanceRegularForm'])->name('clearanceUsers.saveRegUser');
+Route::post('/clearance/extension student/form', [UserController::class, 'clearanceExtensionForm'])->name('clearanceUsers.saveExtnUser');
+Route::post('/clearance/distance student/form', [UserController::class, 'clearanceDistanceForm'])->name('clearanceUsers.saveDistUser');
+Route::post('/clearance/teacher/form', [UserController::class, 'clearanceTeacherForm'])->name('clearanceUsers.saveTeacherUser');
+Route::post('/clearance/administrator staff/form', [UserController::class, 'clearanceAdminStaffForm'])->name('clearanceUsers.saveAdminStaffUser');
+
+
 Route::get('/live_search',  [SearchController::class, 'index001']);
 Route::get('/live_search/action', [SearchController::class, 'liveSearch'])->name('live_search.action');
 // Route::get('/liveSearch/action', [SearchController::class, 'live_Search'])->name('livesearch.action');
+
+
 
 
 Route::group(['middleware'=>['AuthCheck']], function(){
@@ -116,8 +129,14 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 
     // clearance 
     Route::get('/clearance', [loginController::class, 'clearanceDashboard']);
-    Route::get('/clearance/regular student', [loginController::class, 'clearanceDashboard']);
-    
+
+    Route::get('/clearance/regular student', [UserController::class, 'clearanceRegular']);
+    Route::get('/clearance/extension student', [UserController::class, 'clearanceExtension']);
+    Route::get('/clearance/distance student', [UserController::class, 'clearanceDistance']);
+    Route::get('/clearance/teacher', [UserController::class, 'clearanceTeacher']);
+    Route::get('/clearance/administrator staff', [UserController::class, 'clearanceAdminStaff']);
+
+
 
     // admin routes ----------------------------------------------------------- //
     Route::get('/admin/new user', [loginController::class, 'newUserRegister'])->name('newUsers.newUser');

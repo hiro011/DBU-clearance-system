@@ -22,6 +22,9 @@ use App\Models\LibraryUsers;
 
 class OfficerController extends Controller
 {
+
+    
+
     // registrar
     function newStudentRegister(){
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
@@ -72,7 +75,6 @@ class OfficerController extends Controller
                             ->with($Display4)->with($Display1)->with($Display2)->with($Display3);
 
     }
-
     function newStudentSave(Request $request){
         
         //Validate requests
@@ -152,6 +154,7 @@ class OfficerController extends Controller
 
         return view('officers.HRM.newEmployee', $data);
     }
+    
     function newEmployeeSave(Request $request){
         
         //Validate requests
@@ -216,34 +219,62 @@ class OfficerController extends Controller
         }
     }
 
-    // Library
     function newPatronRegister(){
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
 
-        return view('officers.library.newPatron', $data);
+        // return view('officers.registrar.newStudent', $data);
+        $Display4 = ['new' => true];
+        $Display = ['all' => false];
+        $Display1 = ['teachers' => false];
+        $Display5 = ['book' => false];
+        $Display2 = ['adminstaffs' => false];
+        $Display3 = ['students' => false            ];
+        return view('officers.library.library')->with($data)->with($Display)->with($Display4)
+        ->with($Display5)->with($Display1)->with($Display2)->with($Display3);
+
     }
     function libraryTeachers(){ 
-        $teacherTable = ['teacherTable'=>DB::table('library_users')->where('catagory', '=', 'Teacher')->get()];
-
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
-        return view('officers.library.libraryTeachers')->with($data)->with($teacherTable);
+        $teacherTable = ['libraryUserTable'=>DB::table('library_users')->where('catagory', '=', 'Teacher')->get()];
+        $Display4 = ['new' => false];
+        $Display = ['all' => false];
+        $Display1 = ['teachers' => true];
+        $Display5 = ['book' => false];
+        $Display2 = ['adminstaffs' => false];
+        $Display3 = ['students' => false];
+        return view('officers.library.library')->with($data)->with($teacherTable)->with($Display)
+        ->with($Display5)->with($Display4)->with($Display1)->with($Display2)->with($Display3);
+
     }
     function libraryAdminStaffs(){ 
-        $adminStaffTable = ['adminStaffTable'=>LibraryUsers::where('catagory', '=', 'Admin Staff')];
-
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
-        return view('officers.library.libraryAdminStaff')->with($data)->with($adminStaffTable);
+        $adminStaffTable = ['libraryUserTable'=>LibraryUsers::where('catagory', '=', 'Admin_Staff')];
+        $Display4 = ['new' => false];
+        $Display = ['all' => false];
+        $Display1 = ['teachers' => false];
+        $Display5 = ['book' => false];
+        $Display2 = ['adminstaffs' => true];
+        $Display3 = ['students' => false];
+        return view('officers.library.library')->with($data)->with($adminStaffTable)->with($Display)
+        ->with($Display5)->with($Display4)->with($Display1)->with($Display2)->with($Display3);
+
     }
     function libraryStudents(){ 
-        $studentTable = ['studentTable'=>LibraryUsers::where('catagory', '=', 'Student')];
-
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
-        return view('officers.library.libraryStudent')->with($data)->with($studentTable);
+        $studentTable = ['libraryUserTable'=>LibraryUsers::where('catagory', '=', 'Student')];
+        $Display4 = ['new' => false];
+        $Display = ['all' => false];
+        $Display1 = ['teachers' => false];
+        $Display5 = ['book' => false];
+        $Display2 = ['adminstaffs' => false];
+        $Display3 = ['students' => true];
+        return view('officers.library.library')->with($data)->with($studentTable)->with($Display)
+        ->with($Display5)->with($Display4)->with($Display1)->with($Display2)->with($Display3);
+
     }
     function newPatronSave(Request $request){
         
         //Validate requests
-
         $request->validate([
             'catagory'=>'required',
             'card_no'=>'required|unique:library_users',
@@ -274,8 +305,6 @@ class OfficerController extends Controller
             return back()->with('fail','Something went wrong, try again later');
         }
     }
-
- 
    
 
     function save(Request $request){
@@ -305,102 +334,4 @@ class OfficerController extends Controller
         }
     }
 
-    //
-        // function check(Request $request){
-        //     //validate request input
-        //     $request->validate([
-        //         'email' => 'required|email',
-        //         'password' => 'required'
-        //     ]);
-
-        
-        //     $userInfo = Officer::where('email','=', $request->email)->first();
-
-        //     if (!$userInfo){
-        //         return back()->with('fail','We did not recognise yor email address.');
-        //     }else{
-        //         Hash::make($request->password);
-        //         $password = Hash::make($userInfo->password); // hash the database password
-
-        //         if(Hash::check($request->password, $password)){
-        //             $request->session()->put('LoggedUser', $userInfo->id);
-
-        //             $userDep = $userInfo->department;
-        //             $userColl = $userInfo->college;
-                    
-                    
-        //             // colege
-        //                 // Officers 
-        //                 // engineering 
-        //                 // computing 
-        //                 // freshman 
-        //                 // law 
-        //                 // socialScience 
-        //                 // business 
-        //                 // computational 
-        //                 // agriculture 
-        //             //end
-
-        //             //Officers
-        //                 // Anti Corruption
-        //                 // Cashier
-        //                 // EngCollege Finance
-        //                 // Finance
-        //                 // General Service
-        //                 // HRM
-        //                 // ICT Property 
-        //                 // Property Officer 
-        //                 // Research 
-        //                 // StudResidence Office
-        //             //end
-
-        //             // Officers
-        //             if ($userColl === 'Officers'){
-
-        //                 if($userDep === 'Registrar'){
-        //                     return redirect('officers/registrar'); 
-        //                 } 
-        //                 if($userDep === 'StudResidence'){
-        //                     return redirect('officers/student residence'); 
-        //                 } 
-        //                 if($userDep === 'Library'){
-        //                     return redirect('officers/library'); 
-        //                 } 
-        //                 if($userDep === 'Dining'){
-        //                     return redirect('officers/dining office'); 
-        //                 } 
-        //             }
-
-        //             // Enginering College
-        //            if ($userColl === 'engineering'){
-
-        //                 if($userDep === 'Electrical & Computer Engineering'){
-        //                     return redirect('/officers/electrical department'); 
-        //                 } 
-        //                 if($userDep === 'Mechanical Engineering'){
-        //                     return redirect('depOfficerView/mechanicalDep'); 
-        //                 } 
-        //                 if($userDep === 'Civil Engineering'){
-        //                     return redirect('depOfficerView/civilDep'); 
-        //                 } 
-        //                 if($userDep === 'Chemical Engineering'){
-        //                     return redirect('depOfficerView/chemicalDep'); 
-        //                 } 
-        //                 if($userDep === 'Industrial Engineering'){
-        //                     return redirect('depOfficerView/industrialDep'); 
-        //                 } 
-        //                 if($userDep === 'CoTM Engineering'){
-        //                     return redirect('depOfficerView/cotmDep'); 
-        //                 } 
-                        
-        //             }
-                
-
-        //         }else{
-        //             return back()->with('fail','Incorrect password.');
-        //         }
-        //     }
-
-        // }
-    //
 }

@@ -13,17 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('library_users', function (Blueprint $table) {
+        Schema::create('clearance_regulars', function (Blueprint $table) {
             $table->id();
-            $table->string('Card_no', 50);
-            $table->string('name', 100);
+            $table->string('ID_no', 50);
+            $table->string('name', 50);
             $table->string('gender', 50);
-            $table->string('catagory', 100);
+            $table->string('program', 50);
+            $table->integer('year');
             $table->string('college', 100);
-            $table->string('department', 100)->nullable();
-            $table->string('email', 255)->nullable();
-            $table->integer('phone')->nullable();
-            $table->string('add_by', 50);
+            $table->string('department', 100);
+            $table->string('reason', 100);
             $table->timestamps();
         });
     }
@@ -35,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('library_users');
+        Schema::dropIfExists('clearance_regulars');
     }
 };
