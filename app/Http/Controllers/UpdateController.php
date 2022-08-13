@@ -69,5 +69,33 @@ class UpdateController extends Controller
     		return response()->json($request);
     	}
     }
+    
+    function adminTableEdit(Request $request){
+        if($request->ajax()){
+    		if($request->action == 'edit'){
+    			$data = array(
+    				'ID_no'	 => 	$request->ID_no,
+    				'name'	 => 	$request->name,
+    				'email' =>     $request->email,
+                    'role'   =>     $request->role,
+                    'add_by'   =>     $request->program,
+    			);
+ 
+                $program = $request->program;
+
+                DB::table('user_logins')
+                    ->where('ID_no', $request->ID_no)
+                    ->update($data);
+                
+    		}
+    		if($request->action == 'delete'){
+                DB::table('user_logins')
+                        ->where('ID_no', $request->ID_no)
+                        ->delete();
+                         
+    		}
+    		return response()->json($request);
+    	}
+    }
 
 }

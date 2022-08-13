@@ -182,10 +182,10 @@ class OfficerController extends Controller
         $employee->guarentor_phone = $request->guarentor_phone;
         $employee->level_of_education = $request->level_of_education;
         $employee->job_title = $request->job_title;
-        $employee->age = Carbon::parse($request->birth_date)->diff(Carbon::now())->y;
-        // $employee->age = \Carbon::parse($request->birth_date)->age;
+        // $employee->age = Carbon::parse($request->birth_date)->diff(Carbon::now())->y;
         $employee->salary = $request->salary;
         $save = $employee->save();
+
         $employee_type = $request->employee_type;
 
         if($employee_type === 'Teacher'){
@@ -213,7 +213,8 @@ class OfficerController extends Controller
        
 
         if($save){
-        return back()->with('success','New User has been successfuly added to database');
+            
+            return back()->with('success','New User has been successfuly added to database');
         }else{
             return back()->with('fail','Something went wrong, try again later');
         }

@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('library_checkouts', function (Blueprint $table) {
+        Schema::create('finance_users', function (Blueprint $table) {
             $table->id();
-            $table->string('card_no', 50);
-            $table->string('barcode', 100);
-            $table->text('title');
-            $table->string('library', 250);
-            $table->string('location', 250)->nullable();
-            $table->string('due_date', 250);
-            $table->integer('charge')->nullable();
+            $table->string('ID_no', 50);
+            $table->string('name', 100);
+            $table->string('college', 100);
+            $table->string('department', 100);
+            $table->float('deposit');
+            $table->float('withdraw');
+            $table->float('balance');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('library_checkouts');
+        Schema::dropIfExists('finance_users');
     }
 };

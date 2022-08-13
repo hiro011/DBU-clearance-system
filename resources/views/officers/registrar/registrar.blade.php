@@ -59,6 +59,7 @@
             display: block;
             padding: 8px 8px 8px 15px;
             color: rgb(0, 0, 0);
+            border: 1px groove lightblue;
             text-decoration: none;
             font-size: 16px;
             transition: 0.3s;
@@ -85,14 +86,14 @@
         .abutton:hover{
             color: #f1f1f1;
         }
-        @media screen and (max-width:420px) {
+        @media screen and (max-width:600px) {
             
             body {
                 padding: 0;
                 font-family: "Times New Roman", Times, serif;
             }
             .sticky {
-                width: 91.5%;
+                width: 69.5%;
             }
             table{
                 display: block;
@@ -230,11 +231,11 @@
             cursor: pointer;
         }
          
-        @media screen and (max-width:420px) {
+        @media screen and (max-width:600px) {
 
 
             .container{
-                padding-right: 10px;
+                padding: 0;
             }
             table{
                 font-size: 12px;

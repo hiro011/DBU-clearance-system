@@ -4,6 +4,13 @@
 @section('content')
              
     <style>
+        .alert-success, .alert-danger{
+            width: 90%;
+            padding: 3%;
+            margin: 10px;
+            opacity: 0.9;
+        }
+       
         .profile_dd{
             top: 58px; 
             right: 290px;

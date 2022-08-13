@@ -18,22 +18,34 @@
         <div class="body-container">
             <div class="column1" >
 
+                @if($regStudResidence)
+                    @if(($regStudResidence->status)==='leave')
+                        <style>
+                            .residence{
+                                border-left: 12px solid #47D764;
+                            } 
+                            .residence .success{
+                                display: inline;
+                            }
+                        </style>
+                    @endif
+                    @if(($regStudResidence->status)==='stay')
+                        <style>
+                            .residence{
+                                border-left: 12px solid #ff355b;
+                            }
+                            .residence .fail{
+                                display: inline;
+                            }
+                        </style>
+                    @endif
+                @endif
                 @if(!$regStudResidence)
                     <style>
                         .residence{
                             border-left: 12px solid #47D764;
                         } 
                         .residence .success{
-                            display: inline;
-                        }
-                    </style>
-                @endif
-                @if($regStudResidence)
-                    <style>
-                        .residence{
-                            border-left: 12px solid #ff355b;
-                        }
-                        .residence .fail{
                             display: inline;
                         }
                     </style>
@@ -60,7 +72,7 @@
                     </style>
                 @endif
                     
-                @if(!$regRegistrar)
+                @if(($regRegistrar->status)!=='On-Class')
                     <style>
                         .registrar{
                             border-left: 12px solid #47D764;
@@ -70,7 +82,7 @@
                         }
                     </style>
                 @endif
-                @if($regRegistrar)
+                @if(($regRegistrar->status)==='On-Class')
                     <style>
                         .registrar{
                             border-left: 12px solid #ff355b;
@@ -122,7 +134,7 @@
                         }
                     </style>
                 @endif
-                    
+                
 
                 <div class="accordion-container">
 
@@ -131,12 +143,20 @@
                             {{ Session::get('success')}}
                         </div>
                     @endif
+                    
                     @if (Session::get('fail'))
                         <div class="alert-danger">
                             {{ Session::get('fail')}}
                         </div>
                     @endif
-                    <form action="{{ route('newUsers.saveStudent') }}" method="POST">
+
+                    @if ($clearance)
+                        <div class="alert-success">
+                            <span>Your request is submitted you can check Registrar office to get the paper</span>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('clearanceUsers.checkRegular') }}" method="POST">
 
                         @csrf
                         <div class="accordion department">
@@ -172,11 +192,7 @@
                                     
                             </div>
                         </div>
-                        @if($noRegistrar === true)
-                        <span style="color:red; margin-left: 40px;"> 
-                            Error you didn't get approval from your department 
-                        </span>
-                        @endif
+                         
                         <div class="accordion library">
                             <input type="checkbox" name="example_accordion" id="section2" class="accordion__input">
                             <label for="section2" class="accordion__label">
@@ -211,11 +227,7 @@
                                     
                             </div>
                         </div>
-                        @if($noLibrary === true)
-                        <span style="color:red; margin-left: 40px;"> 
-                            Error you didn't get approval from library 
-                        </span>
-                        @endif
+                         
                         <div class="accordion residence">
                             <input type="checkbox" name="example_accordion" id="section3" class="accordion__input">
                             <label for="section3" class="accordion__label">
@@ -264,11 +276,7 @@
 
                             </div>
                         </div>
-                        @if($noResidence === true)
-                        <span style="color:red; margin-left: 40px;"> 
-                            Error you didn't get approval from residence office 
-                        </span>
-                        @endif
+                        
                         <div class="accordion dining">
                             <input type="checkbox" name="example_accordion" id="section4" class="accordion__input">
                             <label for="section4" class="accordion__label">
@@ -303,18 +311,14 @@
                                     
                             </div>
                         </div>
-                        @if($noDining === true)
-                        <span style="color:red; margin-left: 40px;"> 
-                            Error you didn't get approval from dining office 
-                        </span>
-                        @endif
+                         
                         <div class="accordion registrar">
                             <input type="checkbox" name="example_accordion" id="section5" class="accordion__input">
                             <label for="section5" class="accordion__label">
                                 @if(($regRegistrar->status)!=='On-Class')
                                 <img src="/img/success-icon.png" alt="success-icon" class="success">
                                 @endif
-                                @if(($regRegistrar->status)==='On-Class')
+                                @if(($regRegistrar->status) ==='On-Class')
                                 <img src="/img/error-icon.png" alt="error-icon" class="fail">
                                 @endif
                                 
@@ -333,7 +337,7 @@
                                 @if(($regRegistrar->status)==='On-Class')
                                     <p style="color: red;"> Declined </p>
                                     <p>
-                                        Your status is " {{ $regRegistrar->status }} "
+                                        Your status is " {{ $regRegistrar['status'] }} "
                                         You didnt get the approval of the registrar office, 
                                         that means you didn't get permission from registrar, 
                                         you have to get permission from registrar before requesting clearance,
@@ -343,13 +347,9 @@
                                     
                             </div>
                         </div>
-                        @if($noRegistrar === true)
-                        <span style="color:red; margin-left: 40px;"> 
-                            Error you didn't get approval from registrar office
-                        </span>
-                        @endif
+                         
                         <div class="submit-btn-container">
-                            <input type="button" value="Request" class="submit-btn">
+                            <input type="submit" value="Request" class="submit-btn">
                         </div>
                     </form>
 

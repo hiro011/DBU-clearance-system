@@ -189,100 +189,36 @@ class SearchController extends Controller
 
     }
 
-    function index001()
-    {
-     return view('live_Search');
-    }
-
-    function liveSearch(Request $request)
-    {
-     if($request->ajax())
-     {
-      $output = '';
-      $query = $request->get('query');
-      if($query != '')
-      {
-       $data = DB::table('tbl_customers')
-           ->where('CustomerName', 'like', '%'.$query.'%')
-         ->orWhere('Address', 'like', '%'.$query.'%')
-         ->orWhere('City', 'like', '%'.$query.'%')
-         ->orWhere('PostalCode', 'like', '%'.$query.'%')
-         ->orWhere('Country', 'like', '%'.$query.'%')
-         ->orderBy('CustomerID', 'desc')
-         ->get();
+    function adminSearch(Request $request){
          
-      }
-      else
-      {
-       $data = DB::table('tbl_customers')
-         ->orderBy('CustomerID', 'desc')
-         ->get();
-      }
-      $total_row = $data->count();
-      if($total_row > 0)
-      {
-       foreach($data as $row)
-       {
-        $output .= '
-        <tr>
-         <td>'.$row->CustomerName.'</td>
-         <td>'.$row->Address.'</td>
-         <td>'.$row->City.'</td>
-         <td>'.$row->PostalCode.'</td>
-         <td>'.$row->Country.'</td>
-        </tr>
-        ';
-       }
-      }
-      else
-      {
-       $output = '
-       <tr>
-        <td align="center" colspan="5">No Data Found</td>
-       </tr>
-       ';
-      }
-      $data = array(
-       'table_data'  => $output,
-       'total_data'  => $total_row
-      );
+        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
+        
+        $search_text = $request->key_word;
 
-      echo json_encode($data);
-     }
-    }
-    // function live_Search(Request $request){
-    //  if($request->ajax())
-    //  {
-    //   $output = '';
-    //   $query = $request->get('query');
-    //   if($query != '')
-    //   {
-    //    $data = DB::table('students')
-    //        ->where('ID_no', 'like', '%'.$query.'%')
-    //      ->orWhere('name', 'like', '%'.$query.'%')
-    //      ->orWhere('gender', 'like', '%'.$query.'%')
-    //      ->orWhere('year', 'like', '%'.$query.'%')
-    //      ->orWhere('college', 'like', '%'.$query.'%')
-    //      ->orWhere('department', 'like', '%'.$query.'%')
-    //      ->orWhere('status', 'like', '%'.$query.'%')
-    //      ->orderBy('ID_no', 'asc')
-    //      ->get();
-         
-    //   }
-    //   else
-    //   {
-    //    $data = DB::table('students')
-    //      ->orderBy('ID_no', 'asc')
-    //      ->get();
-    //   }
+        if($request->search_by===''){
+            $usersList = ['userLoginTable'=>DB::select('select * from user_logins')];
+    
+            $user = ['users' => true];
+            $new = ['new' => false];
+            return view('admin.adminView')->with($data)->with($usersList)
+                                        ->with($user)->with($new);
+
+        }else{
+            $UserTable = DB::table('user_logins')
+                ->where('ID_no', 'like', '%'.$search_text.'%')
+                ->orWhere('name', 'like', '%'.$search_text.'%')
+                ->orWhere('email', 'like', '%'.$search_text.'%')
+                ->orWhere('role', 'like', '%'.$search_text.'%')
+                ->orderBy('ID_no', 'asc')
+                ->get();
+            $usersList = ['userLoginTable' => $UserTable];
+            $user = ['users' => true];
+            $new = ['new' => false];
+            return view('admin.adminView')->with($data)->with($usersList)
+                                        ->with($user)->with($new);
+        }
        
-    //   $data = array(
-    //    'table_data'  => $output,
-    //    'total_data'  => $total_row
-    //   );
+    }
 
-    //   echo json_encode($data);
-    //  }
-    // }
-
+ 
 }

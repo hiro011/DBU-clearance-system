@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('department_heads', function (Blueprint $table) {
+        Schema::create('eng_college_finances', function (Blueprint $table) {
             $table->id();
             $table->string('ID_no', 50);
+            $table->string('name', 100);
             $table->string('department', 100);
-            $table->string('catagory', 250);
-            $table->string('item1', 250);
-            $table->string('item2', 250)->nullable();
-            $table->string('item3', 250)->nullable();
+            $table->float('deposit');
+            $table->float('withdraw');
+            $table->float('balance');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('department_heads');
+        Schema::dropIfExists('eng_college_finances');
     }
 };

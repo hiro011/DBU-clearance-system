@@ -15,10 +15,21 @@ use App\Models\AdminStaff;
 use App\Models\Officer;
 use App\Models\Students;
 use App\Models\ClearanceRegular;
-use App\Models\DepartmentHead;
+use App\Models\DepartmentItems;
 use App\Models\StudResidence;
 use App\Models\LibraryCheckouts;
 use App\Models\DiningNonCafe;
+use App\Models\FinanceUsers;
+use App\Models\IctPropertyUsers;
+use App\Models\EngCollegeFinance;
+use App\Models\ResearcherLists;
+use App\Models\ClearanceStudent;
+use App\Models\ClearanceStaffs;
+use App\Models\PropertyCheckouts;
+use App\Models\CashierUsers;
+use App\Models\GeneralServiceUsers;
+use App\Models\AntiCorruptionUsers;
+
 use DB;
 
 class UserController extends Controller
@@ -35,333 +46,444 @@ class UserController extends Controller
         $disUser = ['disStud'=>Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first()];
         $teacherUser = ['teacher'=>Teacher::where('ID_no','=', $loggedUser->ID_no)->first()];
         $adminStaffUser = ['adminstaff'=>AdminStaff::where('ID_no','=', $loggedUser->ID_no)->first()];
- 
-        //display different contents accordingly
-        $Display1 = ['teacher_staff' => false];
-        $Display2 = ['admin_staff' => false];
-        $Display3 = ['extn_stud' => false];
-        $Display4 = ['reg_stud' => true];
-        $Display5 = ['dist_stud' => false];
+        
+        $Clearance = ['clearance'=>ClearanceStudent::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first()];
 
         // check regular student clearance 
-        $regDH=['regDepHead'=>DepartmentHead::where([['catagory','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first()];
-        $regL= ['regLibrary'=>LibraryCheckouts::where('card_no','=', $loggedUser->ID_no)->first()];
+        $regDH=['regDepHead'=>DepartmentItems::where([['catagory','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first()];
+        $regL= ['regLibrary'=>LibraryCheckouts::where([['catagory','=', 'Regular'],['card_no','=', $loggedUser->ID_no]])->first()];
         $regSR=['regStudResidence'=>StudResidence::where('ID_no','=', $loggedUser->ID_no)->first()];
         $regDi=['regDining'=>DiningNonCafe::where('ID_no','=', $loggedUser->ID_no)->first()];
         $regRg=['regRegistrar'=>Students::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first()];
-
-        // no submit error span
-        $error1 = ['noRegistrar' => false];
-        $error2 = ['noLibrary' => false];
-        $error3 = ['noResidence' => false];
-        $error4 = ['noDining' => false];
-        $error5 = ['noDepartment' => false];
 
         // store logged user info
         $data = ['LoggedUser'=>$loggedUser];
 
         return view('clearanceUsers.regStudForm')->with($data)->with($regUser)->with($extnUser)
                 ->with($disUser)->with($teacherUser)->with($adminStaffUser)->with($regDH)
-                ->with($regL)->with($regSR)->with($regDi)->with($regRg)->with($Display5)
-                ->with($Display4)->with($Display1)->with($Display2)->with($Display3)
-                ->with($error4)->with($error1)->with($error2)->with($error3)->with($error5);
-        
+                ->with($regL)->with($regSR)->with($regDi)->with($regRg)->with($Clearance);
+                 
     }
-    // function clearanceRegular(){
+    function clearanceExtension(){
        
-    //     $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
-
-    //     $regstud=Students::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $extnstud=Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $disstud=Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $teachers=Teacher::where('ID_no','=', $loggedUser->ID_no)->first();
-    //     $adminstaffs=AdminStaff::where('ID_no','=', $loggedUser->ID_no)->first();
-
-    //     $regClearance=ClearanceRegular::where('ID_no','=', $loggedUser->ID_no)->first();
-
-    //     $regUser = ['regStud'=>$regstud];
-    //     $extnUser = ['extnStud'=>$extnstud];
-    //     $disUser = ['disStud'=>$disstud];
-    //     $teacherUser = ['teacher'=>$teachers];
-    //     $adminStaffUser = ['adminstaff'=>$adminstaffs];
- 
-    //     $Display1 = ['teacher_staff' => false];
-    //     $Display2 = ['admin_staff' => false];
-    //     $Display3 = ['extn_stud' => false];
-    //     $Display4 = ['reg_stud' => true];
-    //     $Display5 = ['dist_stud' => false];
-
-    //     $data = ['LoggedUser'=>$loggedUser];
-
- 
-    //     if($regClearance){
-    //         $regClearanceData = ['regStudClearance'=>$regClearance];
-
-    //         $regDepHead=DepartmentHead::where([['catagory','=', 'Student'],['ID_no','=', $regClearance->ID_no]])->first();
-    //         $regLibrary=LibraryCheckouts::where('card_no','=', $regClearance->ID_no)->first();
-    //         $regStudResidence=StudResidence::where('ID_no','=', $regClearance->ID_no)->first();
-    //         $regDining=DiningNonCafe::where('ID_no','=', $regClearance->ID_no)->first();
-    //         $regRegistrar=Students::where([['program','=', 'Regular'],['ID_no','=', $regClearance->ID_no]])->first();
-
-
-    //         return view('clearanceUsers.regStudForm')->with($data)->with($regUser)->with($extnUser)
-    //             ->with($regClearanceData)->with($disUser)->with($teacherUser)->with($adminStaffUser)
-    //             ->with($regDepHead)->with($regLibrary)->with($regStudResidence)->with($regDining)->with($regRegistrar)
-    //             ->with($Display5)->with($Display4)->with($Display1)->with($Display2)->with($Display3);
-    //     }else{
-    //         return view('clearanceUsers.clearance')->with($data)->with($regUser)->with($extnUser)
-    //             ->with($Display5)->with($Display4)->with($Display1)->with($Display2)->with($Display3)
-    //             ->with($disUser)->with($teacherUser)->with($adminStaffUser);
-    //     }
-    // }
-
-    function clearanceRegularForm(Request $request){
-         
-                //Validate requests
-                $request->validate([
-                    'ID_no'=>'required',
-                    'name'=>'required',
-                    'gender'=>'required',
-                    'year'=>'required',
-                    'reason'=>'required'
-                ]);
+        $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
         
-                $dataI = UserLogin::where('id','=', session('LoggedUser'))->first();
-                $regstud=Students::where([['program','=', 'Regular'],['ID_no','=', $dataI->ID_no]])->first();
+        // check if logged user have different accesses
+        $regUser = ['regStud'=>Students::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first()];
+        $extnUser = ['extnStud'=>Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first()];
+        $disUser = ['disStud'=>Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first()];
+        $teacherUser = ['teacher'=>Teacher::where('ID_no','=', $loggedUser->ID_no)->first()];
+        $adminStaffUser = ['adminstaff'=>AdminStaff::where('ID_no','=', $loggedUser->ID_no)->first()];
 
-        
-                //Insert data into database
-                $regClear = new ClearanceRegular;
-                $regClear->ID_no = $request->ID_no;
-                $regClear->name = $request->name;
-                $regClear->gender = $request->gender;
-                $regClear->program = 'Regular';
-                $regClear->year = $request->year;
-                $regClear->college = $regstud->college;
-                $regClear->department = $regstud->department;
-                $regClear->reason = $request->reason;
-                $save = $regClear->save();
-        
-                if($save){
-                    return redirect('/clearance/regular student');
-                }else{
-                    return back()->with('fail','Something went wrong, try again later');
-                }
-        
+        $Clearance = ['clearance'=>ClearanceStudent::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first()];
+
+        // check extension student clearance 
+        $extnDH=['extnDepHead'=>DepartmentItems::where([['catagory','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first()];
+        $extnL= ['extnLibrary'=>LibraryCheckouts::where([['catagory','=', 'Extension'],['card_no','=', $loggedUser->ID_no]])->first()];
+        $extnRg=['extnRegistrar'=>Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first()];
+        $extnCon=['extnContinuing'=>Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first()];
+
+        // store logged user info
+        $data = ['LoggedUser'=>$loggedUser];
+
+        return view('clearanceUsers.extnStudForm')->with($data)->with($regUser)->with($extnUser)
+                        ->with($disUser)->with($teacherUser)->with($adminStaffUser)->with($Clearance)
+                        ->with($extnDH)->with($extnL)->with($extnRg)->with($extnCon);
+                 
     }
-    // function clearanceExtension(){
-    //     $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
-    //     $data = ['LoggedUser'=>$loggedUser];
-
-    //     $regstud=Students::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $extnstud=Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $disstud=Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $teachers=Teacher::where('ID_no','=', $loggedUser->ID_no)->first();
-    //     $adminstaffs=AdminStaff::where('ID_no','=', $loggedUser->ID_no)->first();
-
-    //     $regUser = ['regStud'=>$regstud];
-    //     $extnUser = ['extnStud'=>$extnstud];
-    //     $disUser = ['disStud'=>$disstud];
-    //     $teacherUser = ['teacher'=>$teachers];
-    //     $adminStaffUser = ['adminstaff'=>$adminstaffs];
- 
+    function clearanceDistance(){
+       
+        $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
         
-    //         return view('clearanceUsers.extensionStudent')->with($data)->with($regUser)->with($extnUser)
-    //                                     ->with($disUser)->with($teacherUser)->with($adminStaffUser);
-    // }
-    // function clearanceExtensionForm(Request $request){
-    //     $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
-    //     $data = ['LoggedUser'=>$loggedUser];
+        // check if logged user have different accesses
+        $regUser = ['regStud'=>Students::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first()];
+        $extnUser = ['extnStud'=>Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first()];
+        $disUser = ['disStud'=>Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first()];
+        $teacherUser = ['teacher'=>Teacher::where('ID_no','=', $loggedUser->ID_no)->first()];
+        $adminStaffUser = ['adminstaff'=>AdminStaff::where('ID_no','=', $loggedUser->ID_no)->first()];
 
-    //     $regstud=Students::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $extnstud=Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $disstud=Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $teachers=Teacher::where('ID_no','=', $loggedUser->ID_no)->first();
-    //     $adminstaffs=AdminStaff::where('ID_no','=', $loggedUser->ID_no)->first();
+        $Clearance = ['clearance'=>ClearanceStudent::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first()];
 
-    //     $regUser = ['regStud'=>$regstud];
-    //     $extnUser = ['extnStud'=>$extnstud];
-    //     $disUser = ['disStud'=>$disstud];
-    //     $teacherUser = ['teacher'=>$teachers];
-    //     $adminStaffUser = ['adminstaff'=>$adminstaffs];
- 
+        // check distance student clearance 
+        $disDH=['disDepHead'=>DepartmentItems::where([['catagory','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first()];
+        $disL= ['disLibrary'=>LibraryCheckouts::where([['catagory','=', 'Distance'],['card_no','=', $loggedUser->ID_no]])->first()];
+        $disRg=['disRegistrar'=>Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first()];
+        $disCon=['disContinuing'=>Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first()];
+
+        // store logged user info
+        $data = ['LoggedUser'=>$loggedUser];
+
+        return view('clearanceUsers.disStudForm')->with($data)->with($regUser)->with($extnUser)
+                                ->with($disUser)->with($teacherUser)->with($adminStaffUser)
+                                ->with($disDH)->with($disL)->with($disRg)->with($disCon)->with($Clearance);
+                 
+    }
+    function clearanceTeacher(){
+       
+        $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
         
-    //         return view('clearanceUsers.extnStudForm')->with($data)->with($regUser)->with($extnUser)
-    //                                     ->with($disUser)->with($teacherUser)->with($adminStaffUser);
-    // }
-    // function clearanceDistance(){
-    //     $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
-    //     $data = ['LoggedUser'=>$loggedUser];
+        // check if logged user have different accesses
+        $regUser = ['regStud'=>Students::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first()];
+        $extnUser = ['extnStud'=>Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first()];
+        $disUser = ['disStud'=>Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first()];
+        $teacherUser = ['teacher'=>Teacher::where('ID_no','=', $loggedUser->ID_no)->first()];
+        $adminStaffUser = ['adminstaff'=>AdminStaff::where('ID_no','=', $loggedUser->ID_no)->first()];
 
-    //     $regstud=Students::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $extnstud=Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $disstud=Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $teachers=Teacher::where('ID_no','=', $loggedUser->ID_no)->first();
-    //     $adminstaffs=AdminStaff::where('ID_no','=', $loggedUser->ID_no)->first();
+        $Clearance = ['clearance'=>ClearanceStaffs::where([['catagory','=', 'Teacher'],['ID_no','=', $loggedUser->ID_no]])->first()];
 
-    //     $regUser = ['regStud'=>$regstud];
-    //     $extnUser = ['extnStud'=>$extnstud];
-    //     $disUser = ['disStud'=>$disstud];
-    //     $teacherUser = ['teacher'=>$teachers];
-    //     $adminStaffUser = ['adminstaff'=>$adminstaffs];
- 
+        // check teachers clearance 
+        $DH=['DepHead'=>DepartmentItems::where([['catagory','=', 'Teacher'],['ID_no','=', $loggedUser->ID_no]])->first()];
+        $Property=['Property'=>PropertyCheckouts::where('ID_no','=', $loggedUser->ID_no)->first()];
+        $IctProperty=['IctProperty'=>IctPropertyUsers::where('ID_no','=', $loggedUser->ID_no)->first()];
+        $Cashier=['Cashier'=>CashierUsers::where('ID_no','=', $loggedUser->ID_no)->first()];
+        $Finance=['Finance'=>FinanceUsers::where('ID_no','=', $loggedUser->ID_no)->first()];
+        $ColFinance=['CollFinance'=>EngCollegeFinance::where('ID_no','=', $loggedUser->ID_no)->first()];
+        $Library=['Library'=>LibraryCheckouts::where([['catagory','=', 'Teacher'],['card_no','=', $loggedUser->ID_no]])->first()];
+        $Research=['Research'=>ResearcherLists::where('ID_no','=', $loggedUser->ID_no)->first()];
+        $GenServe=['GenService'=>GeneralServiceUsers::where('ID_no','=', $loggedUser->ID_no)->first()];
+        $AntiCorr=['AntiCorrupt'=>AntiCorruptionUsers::where('ID_no','=', $loggedUser->ID_no)->first()];
+        $HRM= ['HRM'=>Teacher::where('ID_no','=', $loggedUser->ID_no)->first()];
+
+        // store logged user info
+        $data = ['LoggedUser'=>$loggedUser];
+
+        return view('clearanceUsers.teacherForm')->with($data)->with($regUser)->with($extnUser)
+                ->with($disUser)->with($teacherUser)->with($adminStaffUser)->with($DH)
+                ->with($Property)->with($IctProperty)->with($Cashier)->with($Finance)
+                ->with($Library)->with($Research)->with($ColFinance)->with($Clearance)
+                ->with($GenServe)->with($AntiCorr)->with($HRM);
+
+    }
+    function clearanceAdminStaff(){
+       
+        $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
         
-    //         return view('clearanceUsers.distanceStudent')->with($data)->with($regUser)->with($extnUser)
-    //                                     ->with($disUser)->with($teacherUser)->with($adminStaffUser);
-    // }
-    // function clearanceDistanceForm(Request $request){
-    //     $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
-    //     $data = ['LoggedUser'=>$loggedUser];
+        // check if logged user have different accesses
+        $regUser = ['regStud'=>Students::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first()];
+        $extnUser = ['extnStud'=>Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first()];
+        $disUser = ['disStud'=>Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first()];
+        $teacherUser = ['teacher'=>Teacher::where('ID_no','=', $loggedUser->ID_no)->first()];
+        $adminStaffUser = ['adminstaff'=>AdminStaff::where('ID_no','=', $loggedUser->ID_no)->first()];
 
-    //     $regstud=Students::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $extnstud=Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $disstud=Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $teachers=Teacher::where('ID_no','=', $loggedUser->ID_no)->first();
-    //     $adminstaffs=AdminStaff::where('ID_no','=', $loggedUser->ID_no)->first();
+        $Clearance = ['clearance'=>ClearanceStaffs::where([['catagory','=', 'Admin Staff'],['ID_no','=', $loggedUser->ID_no]])->first()];
 
-    //     $regUser = ['regStud'=>$regstud];
-    //     $extnUser = ['extnStud'=>$extnstud];
-    //     $disUser = ['disStud'=>$disstud];
-    //     $teacherUser = ['teacher'=>$teachers];
-    //     $adminStaffUser = ['adminstaff'=>$adminstaffs];
- 
+        // check admin staff clearance 
+        $DH=['DepHead'=>DepartmentItems::where([['catagory','=', 'Admin Staff'],['ID_no','=', $loggedUser->ID_no]])->first()];
+        $Property=['Property'=>PropertyCheckouts::where('ID_no','=', $loggedUser->ID_no)->first()];
+        $IctProperty=['IctProperty'=>IctPropertyUsers::where('ID_no','=', $loggedUser->ID_no)->first()];
+        $Cashier=['Cashier'=>CashierUsers::where('ID_no','=', $loggedUser->ID_no)->first()];
+        $Finance=['Finance'=>FinanceUsers::where('ID_no','=', $loggedUser->ID_no)->first()];
+        $Library= ['Library'=>LibraryCheckouts::where([['catagory','=', 'Admin Staff'],['card_no','=', $loggedUser->ID_no]])->first()];
+        $AntiCorr= ['AntiCorrupt'=>AntiCorruptionUsers::where('ID_no','=', $loggedUser->ID_no)->first()];
+        $HRM= ['HRM'=>AdminStaff::where('ID_no','=', $loggedUser->ID_no)->first()];
+
+        // store logged user info
+        $data = ['LoggedUser'=>$loggedUser];
+
+        return view('clearanceUsers.adminStaffForm')->with($data)->with($regUser)->with($extnUser)
+                ->with($disUser)->with($teacherUser)->with($adminStaffUser)->with($DH)
+                ->with($Property)->with($IctProperty)->with($Cashier)->with($HRM)
+                ->with($Finance)->with($Library)->with($AntiCorr)->with($Clearance);
+
+    }
+
+    function clearanceCheckRegular(Request $request){
         
-    //         return view('clearanceUsers.disStudForm')->with($data)->with($regUser)->with($extnUser)
-    //                                     ->with($disUser)->with($teacherUser)->with($adminStaffUser);
-    // }
-
-    // function clearanceTeacher(){
-    //     $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
-    //     $data = ['LoggedUser'=>$loggedUser];
-
-    //     $regstud=Students::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $extnstud=Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $disstud=Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $teachers=Teacher::where('ID_no','=', $loggedUser->ID_no)->first();
-    //     $adminstaffs=AdminStaff::where('ID_no','=', $loggedUser->ID_no)->first();
-
-    //     $regUser = ['regStud'=>$regstud];
-    //     $extnUser = ['extnStud'=>$extnstud];
-    //     $disUser = ['disStud'=>$disstud];
-    //     $teacherUser = ['teacher'=>$teachers];
-    //     $adminStaffUser = ['adminstaff'=>$adminstaffs];
+        $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
+        $Clearance=ClearanceStudent::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first();
  
-        
-    //         return view('clearanceUsers.teacher')->with($data)->with($regUser)->with($extnUser)
-    //                                     ->with($disUser)->with($teacherUser)->with($adminStaffUser);
-    // }
-    // function clearanceTeacherForm(Request $request){
-    //     $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
-    //     $data = ['LoggedUser'=>$loggedUser];
-
-    //     $regstud=Students::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $extnstud=Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $disstud=Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $teachers=Teacher::where('ID_no','=', $loggedUser->ID_no)->first();
-    //     $adminstaffs=AdminStaff::where('ID_no','=', $loggedUser->ID_no)->first();
-
-    //     $regUser = ['regStud'=>$regstud];
-    //     $extnUser = ['extnStud'=>$extnstud];
-    //     $disUser = ['disStud'=>$disstud];
-    //     $teacherUser = ['teacher'=>$teachers];
-    //     $adminStaffUser = ['adminstaff'=>$adminstaffs];
- 
-        
-    //         return view('clearanceUsers.teacherForm')->with($data)->with($regUser)->with($extnUser)
-    //                                     ->with($disUser)->with($teacherUser)->with($adminStaffUser);
-    // }
-    // function clearanceAdminStaff(){
-    //     $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
-    //     $data = ['LoggedUser'=>$loggedUser];
-
-    //     $regstud=Students::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $extnstud=Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $disstud=Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $teachers=Teacher::where('ID_no','=', $loggedUser->ID_no)->first();
-    //     $adminstaffs=AdminStaff::where('ID_no','=', $loggedUser->ID_no)->first();
-
-    //     $regUser = ['regStud'=>$regstud];
-    //     $extnUser = ['extnStud'=>$extnstud];
-    //     $disUser = ['disStud'=>$disstud];
-    //     $teacherUser = ['teacher'=>$teachers];
-    //     $adminStaffUser = ['adminstaff'=>$adminstaffs];
- 
-        
-    //         return view('clearanceUsers.adminStaff')->with($data)->with($regUser)->with($extnUser)
-    //                                     ->with($disUser)->with($teacherUser)->with($adminStaffUser);
-    // }
-    // function clearanceAdminStaffForm(Request $request){
-    //     $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
-    //     $data = ['LoggedUser'=>$loggedUser];
-
-    //     $regstud=Students::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $extnstud=Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $disstud=Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first();
-    //     $teachers=Teacher::where('ID_no','=', $loggedUser->ID_no)->first();
-    //     $adminstaffs=AdminStaff::where('ID_no','=', $loggedUser->ID_no)->first();
-
-    //     $regUser = ['regStud'=>$regstud];
-    //     $extnUser = ['extnStud'=>$extnstud];
-    //     $disUser = ['disStud'=>$disstud];
-    //     $teacherUser = ['teacher'=>$teachers];
-    //     $adminStaffUser = ['adminstaff'=>$adminstaffs];
- 
-        
-    //         return view('clearanceUsers.adminStaffForm')->with($data)->with($regUser)->with($extnUser)
-    //                                     ->with($disUser)->with($teacherUser)->with($adminStaffUser);
-    // }
-    
-    // Login
+        // check regular student clearance 
+        $regDepHead=DepartmentItems::where([['catagory','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first();
+        $regLibrary=LibraryCheckouts::where([['catagory','=', 'Regular'],['card_no','=', $loggedUser->ID_no]])->first();
+        $regStudResidence=StudResidence::where('ID_no','=', $loggedUser->ID_no)->first();
+        $regDining=DiningNonCafe::where('ID_no','=', $loggedUser->ID_no)->first();
+        $regRegistrar=Students::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first();
      
-    function clearanceDashboard(){
-        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
+        $registrar = $regRegistrar->status;
 
-        return view('clearanceUsers.clearance')->with($data);
-    }
+        if($Clearance){
+            
+            return back()->with('fail','Your request have already been submitted');
+        }else{
+            if($regStudResidence){
+                $residence = $regStudResidence->status;
+                $checkS = !$regDepHead && !$regLibrary && ($residence!=='stay') && ($registrar!=='On-Class') && $regDining;
+                //Insert data into database
+                $regClearStud = new ClearanceStudent;
+                $regClearStud->ID_no = $regRegistrar->ID_no;
+                $regClearStud->name = $regRegistrar->name;
+                $regClearStud->gender = $regRegistrar->gender;
+                $regClearStud->program = 'Regular';
+                $regClearStud->year = $regRegistrar->year;
+                $regClearStud->college = $regRegistrar->college;
+                $regClearStud->department = $regRegistrar->department;
+                $regClearStud->reason = $regRegistrar->status;
+                $save = $regClearStud->save();
 
-    // Form
-    function RegularStudForm(){
-        return view('clearanceUsers.regStudForm');
-    }
-    function ExtensionStudForm(){
-        return view('clearanceUsers.extnStudForm');
-    }
-    function DistanceStudForm(){
-        return view('clearanceUsers.disStudForm');
-    }
-    function TeacherForm(){
-        return view('clearanceUsers.teacherForm');
-    }
-    function AdminStaffForm(){
-        return view('clearanceUsers.adminStaffForm');
-    }
+                if($save){
+                    return back()->with('success','Your request has been sent to registrar successfuly');
+                }else{
+                    return back()->with('fail','Something went wrong try again!');
+                }
+            }elseif(!$regStudResidence){
+                $checkS = !$regDepHead && !$regLibrary && ($registrar!=='On-Class') && $regDining;
+                //Insert data into database
+                $regClearStud = new ClearanceStudent;
+                $regClearStud->ID_no = $regRegistrar->ID_no;
+                $regClearStud->name = $regRegistrar->name;
+                $regClearStud->gender = $regRegistrar->gender;
+                $regClearStud->program = 'Regular';
+                $regClearStud->year = $regRegistrar->year;
+                $regClearStud->college = $regRegistrar->college;
+                $regClearStud->department = $regRegistrar->department;
+                $regClearStud->reason = $regRegistrar->status;
+                $save = $regClearStud->save();
 
-    // Register
-    function register(){
-        return view('newUsers.newClearanceUser');
-    }
+                if($save){
+                    return back()->with('success','Your request has been sent to registrar successfuly');
+                }else{
+                    return back()->with('fail','Something went wrong try again!');
+                }
+            }else{
+                return back()->with('fail','All officers must approve to request a clearance!');
+            }
+        }
 
-    // Dashbboard
-    function RegularStudDashboard(){
-        $data = ['LoggedUserInfo'=>RegularStud::where('id','=', session('LoggedUser'))->first()];
-        return view('clearanceUsers.regularStudent', $data);
+         
     }
-    function ExtensionStudDashboard(){
-        $data = ['LoggedUserInfo'=>ExtensionStud::where('id','=', session('LoggedUser'))->first()];
-        return view('clearanceUsers.extensionStudent', $data);
-    }
-    function DistanceStudDashboard(){
-        $data = ['LoggedUserInfo'=>DistanceStud::where('id','=', session('LoggedUser'))->first()];
-        return view('clearanceUsers.distanceStudent', $data);
-    }
-    function TeacherDashboard(){
-        $data = ['LoggedUserInfo'=>Teacher::where('id','=', session('LoggedUser'))->first()];
-        return view('clearanceUsers.teacher', $data);
-    }
-    function AdminStaffDashboard(){
-        $data = ['LoggedUserInfo'=>AdminStaffs::where('id','=', session('LoggedUser'))->first()];
-        return view('clearanceUsers.adminStaff', $data);
-    }
+    function clearanceCheckExtension(Request $request){
+        
+        $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
+
+        $Clearance = ClearanceStudent::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first();
  
+        // check extension student clearance 
+        $DepHead=DepartmentItems::where([['catagory','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first();
+        $Library=LibraryCheckouts::where([['catagory','=', 'Extension'],['card_no','=', $loggedUser->ID_no]])->first();
+        $Registrar=Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first();
+     
+        $registrar = $Registrar->status;
+
+        if($Clearance){
+            
+            return back()->with('fail','Your request have already been submitted');
+        }else{
+        
+            if(!$DepHead && !$Library && ($registrar!=='On-Class')){
+                //Insert data into database
+                $ClearStud = new ClearanceStudent;
+                $ClearStud->ID_no = $Registrar->ID_no;
+                $ClearStud->name = $Registrar->name;
+                $ClearStud->gender = $Registrar->gender;
+                $ClearStud->program = 'Extension';
+                $ClearStud->year = $Registrar->year;
+                $ClearStud->college = $Registrar->college;
+                $ClearStud->department = $Registrar->department;
+                $ClearStud->reason = $Registrar->status;
+                $save = $ClearStud->save();
+                if($save){
+                    return back()->with('success','Your request has been sent to registrar successfuly');
+                }else{
+                    return back()->with('fail','Something went wrong try again!');
+                }
+            }else{
+                return back()->with('fail','All officers must approve to request a clearance!');
+            }
+        }
+
+         
+    }
+    function clearanceCheckDistance(Request $request){
+        
+        $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
+
+        $Clearance = ClearanceStudent::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first();
+ 
+        // check distance student clearance 
+        $DepHead=DepartmentItems::where([['catagory','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first();
+        $Library=LibraryCheckouts::where([['catagory','=', 'Distance'],['card_no','=', $loggedUser->ID_no]])->first();
+        $Registrar=Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first();
+     
+        $registrar = $Registrar->status;
+
+        if($Clearance){
+            
+            return back()->with('fail','Your request have already been submitted');
+        }else{
+        
+            if(!$DepHead && !$Library && ($registrar!=='On-Class')){
+                //Insert data into database
+                $ClearStud = new ClearanceStudent;
+                $ClearStud->ID_no = $Registrar->ID_no;
+                $ClearStud->name = $Registrar->name;
+                $ClearStud->gender = $Registrar->gender;
+                $ClearStud->program = 'Distance';
+                $ClearStud->year = $Registrar->year;
+                $ClearStud->college = $Registrar->college;
+                $ClearStud->department = $Registrar->department;
+                $ClearStud->reason = $Registrar->status;
+                $save = $ClearStud->save();
+
+                if($save){
+                    return back()->with('success','Your request has been sent to registrar successfuly');
+                }else{
+                    return back()->with('fail','Something went wrong try again!');
+                }
+
+            }else{
+                return back()->with('fail','All officers must approve to request a clearance!');
+            }
+        }
+
+         
+    }
+    function clearanceCheckTeacher(Request $request){
+        
+        $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
+
+        $Clearance = ClearanceStaffs::where([['catagory','=', 'Teacher'],['ID_no','=', $loggedUser->ID_no]])->first();
+        $staff = Teacher::where('ID_no','=', $loggedUser->ID_no)->first();
+ 
+        // check teacher clearance 
+        $DH=DepartmentItems::where([['catagory','=', 'Teacher'],['ID_no','=', $loggedUser->ID_no]])->first();
+        $Property=PropertyCheckouts::where('ID_no','=', $loggedUser->ID_no)->first();
+        $IctProperty= IctPropertyUsers::where('ID_no','=', $loggedUser->ID_no)->first();
+        $Cashier= CashierUsers::where('ID_no','=', $loggedUser->ID_no)->first();
+        $Finance= FinanceUsers::where('ID_no','=', $loggedUser->ID_no)->first();
+        $ColFinance= EngCollegeFinance::where('ID_no','=', $loggedUser->ID_no)->first();
+        $Library= LibraryCheckouts::where([['catagory','=', 'Teacher'],['card_no','=', $loggedUser->ID_no]])->first();
+        $Research= ResearcherLists::where('ID_no','=', $loggedUser->ID_no)->first();
+        $GenServe= GeneralServiceUsers::where('ID_no','=', $loggedUser->ID_no)->first();
+        $AntiCorr= AntiCorruptionUsers::where('ID_no','=', $loggedUser->ID_no)->first();
+        $HRM=  Teacher::where('ID_no','=', $loggedUser->ID_no)->first();
+                                
+        
+        $hrm = $HRM->status;
+
+        $cashier = NULL;
+        $finance = NULL;
+      $colFinance = NULL;
+        $research = NULL;
+        $genServe = NULL;
+        $antiCorr = NULL;
+
+        if($Cashier){
+            $cashier = $Cashier->balance;
+        }
+        if($Finance){
+            $finance = $Finance->balance;
+        }
+        if($ColFinance){
+            $colFinance = $ColFinance->balance;
+        }
+        if($Research){
+            $research = $Research->status;
+        }
+        if($GenServe){
+            $genServe = $GenServe->status;
+        }
+        if($AntiCorr){
+            $antiCorr = $AntiCorr->status;
+        }
+
+        if($Clearance){
+            
+            return back()->with('fail','Your have already submitted a request');
+        }else{
+        
+            if(!$DH && !$Library && !$Property && !$IctProperty && ($cashier===0 ) 
+                && ($finance===0 ) && ($colFinance===0 ) && ($research==='Finished') 
+                && ($genServe!=='stay') && ($antiCorr!=='working') && ($hrm!=='working') ){
+
+                //Insert data into database
+                $ClearStaff = new ClearanceStaffs;
+                $ClearStaff->ID_no = $HRM->ID_no;
+                $ClearStaff->name = $HRM->name;
+                $ClearStaff->gender = $HRM->gender;
+                $ClearStaff->catagory = $HRM->catagory;
+                $ClearStaff->college = $HRM->college;
+                $ClearStaff->department = $HRM->department;
+                $ClearStaff->reason = $HRM->status;
+                $save = $ClearStaff->save();
+
+                if($save){
+                    return back()->with('success','Your request has been sent to HRM successfuly');
+                }else{
+                    return back()->with('fail','Something went wrong try again!');
+                }
+            }else{
+                return back()->with('fail','All officers must approve to request a clearance!');
+            }
+        }
+
+         
+    }
+    function clearanceCheckAdminStaff(Request $request){
+        
+        $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
+
+        $Clearance = ClearanceStaffs::where([['catagory','=', 'Admin Staff'],['ID_no','=', $loggedUser->ID_no]])->first();
+        $staff = Teacher::where('ID_no','=', $loggedUser->ID_no)->first();
+ 
+        // check admin staff clearance 
+        $DH=DepartmentItems::where([['catagory','=', 'Admin Staff'],['ID_no','=', $loggedUser->ID_no]])->first();
+        $Property=PropertyCheckouts::where('ID_no','=', $loggedUser->ID_no)->first();
+        $IctProperty= IctPropertyUsers::where('ID_no','=', $loggedUser->ID_no)->first();
+        $Cashier= CashierUsers::where('ID_no','=', $loggedUser->ID_no)->first();
+        $Finance= FinanceUsers::where('ID_no','=', $loggedUser->ID_no)->first();
+        $Library= LibraryCheckouts::where([['catagory','=', 'Teacher'],['card_no','=', $loggedUser->ID_no]])->first();
+        $AntiCorr= AntiCorruptionUsers::where('ID_no','=', $loggedUser->ID_no)->first();
+        $HRM=  AdminStaff::where('ID_no','=', $loggedUser->ID_no)->first();
+                             
+        $cashier = NULL;
+        $finance = NULL;
+        $antiCorr = NULL;
+
+        $hrm = $HRM->status;
+
+        if($Cashier){
+            $cashier = $Cashier->balance;
+        }
+        if($Finance){
+            $finance = $Finance->balance;
+        }
+        if($AntiCorr){
+            $antiCorr = $AntiCorr->status;
+        }
+
+        if($Clearance){
+            
+            return back()->with('fail','Your have already submitted a request');
+        }else{
+        
+            if(!$DH && !$Library && !$Property && !$IctProperty && ($cashier===0 ) 
+                && ($finance===0 ) && ($antiCorr!=='working') && ($hrm!=='working') ){
+
+                //Insert data into database
+                $ClearStaff = new ClearanceStaffs;
+                $ClearStaff->ID_no = $HRM->ID_no;
+                $ClearStaff->name = $HRM->name;
+                $ClearStaff->gender = $HRM->gender;
+                $ClearStaff->catagory = $HRM->catagory;
+                $ClearStaff->college = $HRM->college;
+                $ClearStaff->department = $HRM->department;
+                $ClearStaff->reason = $HRM->status;
+                $save = $ClearStaff->save();
+
+                if($save){
+                    return back()->with('success','Your request has been sent to HRM successfuly');
+                }else{
+                    return back()->with('fail','Something went wrong try again!');
+                }
+
+            }else{
+                return back()->with('fail','All officers must approve to request a clearance!');
+            }
+        }
+
+         
+    }
+    
+
     
 }

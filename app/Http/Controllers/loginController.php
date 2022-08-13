@@ -45,7 +45,10 @@ class loginController extends Controller
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
         $usersList = ['userLoginTable'=>DB::select('select * from user_logins')];
 
-        return view('admin.adminView')->with($data)->with($usersList);
+        $user = ['users' => true];
+        $new = ['new' => false];
+        return view('admin.adminView')->with($data)->with($usersList)
+                                    ->with($user)->with($new);
     }
     function libraryDashboard(){
         $patronTable = ['patronTable'=>DB::select('select * from library_users')];
@@ -56,8 +59,9 @@ class loginController extends Controller
         $Display1 = ['teachers' => false];
         $Display2 = ['adminstaffs' => false];
         $Display3 = ['students' => false];
+        $Display5 = ['book' => false];
         return view('officers.library.library')->with($data)->with($patronTable)->with($Display)
-                    ->with($Display4)->with($Display1)->with($Display2)->with($Display3);
+            ->with($Display4)->with($Display5)->with($Display1)->with($Display2)->with($Display3);
 
     }
     function hrmDashboard(){
@@ -140,8 +144,11 @@ class loginController extends Controller
     }
     function newUserRegister(){
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
+        $user = ['users' => false];
+        $new = ['new' => true];
 
-        return view('admin.newUser', $data);
+        return view('admin.adminView')->with($data)->with($user)->with($new);
+
     }
 
     // function newOfficerRegister(){
@@ -153,6 +160,8 @@ class loginController extends Controller
     function logout(){
         if(session()->has('LoggedUser')){
             session()->pull('LoggedUser');
+            return redirect('/');
+        }else{
             return redirect('/');
         }
     }

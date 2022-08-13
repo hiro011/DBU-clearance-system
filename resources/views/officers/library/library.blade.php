@@ -64,6 +64,7 @@
             display: block;
             padding: 8px 8px 8px 15px;
             color: rgb(0, 0, 0);
+            border: 1px groove lightblue;
             text-decoration: none;
             font-size: 16px;
             transition: 0.3s;
@@ -503,13 +504,14 @@
                             display: none;
                             cursor: pointer;
                         }
-
-                        /* Add an active class to the active button/link */
                         #newPatronA {
                             background-color: blue;
                             color: white;
                         }
-                    
+                        #newPatronA:hover{
+                            color: black; 
+                            opacity: 0.8;
+                        }
                     </style> 
 
                     <div class="wrapper">
@@ -786,17 +788,19 @@
                             display: none;
                             cursor: pointer;
                         }
-
-                        /* Add an active class to the active button/link */
                         #newBookA {
                             background-color: blue;
                             color: white;
                         }
-                    
+                        #newBookA:hover{
+                            color: black; 
+                            opacity: 0.8;
+                        }
+                         
                     </style> 
 
                     <div class="wrapper">
-                        <div class="title">Add New Patron</div>
+                        <div class="title">Add New Book</div>
                         
                         <div class="form">
 
