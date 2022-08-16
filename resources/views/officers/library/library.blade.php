@@ -35,7 +35,7 @@
   
         .column1{
             width: 100%;
-            padding: 10px 20px;
+            padding: 10px 30px;
         }
         
         .dropspanCurrent { 
@@ -71,7 +71,7 @@
         }
         
         .navbar2 ul{
-            margin-left: 15%;
+            margin-left: 10%;
         } 
         /* When you mouse over the navigation links, change their color */
         .navbar2 a:hover {
@@ -116,7 +116,7 @@
         }
 
     </style>
-   
+
     <style>
         .search-btn{
             width: 80px;
@@ -192,12 +192,7 @@
             margin-bottom: 40px;
             color: darkred;
         }
-        .searchDiv2 select{
-            /* width: 80px; */
-            height: 40px;
-            min-width: 130px;
-        }
-            
+        
         .searchDiv2 .search-btn{
             margin-top: 23px;
             width: 80px;
@@ -229,7 +224,7 @@
             background-color: #71a3da;
         }
         .container{
-            padding-right: 240px;
+            padding-right: 180px;
             padding-left: 10px;
         }
         .container input{
@@ -321,7 +316,7 @@
             <div class="column1">
                 <!-- content place -->
 
-                @if(($new === false) or ($book === false) )
+                @if(($new === false) or ($newBook === false) )
                     @if($all === true)
                         <style>
                             #allPatronsA{
@@ -370,6 +365,18 @@
                             }
                         </style>
                     @endif
+                    @if($book === true)
+                        <style>
+                            #bookA{
+                            background-color: blue;
+                            color: white;
+                            }
+                            #bookA:hover{
+                                color: black; 
+                                opacity: 0.8;
+                            }
+                        </style>
+                    @endif
 
                     <div class="studLists">
 
@@ -387,15 +394,32 @@
                                 @if($students === true)
                                 <form method="get" action="/officers/library/search students" class="searchForm">
                                 @endif
+                                @if($book === true)
+                                <form method="get" action="/officers/library/search books" class="searchForm">
+                                @endif
                                 
                                 @csrf
-                                    <input type="search" id="search" placeholder="Search here" name="key_word"class="searchit">
+                                    <input type="search" id="search" placeholder="Search here" name="key_word" class="searchit">
                                     <button type="submit" class="search-btn">Search</button>
                                 </form>
 
                                 <div class="abtnCont">
-                                    <button class="abtn" onclick="toggleText()">Change Status</button>
+                                    <button class="abtn" onclick="toggleText()">Return Book</button>
                                 </div>
+
+                            </div>
+
+                            <div id="sDiv2" class="searchDiv2" >  
+                                <form method="POST" action="{{ route('library.returnBook') }}"  class="searchForm">
+                                    @csrf
+                                    
+                                    <div class="inputfield" style="width: 100%;">
+                                        <label style="color: green; padding-left: 10px;">Barcode</label> </br>
+                                        <input type="text" class="searchit" style="width: 100%;" name="barcode" placeholder="Enter barcode" 
+                                            value="{{ old('barcode') }}"> </br>
+                                    </div> 
+                                    <button type="submit" class="search-btn">Return</button>
+                                </form>
                                 
                             </div>
 
@@ -410,7 +434,7 @@
                                     <div class="table-responsive">
                                         @csrf
                                         @if($all === true)
-                                            <table id="editable" class="table table-bordered table-striped">
+                                            <table class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -433,7 +457,7 @@
                                                     <tr>
                                                         <td></td>
                                                         <td>{{ $user->Card_no }}</td>
-                                                        <td>{{ $user->name }}</td>
+                                                        <td> <a href="/library/checkouts/{{ $user->catagory }}/{{ $user->Card_no }}"> {{ $user->name }}</a></td>
                                                         <td>{{ $user->gender }}</td>
                                                         <td>{{ $user->catagory }}</td>
                                                         <td>{{ $user->college }}</td>
@@ -449,7 +473,8 @@
                                                 </tbody>
                                             </table>
                                         @endif
-                                        @if($all === false)
+
+                                        @if($all === false && $book === false)
                                             <table id="editable" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
@@ -470,12 +495,45 @@
                                                         <tr>
                                                             <td></td>
                                                             <td>{{ $user->Card_no }}</td>
-                                                            <td>{{ $user->name }}</td>
+                                                            <td>{{ $user->name }} </td>
                                                             <td>{{ $user->gender }}</td>
                                                             <td>{{ $user->catagory }}</td>
                                                             <td>{{ $user->college }}</td>
                                                             <td>{{ $user->department }}</td>
                                                             <td>{{ $user->add_by }}</td>
+                                                        </tr>
+
+                                                    @endforeach
+                                                
+                                                </tbody>
+                                            </table>
+                                        @endif
+                                        
+                                        @if($book === true)
+                                            <table id="editable" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Barcde</th>
+                                                        <th>Title</th>
+                                                        <th>Library</th>
+                                                        <th>Location</th>
+                                                        <th>Add By</th>
+                                                        <th>Add Date</th>
+                                                    </tr>
+                                                </thead>
+                                                
+                                                <tbody>
+
+                                                    @foreach ($bookTable as $user)
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>{{ $user->barcode }}</td>
+                                                            <td>{{ $user->title }} </td>
+                                                            <td>{{ $user->library }}</td>
+                                                            <td>{{ $user->location }}</td>
+                                                            <td>{{ $user->add_by }}</td>
+                                                            <td>{{ $user->created_at }}</td>
                                                         </tr>
 
                                                     @endforeach
@@ -776,7 +834,7 @@
                     </div>	
 
                 @endif
-                @if($book === true)
+                @if($newBook === true)
                     <style>
                         .dropdown-container{
                             display: block;
@@ -880,12 +938,7 @@
             }).change();
         });
 
-        $(document).ready(function(){
-            $("#select_c").on('change', function(){
-                $(".chooseField1").hide();
-                $("#" + $(this).val()).fadeIn(1);
-            }).change();
-        });
+         
         $(document).ready(function(){
             $("#college").on('change', function(){
                 $(".inputfield1").hide();
@@ -900,6 +953,7 @@
                 x.style.display = "none";
             }
         }
+              
     </script>
 
     <!-- table edit -->

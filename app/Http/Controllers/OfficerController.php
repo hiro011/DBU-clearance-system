@@ -18,6 +18,22 @@ use App\Models\DistanceStud;
 use App\Models\Students;
 use App\Models\Employee;
 use App\Models\LibraryUsers;
+use App\Models\ClearanceRegular;
+use App\Models\DepartmentItems;
+use App\Models\StudResidence;
+use App\Models\LibraryCheckouts;
+use App\Models\DiningNonCafe;
+use App\Models\FinanceUsers;
+use App\Models\IctPropertyUsers;
+use App\Models\EngCollegeFinance;
+use App\Models\ResearcherLists;
+use App\Models\ClearanceStudent;
+use App\Models\ClearanceStaffs;
+use App\Models\PropertyCheckouts;
+use App\Models\CashierUsers;
+use App\Models\GeneralServiceUsers;
+use App\Models\AntiCorruptionUsers;
+use App\Models\Books;
 
 
 class OfficerController extends Controller
@@ -132,6 +148,13 @@ class OfficerController extends Controller
             return back()->with('fail','Something went wrong, try again later');
         }
     }
+    function registrarClearanceList(){
+        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
+        $clearanceTable = ['clearance'=>DB::select('select * from clearance_students')];
+
+        return view('officers.registrar.registrarClearance')->with($data)->with($clearanceTable);
+
+    }
 
 
     // HRM
@@ -153,8 +176,7 @@ class OfficerController extends Controller
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
 
         return view('officers.HRM.newEmployee', $data);
-    }
-    
+    } 
     function newEmployeeSave(Request $request){
         
         //Validate requests
@@ -220,6 +242,7 @@ class OfficerController extends Controller
         }
     }
 
+    // Library
     function newPatronRegister(){
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
 
@@ -228,10 +251,11 @@ class OfficerController extends Controller
         $Display = ['all' => false];
         $Display1 = ['teachers' => false];
         $Display5 = ['book' => false];
+        $Display6 = ['newBook' => false];
         $Display2 = ['adminstaffs' => false];
-        $Display3 = ['students' => false            ];
+        $Display3 = ['students' => false];
         return view('officers.library.library')->with($data)->with($Display)->with($Display4)
-        ->with($Display5)->with($Display1)->with($Display2)->with($Display3);
+        ->with($Display5)->with($Display1)->with($Display2)->with($Display3)->with($Display6);
 
     }
     function libraryTeachers(){ 
@@ -241,10 +265,11 @@ class OfficerController extends Controller
         $Display = ['all' => false];
         $Display1 = ['teachers' => true];
         $Display5 = ['book' => false];
+        $Display6 = ['newBook' => false];
         $Display2 = ['adminstaffs' => false];
         $Display3 = ['students' => false];
         return view('officers.library.library')->with($data)->with($teacherTable)->with($Display)
-        ->with($Display5)->with($Display4)->with($Display1)->with($Display2)->with($Display3);
+        ->with($Display1)->with($Display2)->with($Display3)->with($Display4)->with($Display5)->with($Display6);
 
     }
     function libraryAdminStaffs(){ 
@@ -254,10 +279,11 @@ class OfficerController extends Controller
         $Display = ['all' => false];
         $Display1 = ['teachers' => false];
         $Display5 = ['book' => false];
+        $Display6 = ['newBook' => false];
         $Display2 = ['adminstaffs' => true];
         $Display3 = ['students' => false];
         return view('officers.library.library')->with($data)->with($adminStaffTable)->with($Display)
-        ->with($Display5)->with($Display4)->with($Display1)->with($Display2)->with($Display3);
+        ->with($Display5)->with($Display4)->with($Display1)->with($Display2)->with($Display3)->with($Display6);
 
     }
     function libraryStudents(){ 
@@ -267,10 +293,26 @@ class OfficerController extends Controller
         $Display = ['all' => false];
         $Display1 = ['teachers' => false];
         $Display5 = ['book' => false];
+        $Display6 = ['newBook' => false];
         $Display2 = ['adminstaffs' => false];
         $Display3 = ['students' => true];
         return view('officers.library.library')->with($data)->with($studentTable)->with($Display)
-        ->with($Display5)->with($Display4)->with($Display1)->with($Display2)->with($Display3);
+        ->with($Display5)->with($Display4)->with($Display1)->with($Display2)->with($Display3)->with($Display6);
+
+    }
+    function libraryBooks(){ 
+        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
+        $studentTable = ['bookTable'=>DB::select('select * from books')];
+
+        $Display4 = ['new' => false];
+        $Display = ['all' => false];
+        $Display1 = ['teachers' => false];
+        $Display5 = ['book' => true];
+        $Display6 = ['newBook' => false];
+        $Display2 = ['adminstaffs' => false];
+        $Display3 = ['students' => false];
+        return view('officers.library.library')->with($data)->with($studentTable)->with($Display)
+        ->with($Display5)->with($Display4)->with($Display1)->with($Display2)->with($Display3)->with($Display6);
 
     }
     function newPatronSave(Request $request){
@@ -288,6 +330,54 @@ class OfficerController extends Controller
 
             //Insert data into database
             $patron = new LibraryUsers;
+            $patron->Card_no = $request->card_no;
+            $patron->catagory = $request->catagory;
+            $patron->name = $request->name;
+            $patron->gender = $request->gender;
+            $patron->email = $request->email;
+            $patron->phone = $request->phone;
+            $patron->college = $request->college;
+            $patron->department = $request->department;
+            $patron->add_by = $dataI->name;
+
+            $save = $patron->save();
+
+        if($save){
+        return back()->with('success','New User has been successfuly added to database');
+        }else{
+            return back()->with('fail','Something went wrong, try again later');
+        }
+    }
+    function newBookRegister(Request $request){
+        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
+
+        // return view('officers.registrar.newStudent', $data);
+        $Display4 = ['new' => false];
+        $Display = ['all' => false];
+        $Display1 = ['teachers' => false];
+        $Display5 = ['book' => true];
+        $Display6 = ['newBook' => true];
+        $Display2 = ['adminstaffs' => false];
+        $Display3 = ['students' => false            ];
+        return view('officers.library.library')->with($data)->with($Display)->with($Display4)
+        ->with($Display5)->with($Display1)->with($Display2)->with($Display3)->with($Display6);
+        
+    }
+    function newBookSave(Request $request){
+        
+        //Validate requests
+        $request->validate([
+            'catagory'=>'required',
+            'card_no'=>'required|unique:library_users',
+            'name'=>'required',
+            'gender'=>'required',
+            'college'=>'required',
+        ]);
+    
+            $dataI = UserLogin::where('id','=', session('LoggedUser'))->first();
+
+            //Insert data into database
+            $patron = new Books;
             $patron->Card_no = $request->card_no;
             $patron->catagory = $request->catagory;
             $patron->name = $request->name;

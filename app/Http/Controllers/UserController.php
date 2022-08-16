@@ -30,7 +30,10 @@ use App\Models\CashierUsers;
 use App\Models\GeneralServiceUsers;
 use App\Models\AntiCorruptionUsers;
 
+// use Barryvdh\DomPDF\Facade\Pdf;
+
 use DB;
+use PDF;
 
 class UserController extends Controller
 {
@@ -217,6 +220,7 @@ class UserController extends Controller
                 $regClearStud->year = $regRegistrar->year;
                 $regClearStud->college = $regRegistrar->college;
                 $regClearStud->department = $regRegistrar->department;
+                // $trackPTS = $this->track ? 20 : 0;
                 $regClearStud->reason = $regRegistrar->status;
                 $save = $regClearStud->save();
 
@@ -483,7 +487,29 @@ class UserController extends Controller
 
          
     }
-    
 
+    function registrarClearanceView($programR, $id_no){
+
+        $data = ['LoggedUser'=>$loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first()];
+
+        $Clearance = ['clearance'=>ClearanceStudent::where([['program','=', $programR],['ID_no','=', $id_no]])->first()];
+
+        return view('officers.registrar.clearanceForm')->with($data)->with($Clearance);
+
+    }
+    
+    function clearanceExportPdf($programR, $id_no){
+        // return Pdf::loadFile(public_path().'/myfile.html')
+        // ->save('/path-to/my_stored_file.pdf')->stream('download.pdf');
+
+        $Clearance = ['clearance'=>ClearanceStudent::where([['program','=', $programR],['ID_no','=', $id_no]])->first()];
+
+        $data = ['LoggedUser'=>$loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first()];
+
+        // $pdf = Pdf::loadView('officers.registrar.clearanceForm')->with($data)->with($Clearance);
+        $pdf = Pdf::loadView('officers.registrar.clearancePdf', $data, $Clearance );
+        return $pdf->download('clearancePdf.pdf');
+
+    }
     
 }

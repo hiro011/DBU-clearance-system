@@ -12,13 +12,31 @@ use App\Models\ExtensionStud;
 use App\Models\DistanceStud;
 use App\Models\Students;
 use App\Models\Officer;
+use App\Models\Employee;
+use App\Models\LibraryUsers;
+use App\Models\ClearanceRegular;
+use App\Models\DepartmentItems;
+use App\Models\StudResidence;
+use App\Models\LibraryCheckouts;
+use App\Models\DiningNonCafe;
+use App\Models\FinanceUsers;
+use App\Models\IctPropertyUsers;
+use App\Models\EngCollegeFinance;
+use App\Models\ResearcherLists;
+use App\Models\ClearanceStudent;
+use App\Models\ClearanceStaffs;
+use App\Models\PropertyCheckouts;
+use App\Models\CashierUsers;
+use App\Models\GeneralServiceUsers;
+use App\Models\AntiCorruptionUsers;
+
 use DB;
 
 class UpdateController extends Controller
 {
     //
     
-    //registrar update
+    // registrar update
     function registerUpdateStatus(Request $request){
         //validate request input
         $request->validate([
@@ -38,7 +56,6 @@ class UpdateController extends Controller
         return redirect('/officers/registrar');
         
     }
-   
     function registrarTableEdit(Request $request){
         if($request->ajax()){
     		if($request->action == 'edit'){
@@ -68,6 +85,30 @@ class UpdateController extends Controller
     		}
     		return response()->json($request);
     	}
+    }
+
+    // library
+    function libraryReturnBook(Request $request){
+        //validate request input
+        $request->validate([
+            'barcode' => 'required',
+        ]);
+
+        $Barcode = $request->input('barcode');
+
+        $regStudTable = DB::table('library_checkouts')
+                ->where('barcode', $Barcode)
+                ->delete();
+
+        return redirect('/officers/library');
+        
+    }
+    function libraryCheckout($Catagory, $id_no){
+        $data = ['LoggedUser'=>$loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first()];
+
+        $Checkouts = ['checkouts'=>LibraryCheckouts::where([['catagory','=', $Catagory],['card_no','=', $id_no]])->get()];
+
+        return view('officers.library.libraryCheckouts')->with($data)->with($Checkouts);
     }
     
     function adminTableEdit(Request $request){

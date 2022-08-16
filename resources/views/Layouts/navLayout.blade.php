@@ -26,7 +26,6 @@
         <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
 
         <style>
-            
             .navbar_right{
                 display: flex;
                 list-style: none;

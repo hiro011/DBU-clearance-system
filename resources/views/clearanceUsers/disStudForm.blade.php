@@ -18,7 +18,7 @@
         <div class="body-container">
             <div class="column1" >
 
-                @if(!$disContinuing)
+                @if(($disContinuing->status)!=='On-Class')
                     <style>
                         .continuing{
                             border-left: 12px solid #47D764;
@@ -28,7 +28,7 @@
                         }
                     </style>
                 @endif
-                @if($disContinuing)
+                @if(($disContinuing->status)==='On-Class')
                     <style>
                         .continuing{
                             border-left: 12px solid #ff355b;
@@ -39,7 +39,7 @@
                     </style>
                 @endif
                     
-                @if(!$disRegistrar)
+                @if(($disRegistrar->status)!=='On-Class')
                     <style>
                         .registrar{
                             border-left: 12px solid #47D764;
@@ -49,7 +49,7 @@
                         }
                     </style>
                 @endif
-                @if($disRegistrar)
+                @if(($disRegistrar->status)==='On-Class')
                     <style>
                         .registrar{
                             border-left: 12px solid #ff355b;

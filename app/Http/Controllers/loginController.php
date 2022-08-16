@@ -60,7 +60,9 @@ class loginController extends Controller
         $Display2 = ['adminstaffs' => false];
         $Display3 = ['students' => false];
         $Display5 = ['book' => false];
-        return view('officers.library.library')->with($data)->with($patronTable)->with($Display)
+        $Display6 = ['newBook' => false];
+
+        return view('officers.library.library')->with($data)->with($patronTable)->with($Display)->with($Display6)
             ->with($Display4)->with($Display5)->with($Display1)->with($Display2)->with($Display3);
 
     }

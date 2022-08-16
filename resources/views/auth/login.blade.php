@@ -146,7 +146,7 @@
         height: auto;
     }
     footer{
-        width: 97.7%;
+        width: 97.9%;
     }
         
   </style>

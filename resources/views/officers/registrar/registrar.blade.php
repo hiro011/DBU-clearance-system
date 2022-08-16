@@ -294,14 +294,15 @@
     <span class="dropspanCurrent" >Registerar</span></br>
     <div class="navbar2">
     
-        <ul style="margin-top: 0;">
+        <ul style="margin-top: 5px;">
             <a href="/officers/registrar" id="allStudA">All Student</a>
             <a href="/officers/registrar/regular students" id="regStudA">Regular Student</a>
             <a href="/officers/registrar/extension students" id="extnStudA">Extension Student</a>
             <a href="/officers/registrar/distance students" id="disStudA">Distance Student</a>
 
             <a href="/officers/registrar/new student" class="abutton"  id="newStudA">New Student</a>
-            <a href="/clearance/administrator staff" class="abutton"  id="reqCA" style="margin-left: 10px;">Request Clearance</a>
+            <a href="/clearance/administrator staff" class="abutton"  id="reqCA" style="margin-left: 5px;">Request Clearance</a>
+            <a href="/registrar/clearance/list" class="abutton"  id="viewCA" style="margin-left: 5px;">View Clearance</a>
         </ul>
         
 
@@ -621,7 +622,6 @@
 
                                             <option value="Male"  @if(old('gender') === 'Male') selected @endif>Male</option>
                                             <option value="Female"  @if(old('gender') === 'Female') selected @endif>Female</option>
-                                            <option value="unspecified"  @if(old('gender') === 'unspecified') selected @endif>Unspecified</option>
                                         </select></br>
                                         <span style="color:red;">@error('gender'){{ $message }} @enderror</span>
 
@@ -637,6 +637,7 @@
                                             <option value="On-Class"  @if(old('status') === 'On-Class') selected @endif>On Class</option>
                                             <option value="Transfered"  @if(old('status') === 'Transfered') selected @endif>Transfered</option>
                                             <option value="Withdraw"  @if(old('status') === 'Withdraw') selected @endif>Withdraw</option>
+                                            <option value="End_Of_Year"  @if(old('status') === 'Withdraw') selected @endif>Withdraw</option>
                                         </select></br>
                                         <span style="color:red;">@error('status'){{ $message }} @enderror</span>
 
@@ -862,8 +863,6 @@
                     });  
                 </script>
 
-            
-
             </div>
 
         </div> 
@@ -938,7 +937,7 @@
         });  
     </script>
 
-    <!-- script for select options -->
+    <!-- script for up down key options -->
     <script>
         var allFields = document.querySelectorAll(".input");
 
