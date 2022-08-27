@@ -145,7 +145,7 @@
 
                             <div class="accordion__content">
                                 @if(!$extnDepHead)
-                                    <p style="color: green; ">Approved</p>
+                                    <p style="color: green; ">Cleared</p>
                                     <p>
                                         Your department have approved your Clearance,
                                         you can procceed to the next clearance
@@ -179,7 +179,7 @@
 
                             <div class="accordion__content">
                                 @if(!$extnLibrary)
-                                    <p style="color: green; ">Approved</p>
+                                    <p style="color: green; ">Cleared</p>
                                     <p>
                                         The Main Library have approved your Clearance,
                                         you can procceed to the next clearance
@@ -214,7 +214,7 @@
 
                             <div class="accordion__content">
                                 @if(($extnContinuing->status)!=='On-Class')
-                                    <p style="color: green; ">Approved</p>
+                                    <p style="color: green; ">Cleared</p>
                                     <p>
                                         Continuing Education Office have approved your Clearance,
                                         you can procceed to the next clearance
@@ -249,7 +249,7 @@
 
                             <div class="accordion__content">
                                 @if(($extnRegistrar->status)!=='On-Class')
-                                    <p style="color: green; ">Approved</p>
+                                    <p style="color: green; ">Cleared</p>
                                     <p>
                                         The Registrar office have approved your Clearance,
                                         you can procceed to the next clearance

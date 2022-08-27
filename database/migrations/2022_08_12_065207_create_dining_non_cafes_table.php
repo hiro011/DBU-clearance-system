@@ -16,7 +16,13 @@ return new class extends Migration
         Schema::create('dining_non_cafes', function (Blueprint $table) {
             $table->id();
             $table->string('ID_no', 50);
-            $table->integer('Birr_monthly');
+            $table->string('name', 50);
+            $table->string('gender', 50);
+            $table->integer('year');
+            $table->string('college', 100);
+            $table->string('department', 100);
+            $table->float('Birr_monthly')->nullable();
+            $table->string('add_by', 250);
             $table->timestamps();
         });
     }

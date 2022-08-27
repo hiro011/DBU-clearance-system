@@ -275,16 +275,16 @@ class UserController extends Controller
         if($Clearance){
             return back()->with('fail','Your request have already been submitted');
         }else{
-            $checkS = false;
+            $checkS = true;
             if($regStudResidence){
                 $residence = $regStudResidence->status;
-                $checkS = (!$regDepHead && !$regLibrary && ($residence!=='stay') && ($registrar!=='On-Class') && $regDining);
+                $checkS = (!$regDepHead && !$regLibrary && ($residence!=='stay') && ($registrar!=='On-Class') && !$regDining) ? true: false;
             }
             if(!$regStudResidence){
-                $checkS = (!$regDepHead && !$regLibrary && ($registrar!=='On-Class') && $regDining);
+                $checkS = (!$regDepHead && !$regLibrary && ($registrar!=='On-Class') && !$regDining) ? true: false;
             }
             
-            if($checkS){ 
+            if($checkS === true){ 
                 //Insert data into database
                 $regClearStud = new ClearanceStudent;
                 $regClearStud->ID_no = $regRegistrar->ID_no;

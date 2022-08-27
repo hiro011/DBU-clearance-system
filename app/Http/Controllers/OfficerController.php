@@ -106,7 +106,6 @@ class OfficerController extends Controller
     function newStudentSave(Request $request){
         
         //Validate requests
-
         $request->validate([
             'program'=>'required',
             'id'=>'required',
@@ -143,6 +142,228 @@ class OfficerController extends Controller
         return view('officers.registrar.registrarClearance')->with($data)->with($clearanceTable);
 
     }
+    
+    // department heads
+    function depRegStud(){ 
+        $userinfo = UserLogin::where('id','=', session('LoggedUser'))->first();
+        $userDep1 = Teacher::where('ID_no','=', $userinfo->ID_no)->first();
+        $userDep2 = AdminStaff::where('ID_no','=', $userinfo->ID_no)->first();
+
+        $dataDep = null;
+        if($userDep1){
+            $dataDep = $userDep1->department;
+        }elseif($userDep2){
+            $dataDep = $userDep2->department;
+        }
+        $studTable = ['studTable'=>Students::where([['department','=', $dataDep],['program','=', 'Regular']])->get()];
+
+        $Display = ['all' => false];
+        $Display1 = ['reg' => true];
+        $Display4 = ['new' => false];
+        $Display2 = ['extn' => false];
+        $Display3 = ['dis' => false];
+        $Display5 = ['checks' => false];
+
+        $data = ['LoggedUser'=>$userinfo];
+        $data2 = null;
+        if($userDep1){
+            $data2 = ['LoggedDep'=>$userDep1];
+        }elseif($userDep2){
+            $data2 = ['LoggedDep'=>$userDep2];
+        }
+
+        return view('officers.DepartmentHeads.departmentHead')->with($data)->with($studTable)->with($data)->with($data2)
+                ->with($Display)->with($Display1)->with($Display2)->with($Display3)->with($Display4)->with($Display5);
+
+    }
+    function depExtnStud(){ 
+        $userinfo = UserLogin::where('id','=', session('LoggedUser'))->first();
+        $userDep1 = Teacher::where('ID_no','=', $userinfo->ID_no)->first();
+        $userDep2 = AdminStaff::where('ID_no','=', $userinfo->ID_no)->first();
+
+        $dataDep = null;
+        if($userDep1){
+            $dataDep = $userDep1->department;
+        }elseif($userDep2){
+            $dataDep = $userDep2->department;
+        }
+        $studTable = ['studTable'=>Students::where([['department','=', $dataDep],['program','=', 'Extension']])->get()];
+
+        $Display = ['all' => false];
+        $Display1 = ['reg' => false];
+        $Display4 = ['new' => false];
+        $Display2 = ['extn' => true];
+        $Display3 = ['dis' => false];
+        $Display5 = ['checks' => false];
+
+        $data = ['LoggedUser'=>$userinfo];
+        $data2 = null;
+        if($userDep1){
+            $data2 = ['LoggedDep'=>$userDep1];
+        }elseif($userDep2){
+            $data2 = ['LoggedDep'=>$userDep2];
+        }
+
+        return view('officers.DepartmentHeads.departmentHead')->with($data)->with($studTable)->with($data)->with($data2)
+                ->with($Display)->with($Display1)->with($Display2)->with($Display3)->with($Display4)->with($Display5);
+
+
+    }
+    function depDisStud(){ 
+        $userinfo = UserLogin::where('id','=', session('LoggedUser'))->first();
+        $userDep1 = Teacher::where('ID_no','=', $userinfo->ID_no)->first();
+        $userDep2 = AdminStaff::where('ID_no','=', $userinfo->ID_no)->first();
+
+        $dataDep = null;
+        if($userDep1){
+            $dataDep = $userDep1->department;
+        }elseif($userDep2){
+            $dataDep = $userDep2->department;
+        }
+        $studTable = ['studTable'=>Students::where([['department','=', $dataDep],['program','=', 'Distance']])->get()];
+
+        $Display = ['all' => false];
+        $Display1 = ['reg' => false];
+        $Display4 = ['new' => false];
+        $Display2 = ['extn' => false];
+        $Display3 = ['dis' => true];
+        $Display5 = ['checks' => false];
+
+        $data = ['LoggedUser'=>$userinfo];
+        $data2 = null;
+        if($userDep1){
+            $data2 = ['LoggedDep'=>$userDep1];
+        }elseif($userDep2){
+            $data2 = ['LoggedDep'=>$userDep2];
+        }
+
+        return view('officers.DepartmentHeads.departmentHead')->with($data)->with($studTable)->with($data)->with($data2)
+                ->with($Display)->with($Display1)->with($Display2)->with($Display3)->with($Display4)->with($Display5);
+                    
+
+    }
+    function depCheckoutList(){
+        $userinfo = UserLogin::where('id','=', session('LoggedUser'))->first();
+        $userDep1 = Teacher::where('ID_no','=', $userinfo->ID_no)->first();
+        $userDep2 = AdminStaff::where('ID_no','=', $userinfo->ID_no)->first();
+
+        $dataDep = null;
+        if($userDep1){
+            $dataDep = $userDep1->department;
+        }elseif($userDep2){
+            $dataDep = $userDep2->department;
+        }
+        $studTable = ['studTable'=>DepartmentItems::where('department','=', $dataDep)->get()];
+
+        $Display = ['all' => false];
+        $Display1 = ['reg' => false];
+        $Display4 = ['new' => false];
+        $Display2 = ['extn' => false];
+        $Display3 = ['dis' => false];
+        $Display5 = ['checks' => true];
+
+        $data = ['LoggedUser'=>$userinfo];
+        $data2 = null;
+        if($userDep1){
+            $data2 = ['LoggedDep'=>$userDep1];
+        }elseif($userDep2){
+            $data2 = ['LoggedDep'=>$userDep2];
+        }
+
+        return view('officers.DepartmentHeads.departmentHead')->with($data)->with($studTable)->with($data)->with($data2)
+                ->with($Display)->with($Display1)->with($Display2)->with($Display3)->with($Display4)->with($Display5);
+           
+
+    }
+    function depNewCheckout(){
+        $userinfo = UserLogin::where('id','=', session('LoggedUser'))->first();
+        $userDep1 = Teacher::where('ID_no','=', $userinfo->ID_no)->first();
+        $userDep2 = AdminStaff::where('ID_no','=', $userinfo->ID_no)->first();
+
+        $Display = ['all' => false];
+        $Display1 = ['reg' => false];
+        $Display4 = ['new' => true];
+        $Display2 = ['extn' => false];
+        $Display3 = ['dis' => false];
+        $Display5 = ['checks' => false];
+
+        $data = ['LoggedUser'=>$userinfo];
+        $data2 = null;
+        if($userDep1){
+            $data2 = ['LoggedDep'=>$userDep1];
+        }elseif($userDep2){
+            $data2 = ['LoggedDep'=>$userDep2];
+        }
+
+        return view('officers.DepartmentHeads.departmentHead')->with($data)->with($data)->with($data2)->with($Display)
+                ->with($Display1)->with($Display2)->with($Display3)->with($Display4)->with($Display5);
+            
+
+    }
+    function newDepSave(Request $request){
+        
+        //Validate requests
+
+        $request->validate([
+            'id'=>'required',
+            'item_name'=>'required',
+        ]);
+
+        $userinfo = UserLogin::where('id','=', session('LoggedUser'))->first();
+        $userDep1 = Teacher::where('ID_no','=', $userinfo->ID_no)->first();
+        $userDep2 = AdminStaff::where('ID_no','=', $userinfo->ID_no)->first();
+        $dataDep = null;
+        if($userDep1){
+            $dataDep = $userDep1->department;
+        }elseif($userDep2){
+            $dataDep = $userDep2->department;
+        }
+        $studinfo = Students::where([['ID_no','=', $request->id],['department','=', $dataDep]])->first();
+        
+        if($studinfo){
+            //Insert data into database
+            $stud = new DepartmentItems;
+            $stud->ID_no = $request->id;
+            $stud->name = $studinfo->name;
+            $stud->gender = $studinfo->gender;
+            $stud->year = $studinfo->year;
+            $stud->item_name = $request->item_name;
+            $stud->catagory = $studinfo->program;
+            $stud->department = $dataDep;
+            $stud->add_by = $userinfo->name;
+            $save = $stud->save();
+
+            if($save){
+                return back()->with('success','New User has been successfuly added to database');
+            }else{
+                return back()->with('fail','Something went wrong, try again later');
+            }
+        }else{
+            return back()->with('fail','This student is not in your department');
+        }
+    }
+    
+    // dining   
+    function nonCafeStudList(){
+        $studTable = ['studTable'=>DB::select('select * from dining_non_cafes')];
+        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
+        $Display1 = ['cafe' => false];
+        $Display2 = ['new' => false];
+        $Display3 = ['ncafe' => true];
+        return view('officers.dining.dining')->with($data)->with($studTable)->with($data)
+                ->with($Display1)->with($Display2)->with($Display3);
+
+    } 
+    function newNonCafe(){
+        // $studTable = ['studTable'=>DB::select('select * from students')];
+        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
+        $Display1 = ['cafe' => false];
+        $Display2 = ['new' => true];
+        $Display3 = ['ncafe' => false];
+        return view('officers.dining.dining')->with($data)->with($data)
+                ->with($Display1)->with($Display2)->with($Display3);
+
+    } 
 
 
     // HRM

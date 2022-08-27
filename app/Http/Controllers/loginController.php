@@ -13,6 +13,7 @@ use App\Models\ExtensionStud;
 use App\Models\DistanceStud;
 use App\Models\Officer;
 use App\Models\Students;
+use App\Models\Employee;
 use DB;
 
 class loginController extends Controller
@@ -85,8 +86,14 @@ class loginController extends Controller
 
     }
     function studResidenceDashboard(){
-        $data = ['LoggedUserInfo'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
-        return view('officers.residenceOffice', $data);
+        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
+        $studTable = ['studTable'=>DB::select('select * from stud_residences')];
+        $Display1 = ['dorm' => true];
+        $Display2 = ['ndorm' => false];
+        $Display3 = ['new' => false];
+        return view('officers.studResidence.residenceOffice')->with($data)->with($studTable)
+                ->with($Display1)->with($Display2)->with($Display3);
+    
     }
 
     function registrarDashboard(){
@@ -97,24 +104,49 @@ class loginController extends Controller
         $Display4 = ['new' => false];
         $Display2 = ['extn' => false];
         $Display3 = ['dis' => false];
-        return view('officers.registrar.registrar')->with($data)->with($studTable)->with($data)
-                ->with($Display)->with($Display1)->with($Display2)->with($Display3)->with($Display4);
+        return view('officers.registrar.registrar')->with($data)->with($studTable)->with($Display)
+                ->with($Display1)->with($Display2)->with($Display3)->with($Display4);
+    
+    } 
+    function diningDashboard(){
+        $studTable = ['studTable'=>DB::select('select * from students')];
+        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
+        $Display1 = ['cafe' => true];
+        $Display2 = ['new' => false];
+        $Display3 = ['ncafe' => false];
+        return view('officers.dining.dining')->with($data)->with($studTable)
+                ->with($Display1)->with($Display2)->with($Display3);
     } 
     function departmentsDashboard(){
         $userinfo = UserLogin::where('id','=', session('LoggedUser'))->first();
-        
-        
-        $studTable = ['studTable'=>DB::select('select * from students')];
+        $userDep1 = Teacher::where('ID_no','=', $userinfo->ID_no)->first();
+        $userDep2 = AdminStaff::where('ID_no','=', $userinfo->ID_no)->first();
+
+        $dataDep = null;
+        if($userDep1){
+            $dataDep = $userDep1->department;
+        }elseif($userDep2){
+            $dataDep = $userDep2->department;
+        }
+        $studTable = ['studTable'=>Students::where('department','=', $dataDep)->get()];
 
         $Display = ['all' => true];
         $Display1 = ['reg' => false];
         $Display4 = ['new' => false];
         $Display2 = ['extn' => false];
         $Display3 = ['dis' => false];
+        $Display5 = ['checks' => false];
 
         $data = ['LoggedUser'=>$userinfo];
-        return view('officers.DepartmentHeads.departmentHead')->with($data)->with($studTable)->with($data)
-                ->with($Display)->with($Display1)->with($Display2)->with($Display3)->with($Display4);
+        $data2 = null;
+        if($userDep1){
+            $data2 = ['LoggedDep'=>$userDep1];
+        }elseif($userDep2){
+            $data2 = ['LoggedDep'=>$userDep2];
+        }
+        
+        return view('officers.DepartmentHeads.departmentHead')->with($data)->with($studTable)->with($data2)->with($Display)
+                ->with($Display1)->with($Display2)->with($Display3)->with($Display4)->with($Display5);
     } 
     function clearanceDashboard(){
         $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
@@ -147,16 +179,6 @@ class loginController extends Controller
         }
     } 
    
-    function diningDashboard(){ 
-        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
-
-        $cafeTable = ['regStudTable'=>DB::select('select * from regular_studs')];
-        $nonCafeTable = ['extnStudTable'=>DB::select('select * from extension_studs')];
-
-        return view('officers.dining.diningOfficer')->with($data)->with($regStudTable)->with($extnStudTable)
-                                                    ->with($disStudTable);
-
-    }
     function electricalDashboard(){
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
         return view('depOfficerView.electricalDep', $data);

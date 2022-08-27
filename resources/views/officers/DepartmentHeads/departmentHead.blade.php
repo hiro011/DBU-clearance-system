@@ -290,17 +290,17 @@
 
     </style>
                 
-    <span class="dropspanCurrent" >Department</span></br>
+    <span class="dropspanCurrent" >{{ $LoggedDep['department']}} Department</span></br>
     <div class="navbar2">
     
         <ul style="margin-top: 5px;">
             <a href="/officers/department head" id="allStudA">All Student</a>
-            <a href="/officers/department/regular students" id="regStudA">Regular Student</a>
-            <a href="/officers/department/extension students" id="extnStudA">Extension Student</a>
-            <a href="/officers/department/distance students" id="disStudA">Distance Student</a>
-            <a href="/department/checkout/list" class="abutton"  id="viewCA" style="margin-left: 5px;">View Checkouts</a>
+            <a href="/officers/departments/regular students" id="regStudA">Regular Student</a>
+            <a href="/officers/departments/extension students" id="extnStudA">Extension Student</a>
+            <a href="/officers/departments/distance students" id="disStudA">Distance Student</a>
+            <a href="/departments/checkout/list" class="abutton"  id="viewCA" style="margin-left: 5px;">View Checkouts</a>
 
-            <a href="/officers/department/add checkout" class="abutton"  id="newStudA">Add Checkout</a>
+            <a href="/officers/departments/add checkout" class="abutton"  id="newStudA">Add Checkout</a>
             <a href="/clearance/administrator staff" class="abutton"  id="reqCA" style="margin-left: 5px;">Request Clearance</a>
         </ul>
         
@@ -405,6 +405,7 @@
  
                         </div>
                         
+                        @if($checks === false)
                         <div class="container" style=" overflow-x:auto; overflow-y:auto;">
                             <br />
                             <div class="panel panel-default">
@@ -426,7 +427,7 @@
                                                     <th>Department</th>
                                                     <th>Status</th>
                                                     <th>Edit</th>
-                                                    <th>Delete</th>
+                                                   
                                                 </tr>
                                             </thead>
                                         
@@ -444,6 +445,58 @@
                                                         <td>{{ $user->college }}</td>
                                                         <td>{{ $user->department }}</td>
                                                         <td>{{ $user->status }}</td>
+                                                            <td>
+                                                                <a class="deleteProduct btn btn-xs btn-success" data-id="{{ $user->ID_no }}">Edit</a>
+                                                            </td>
+                                                    </tr>
+
+                                                @endforeach
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                        @if($checks === true)
+                        <div class="container" style=" overflow-x:auto; overflow-y:auto;">
+                            <br />
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                </div>
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        @csrf
+                                        <table id="editable" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>ID</th>
+                                                    <th>Name</th>
+                                                    <th>Gender</th>
+                                                    <th>Year</th>
+                                                    <th>program</th>
+                                                    <th>Items</th>
+                                                    <th>Add by</th>
+                                                    <th>Edit</th>
+                                                    <th>Delete</th>
+                                                </tr>
+                                            </thead>
+                                        
+                                            <tbody>
+
+                                                @foreach ($studTable as $user)
+                                                    
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>{{ $user->ID_no }}</td>
+                                                        <td>{{ $user->name }}</td>
+                                                        <td>{{ $user->gender }}</td>
+                                                        <td>{{ $user->year }}</td>
+                                                        <td>{{ $user->catagory }}</td>
+                                                        <td>{{ $user->item_name }}</td>
+                                                        <td>{{ $user->add_by }}</td>
                                                         <td>
                                                             <a class="deleteProduct btn btn-xs btn-success" data-id="{{ $user->ID_no }}">Edit</a>
                                                         </td>
@@ -460,6 +513,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                         
                     </div>
                 @endif
@@ -490,7 +544,7 @@
                     </style> 
 
                     <div class="wrapper">
-                        <div class="title">Add New Student</div>
+                        <div class="title">Assign Items</div>
                         
                         <div class="form">
 
@@ -505,7 +559,7 @@
                                 </div>
                             @endif
 
-                            <form action="{{ route('newUsers.saveStudent') }}" method="POST">
+                            <form action="{{ route('newUsers.saveDepUser') }}" method="POST">
 
                                 @csrf
                                 <div class="inputfield">
@@ -514,238 +568,14 @@
                                         value="{{ old('id') }}"> </br>
                                     <span style="color:red;">@error('id'){{ $message }} @enderror</span>
                                 </div>  
-                                <div class="inputfield">
-                                    <label>Name</label> </br>
-                                    <input type="text" class="input" name="name" placeholder="Enter Name" 
-                                        value="{{ old('name') }}"> </br>
-                                    <span style="color:red;">@error('name'){{ $message }} @enderror</span>
-                                </div>  
-                                <div class="inputfield">
-                                    <label>Year</label> </br>
-                                    <input type="text" class="input" name="year" placeholder="Enter year" 
-                                        value="{{ old('year') }}"> </br>
-                                    <span style="color:red;">@error('year'){{ $message }} @enderror</span>
-                                </div> 
-                                <div class="inputfield">
-                                    <label>Program</label></br>
-                                    <div class="custom_select">
-                                        <select id="program" name="program">
-                                            <option selected disabled>Select</option>
-                                            <option value="Regular"  @if(old('program') === 'Regular') selected @endif>Regular Student</option>
-                                            <option value="Extension"  @if(old('program') === 'Extension') selected @endif>Extension Student</option>
-                                            <option value="Distance"  @if(old('program') === 'Distance') selected @endif>Distance Student</option>
-                                        </select></br>
-                                        <span style="color:red;">@error('program'){{ $message }} @enderror</span>
-
-                                    </div>
-                                </div> 
-                                <div class="inputfield">
-                                    <label>Gender</label></br>
-                                    <div class="custom_select">
-                                        <select id="gender" name="gender">
-                                            <option selected disabled>Select</option>
-
-                                            <option value="Male"  @if(old('gender') === 'Male') selected @endif>Male</option>
-                                            <option value="Female"  @if(old('gender') === 'Female') selected @endif>Female</option>
-                                        </select></br>
-                                        <span style="color:red;">@error('gender'){{ $message }} @enderror</span>
-
-                                    </div>
-                                </div> 
                                  
                                 <div class="inputfield">
-                                    <label>Status</label></br>
-                                    <div class="custom_select">
-                                        <select id="status" name="status">
-                                            <option selected disabled>Select</option>
-                                            <option value="Dismissed"  @if(old('status') === 'Dismissed') selected @endif>Dismissed</option>
-                                            <option value="On-Class"  @if(old('status') === 'On-Class') selected @endif>On Class</option>
-                                            <option value="Transfered"  @if(old('status') === 'Transfered') selected @endif>Transfered</option>
-                                            <option value="Withdraw"  @if(old('status') === 'Withdraw') selected @endif>Withdraw</option>
-                                            <option value="End_Of_Year"  @if(old('status') === 'End_Of_Year') selected @endif>End Of Year</option>
-                                        </select></br>
-                                        <span style="color:red;">@error('status'){{ $message }} @enderror</span>
-
-                                    </div>
+                                    <label>Item Name</label> </br>
+                                    <input type="text" class="input" name="item_name" placeholder="Enter item name" 
+                                        value="{{ old('item_name') }}"> </br>
+                                    <span style="color:red;">@error('item_name'){{ $message }} @enderror</span>
                                 </div>  
-                                <div>
-                                    <div class="inputfield">
-                                        <label>College</label></br>
-                                        <div class="custom_select">
-                                            <select id="college" name="college" onchange="college(this)">
-                                                <option selected disabled>Select</option>
-
-                                                <option value="Engineering"  @if(old('college') === 'Engineering') selected @endif>College of Engineering</option>
-                                                <option value="Computing"  @if(old('college') === 'Computing') selected @endif>College of Computing Sciences</option>
-                                                <option value="Freshman"  @if(old('college') === 'Freshman') selected @endif>Freshman College</option>
-                                                <option value="Law"  @if(old('college') === 'Law') selected @endif>College of Law</option>
-                                                <option value="Education" @if(old('college') === 'Education') selected @endif>College of Education</option>
-                                                <option value="Social-Science" @if(old('college') === 'Social-Science') selected @endif>College of Social Science & Humanities</option>
-                                                <option value="Business" @if(old('college') === 'Business') selected @endif>College of Business & Economics</option>
-                                                <option value="Computational" @if(old('college') === 'Computational') selected @endif>College of Natural & Computational Science</option>
-                                                <option value="Agriculture" @if(old('college') === 'Agriculture') selected @endif>College of Agriculture & Natural Resource</option>
-                                            </select></br>
-                                            <span style="color:red;">@error('college'){{ $message }} @enderror</span>
-
-                                        </div>
-                                    </div> 
-                                    
-                                    <div>
-                                    
-                                        <!--  Freshman College -->
-                                        <div id="Freshman" class="inputfield1">
-                                            <div class="inputfield">
-                                                <label>Department</label></br>
-                                                <div class="custom_select">
-                                                    <select name="department">
-                                                        <option selected disabled>Select (Freshman College)</option>
-                                                        <option value="Social Freshman">Social Freshman</option>
-                                                        <option value="Natural Freshman">Natural Freshman</option>
-                                                    </select>
-                                                </div>
-                                            </div> 
-                                        </div> 
-
-                                        <!-- College of Engineering -->
-                                        <div id="Engineering" class="inputfield1">
-                                            <div class="inputfield">
-                                                <label>Department</label></br>
-                                                <div class="custom_select">
-                                                    <select name="department">
-                                                        <option selected disabled>Select (College of Engineering)</option>
-                                                        <option value="Electrical Engineering">Electrical Engineering </option>
-                                                        <option value="Mechanical  Engineering">Mechanical  Engineering </option>
-                                                        <option value="Civil Engineering">Civil Engineering</option>
-                                                        <option value="Chemical Engineering">Chemical Engineering</option>
-                                                        <option value="Industrial Engineering">Industrial Engineering</option>
-                                                        <option value="CoTM Engineering">CoTM Engineering</option>
-                                                    </select>
-                                                </div>
-                                            </div> 
-                                        </div> 
-                                    
-                                        <!-- College of Computing -->
-                                        <div id="Computing" class="inputfield1">
-                                            <div class="inputfield">
-                                                <label>Department</label></br>
-                                                <div class="custom_select">
-                                                    <select name="department">
-                                                        <option selected disabled>Select (College of Computing)</option>
-                                                        <option value="Information Technology">Information Technology </option>
-                                                        <option value="Computer Science">Computer Science </option>
-                                                        <option value="Information System">Information System</option>
-                                                        <option value="Software Engineering">Software Engineering</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- College of Education -->
-                                        <div id="Education" class="inputfield1">
-                                            <div class="inputfield">
-                                                <label>Department</label></br>
-                                                <div class="custom_select">
-                                                    <select name="department">
-                                                        <option selected disabled>Select (College of Education)</option>
-                                                        <option value="Technical Drawing">Technical Drawing </option>
-                                                        <option value="Business Education">Business Education</option>
-                                                        <option value="Special need Education">Special need Education</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- College of Law -->
-                                        <div id="Law" class="inputfield1">
-                                            <div class="inputfield">
-                                                <label>Department</label></br>
-                                                <div class="custom_select">
-                                                    <select name="department">
-                                                        <option value="Law">Law</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- College of Social Science & Humanities -->
-                                        <div id="Social-Science" class="inputfield1">
-                                            <div class="inputfield">
-                                                <label>Department</label></br>
-                                                <div class="custom_select">
-                                                    <select name="department">
-                                                        <option selected disabled>Select (College of Social Science & Humanities)</option>
-                                                        <option value="Psychology">Psychology </option>
-                                                        <option value="Geography">Geography and Environmental Studies </option>
-                                                        <option value="Sociology">Sociology </option>
-                                                        <option value="Amharic">Amharic </option>
-                                                        <option value="History">History and Heritage Management</option>
-                                                        <option value="Civics">Civics and Ethical Studies </option>
-                                                        <option value="English">English </option>
-                                                        <option value="Journalism">Journalism and Communication </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- College of Agriculture & Natural Science -->
-                                        <div id="Agriculture" class="inputfield1">
-                                            <div class="inputfield">
-                                                <label>Department</label></br>
-                                                <div class="custom_select">
-                                                    <select name="department">
-                                                        <option selected disabled>Select (College of Agriculture & Natural Science)</option>
-                                                        <option value="Natural Resource Management">Natural Resource Management </option>
-                                                        <option value="Animal  Science">Animal  Science </option>
-                                                        <option value="Agriculture Economics">Agriculture Economics</option>
-                                                        <option value="Horticulture">Horticulture</option>
-                                                        <option value="Plant Science">Plant Science</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- College of Natural & Computational -->
-                                        <div id="Computational" class="inputfield1">
-                                            <div class="inputfield">
-                                                <label>Department</label></br>
-                                                <div class="custom_select">
-                                                    <select name="department">
-                                                        <option selected disabled>Select (College of Natural & Computational)</option>
-                                                        <option value="Statistics">Statistics </option>
-                                                        <option value="Physics">Physics </option>
-                                                        <option value="Mathematics">Mathematics </option>
-                                                        <option value="Sport Science">Sport Science </option>
-                                                        <option value="Biology">Biology </option>
-                                                        <option value="Biotechnology">Biotechnology </option>
-                                                        <option value="Chemistry">Chemistry </option>
-                                                        <option value="Geology">Geology </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- College of Business & Economics -->
-                                        <div id="Business" class="inputfield1">
-                                            <div class="inputfield">
-                                                <label>Department</label></br>
-                                                <div class="custom_select">
-                                                    <select name="department">
-                                                        <option selected disabled>Select (College of Business & Economics)</option>
-                                                        <option value="Management">Management </option>
-                                                        <option value="Acounting">Acounting and Finance </option>
-                                                        <option value="Economics">Economics </option>
-                                                        <option value="Tourism">Tourism and Heritage Management</option>
-                                                        <option value="Logistics">Logistics and Supply Chain Management </option>
-                                                        <option value="Marketing">Marketing Management</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <span style="color:red;">@error('department'){{ $message }} @enderror</span>
-
-                                    </div>
-                                </div>
+                                
                                 <div class="inputfield" style="margin-top: 20px;">
                                     <input type="submit" value="Save" class="btn">
                                 </div>

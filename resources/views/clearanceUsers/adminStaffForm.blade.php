@@ -289,7 +289,7 @@
 
                             <div class="accordion__content">
                                 @if(($HRM->status) !== 'working')
-                                    <p style="color: green; ">Approved</p>
+                                    <p style="color: green; ">Cleared</p>
                                     <p>
                                         HRM office has approved your Clearance,
                                         you can procceed to the next clearance
@@ -323,7 +323,7 @@
 
                             <div class="accordion__content">
                                 @if(!$DepHead)
-                                    <p style="color: green; ">Approved</p>
+                                    <p style="color: green; ">Cleared</p>
                                     <p>
                                         Your department have approved your Clearance,
                                         you can procceed to the next clearance
@@ -356,7 +356,7 @@
 
                             <div class="accordion__content">
                                 @if(!$Library)
-                                    <p style="color: green; ">Approved</p>
+                                    <p style="color: green; ">Cleared</p>
                                     <p>
                                         The Main Library have approved your Clearance,
                                         you can procceed to the next clearance
@@ -390,7 +390,7 @@
 
                             <div class="accordion__content">
                                 @if(!$Property)
-                                    <p style="color: green; ">Approved</p>
+                                    <p style="color: green; ">Cleared</p>
                                     <p>
                                         The Property Office have approved your Clearance,
                                         you can procceed to the next clearance
@@ -424,7 +424,7 @@
 
                             <div class="accordion__content">
                                 @if(!$IctProperty)
-                                    <p style="color: green; ">Approved</p>
+                                    <p style="color: green; ">Cleared</p>
                                     <p>
                                         Ict Property Office have approved your Clearance,
                                         you can procceed to the next clearance
@@ -467,7 +467,7 @@
                             <div class="accordion__content">
                                 @if($Cashier)
                                     @if(($Cashier->balance)  == 0)
-                                        <p style="color: green; ">Approved</p>
+                                        <p style="color: green; ">Cleared</p>
                                         <p>
                                             The cashier office have approved your Clearance,
                                             you can procceed to the next clearance
@@ -493,7 +493,7 @@
                                     @endif
                                 @endif
                                 @if(!$Cashier)
-                                    <p style="color: green; ">Approved</p>
+                                    <p style="color: green; ">Cleared</p>
                                     <p>
                                         The cashier office have approved your Clearance,
                                         you can procceed to the next clearance
@@ -527,7 +527,7 @@
                             <div class="accordion__content">
                                 @if($Finance)
                                     @if(($Finance->balance)  == 0)
-                                        <p style="color: green; ">Approved</p>
+                                        <p style="color: green; ">Cleared</p>
                                         <p>
                                             The Finance office have approved your Clearance,
                                             you can procceed to the next clearance
@@ -553,7 +553,7 @@
                                     @endif
                                 @endif
                                 @if(!$Finance)
-                                    <p style="color: green; ">Approved</p>
+                                    <p style="color: green; ">Cleared</p>
                                     <p>
                                         The Finance office have approved your Clearance,
                                         you can procceed to the next clearance
@@ -584,7 +584,7 @@
                             <div class="accordion__content">
                                 @if($AntiCorrupt)
                                     @if(($AntiCorrupt->status) !== 'working')
-                                        <p style="color: green; ">Approved</p>
+                                        <p style="color: green; ">Cleared</p>
                                         <p>
                                             Anti-Corruption office has approved your Clearance,
                                             you can procceed to the next clearance

@@ -52,8 +52,9 @@ Route::post('/HRM/new employee/save', [OfficerController::class, 'newEmployeeSav
 Route::post('/registrar/new student/save', [OfficerController::class, 'newStudentSave'])->name('newUsers.saveStudent');
 Route::post('/library/new user/save', [OfficerController::class, 'newPatronSave'])->name('newUsers.savePatron');
 Route::post('/library/new book/save', [OfficerController::class, 'newBookSave'])->name('newUsers.saveBook');
+Route::post('/department/new borrowed/save', [OfficerController::class, 'newDepSave'])->name('newUsers.saveDepUser');
 
-Route::post('/clearance/regular student/check', [UserController::class, 'clearanceCheckRegular'])->name('clearanceUsers.checkRegular');
+Route::get('/clearance/regular student/check', [UserController::class, 'clearanceCheckRegular'])->name('clearanceUsers.checkRegular');
 Route::post('/clearance/extension student/check', [UserController::class, 'clearanceCheckExtension'])->name('clearanceUsers.checkExtension');
 Route::get('/clearance/distance student/check', [UserController::class, 'clearanceCheckDistance'])->name('clearanceUsers.checkDistance');
 Route::post('/clearance/teacher/check', [UserController::class, 'clearanceCheckTeacher'])->name('clearanceUsers.checkTeacher');
@@ -63,25 +64,25 @@ Route::post('/clearance/administrator staff/check', [UserController::class, 'cle
 Route::group(['middleware'=>['AuthCheck']], function(){
 
     // clearance 
-    Route::get('/clearance', [loginController::class, 'clearanceDashboard']);
+        Route::get('/clearance', [loginController::class, 'clearanceDashboard']);
 
-    Route::get('/clearance/regular student', [UserController::class, 'clearanceRegular']);
-    Route::get('/clearance/extension student', [UserController::class, 'clearanceExtension']);
-    Route::get('/clearance/distance student', [UserController::class, 'clearanceDistance']);
-    Route::get('/clearance/teacher', [UserController::class, 'clearanceTeacher']);
-    Route::get('/clearance/administrator staff', [UserController::class, 'clearanceAdminStaff']);
-
+        Route::get('/clearance/regular student', [UserController::class, 'clearanceRegular']);
+        Route::get('/clearance/extension student', [UserController::class, 'clearanceExtension']);
+        Route::get('/clearance/distance student', [UserController::class, 'clearanceDistance']);
+        Route::get('/clearance/teacher', [UserController::class, 'clearanceTeacher']);
+        Route::get('/clearance/administrator staff', [UserController::class, 'clearanceAdminStaff']);
+    //end
 
     // admin routes ----------------------------------------------------------- //
-    Route::get('/admin/new user', [loginController::class, 'newUserRegister'])->name('newUsers.newUser');
-    Route::get('/admin/dashboard', [loginController::class, 'adminDashboard']);
-    Route::get('/admin/users/search', [SearchController::class, 'adminSearch'])->name('admin.search');
-    Route::post('/admin/tabledit', [UpdateController::class, 'adminTableEdit'])->name('tabledit.adminsTableEdit');
-
+        Route::get('/admin/new user', [loginController::class, 'newUserRegister'])->name('newUsers.newUser');
+        Route::get('/admin/dashboard', [loginController::class, 'adminDashboard']);
+        Route::get('/admin/users/search', [SearchController::class, 'adminSearch'])->name('admin.search');
+        Route::post('/admin/tabledit', [UpdateController::class, 'adminTableEdit'])->name('tabledit.adminsTableEdit');
+    // end
 
     // Officers 
 
-        // library
+        // library 
         Route::get('/officers/library', [loginController::class, 'libraryDashboard']);
         Route::get('/officers/library/new patron', [OfficerController::class, 'newPatronRegister'])->name('officers.library.newPatron');
         Route::get('/officers/library/new book', [OfficerController::class, 'newBookRegister'])->name('officers.library.newBook');
@@ -89,7 +90,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
         Route::get('/officers/library/admin staffs', [OfficerController::class, 'libraryAdminStaffs']);
         Route::get('/officers/library/students', [OfficerController::class, 'libraryStudents']);
         Route::get('/officers/library/books', [OfficerController::class, 'libraryBooks']);
-        Route::get('/library/checkouts/{catagory}/{Card_no}', [UpdateController::class, 'libraryCheckout'])->name('library.checkouts');
+        Route::get('/library/checkouts/{catagory}/{Card_no}', [UpdateController::class, 'libraryCheckoutLists'])->name('library.checkouts');
 
         Route::get('/officers/library/search all', [SearchController::class, 'libraryAllSearch'])->name('library.allSearch');
         Route::get('/officers/library/search teachers', [SearchController::class, 'libraryTeachSearch'])->name('library.teachSearch');
@@ -98,7 +99,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
         Route::get('/officers/library/search books', [SearchController::class, 'libraryBookSearch'])->name('library.bookSearch');
         
         Route::post('/officers/library/checkin book', [UpdateController::class, 'libraryCheckInBook'])->name('library.checkInBook');
-        Route::post('/officers/library/checkout book', [UpdateController::class, 'libraryCheckOutBook'])->name('library.checkOutBook');
+        Route::get('/officers/library/checkout book', [UpdateController::class, 'libraryCheckOutBook'])->name('library.checkOutBook');
         
         // registrar 
         Route::get('/officers/registrar', [loginController::class, 'registrarDashboard']);
@@ -107,7 +108,6 @@ Route::group(['middleware'=>['AuthCheck']], function(){
         Route::get('/officers/registrar/extension students', [OfficerController::class, 'extnStudList']);
         Route::get('/officers/registrar/distance students', [OfficerController::class, 'disStudList']);
         
-       
         Route::get('/officers/registrar/search all', [SearchController::class, 'registrarAllSearch'])->name('registrar.allSearch');
         Route::get('/officers/registrar/search regular', [SearchController::class, 'registrarRegSearch'])->name('registrar.regSearch');
         Route::get('/officers/registrar/search extension', [SearchController::class, 'registrarExtnSearch'])->name('registrar.extnSearch');
@@ -117,7 +117,6 @@ Route::group(['middleware'=>['AuthCheck']], function(){
         
         Route::get('/registrar/delete/{program}/{ID_no}', [UpdateController::class, 'registrarDelete'])->name('registrar.Delete');
         Route::get('/registrar/clearance/delete/{program}/{ID_no}', [UpdateController::class, 'registrarDeleteClearance'])->name('registrar.DeleteClearance');
-        
         Route::get('/click_view/{program}/{ID_no}', [UserController::class, 'registrarClearanceView'])->name('registrar.clearanceSearch');
         
         Route::post('/officers/registrar/update status', [UpdateController::class, 'registerUpdateStatus'])->name('registrar.registerUpdateStatus');
@@ -125,19 +124,33 @@ Route::group(['middleware'=>['AuthCheck']], function(){
         Route::get('/registrar/print all', [OfficerController::class, 'registrarPrintAll'])->name('registrar.printAll');
         Route::get('/registrar/clearance/pdf/{program}/{ID_no}', [OfficerController::class, 'registrarPrint'])->name('registrar.print');
         
-        // Department Head 
-        Route::get('/officers/department head', [loginController::class, 'departmentsDashboard']);
-        Route::get('/officers/departments/add checkout', [OfficerController::class, 'newCheckoutDepartment']);
-        Route::get('/officers/departments/regular students', [OfficerController::class, 'regStudList']);
-        Route::get('/officers/departments/extension students', [OfficerController::class, 'extnStudList']);
-        Route::get('/officers/departments/distance students', [OfficerController::class, 'disStudList']);
+        // dining 
+        Route::get('/officers/dining', [loginController::class, 'diningDashboard']);
+        Route::get('/officers/dining/non cafe', [OfficerController::class, 'nonCafeStudList']);
+        Route::get('/officers/dining/non cafe/new', [OfficerController::class, 'newNonCafe']);
         
+        Route::get('/officers/dining/search all', [SearchController::class, 'diningAllSearch'])->name('dining.allSearch');
+        Route::get('/officers/dining/cafe/search', [SearchController::class, 'diningCafeSearch'])->name('dining.cafeSearch');
+        Route::get('/officers/dining/non cafe/search', [SearchController::class, 'diningNcafeSearch'])->name('dining.nCafeSearch');
+        
+        Route::get('/dining/delete/{program}/{ID_no}', [UpdateController::class, 'diningDelete'])->name('dining.Delete');
+        Route::get('/dining/non cafe/delete/{program}/{ID_no}', [UpdateController::class, 'diningDeleteNcafe'])->name('dining.DeleteNcafe');
+        
+        Route::post('/officers/dining/update status', [UpdateController::class, 'registerUpdateStatus'])->name('dining.diningUpdateStatus');
+        Route::post('/dining/tabledit', [UpdateController::class, 'diningTableEdit'])->name('tabledit.diningTableEdit');
+        
+        // Department Head  
+        Route::get('/officers/department head', [loginController::class, 'departmentsDashboard']);
+        Route::get('/officers/departments/add checkout', [OfficerController::class, 'depNewCheckout']);
+        Route::get('/officers/departments/regular students', [OfficerController::class, 'depRegStud']);
+        Route::get('/officers/departments/extension students', [OfficerController::class, 'depExtnStud']);
+        Route::get('/officers/departments/distance students', [OfficerController::class, 'depDisStud']);
+        Route::get('/departments/checkout/list', [OfficerController::class, 'depCheckoutList']);
        
         Route::get('/officers/departments/search all', [SearchController::class, 'departmentAllSearch'])->name('department.allSearch');
         Route::get('/officers/departments/search regular', [SearchController::class, 'departmentRegSearch'])->name('department.regSearch');
         Route::get('/officers/departments/search extension', [SearchController::class, 'departmentExtnSearch'])->name('department.extnSearch');
         Route::get('/officers/departments/search distance', [SearchController::class, 'departmentDisSearch'])->name('department.disSearch');
-        Route::get('/departments/checkout/list', [OfficerController::class, 'departmentCheckoutList']);
         Route::get('/departments/checkout/search', [SearchController::class, 'departmentCheckoutSearch'])->name('department.checkoutSearch');
         
         Route::get('/departments/delete/{program}/{ID_no}', [UpdateController::class, 'departmentDelete'])->name('department.Delete');
@@ -171,13 +184,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
         Route::post('/HRM/tabledit', [UpdateController::class, 'hrmTableEdit'])->name('tabledit.hrmTableEdit');
         Route::get('/HRM/print all', [OfficerController::class, 'hrmPrintAll'])->name('HRM.printAll');
         
-
-        // dining
-        Route::get('/officers/dining office', [loginController::class, 'diningDashboard']);
-
-        // department officers
-        Route::get('/officers/electrical department', [loginController::class, 'electricalDashboard']);
-        
+       
     // end officers
 
 });

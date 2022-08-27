@@ -159,7 +159,7 @@
                         <span>{{ $LoggedUser['name'] }}</span>
                     </div>
 
-                    <form action="{{ route('clearanceUsers.checkRegular') }}" method="POST">
+                    <form action="{{ route('clearanceUsers.checkRegular') }}" method="get">
 
                         @csrf
                         <div class="accordion department">
@@ -178,7 +178,7 @@
 
                             <div class="accordion__content">
                                 @if(!$regDepHead)
-                                    <p style="color: green; ">Approved</p>
+                                    <p style="color: green; ">Cleared</p>
                                     <p>
                                         Your department have approved your Clearance,
                                         you can procceed to the next clearance
@@ -212,7 +212,7 @@
 
                             <div class="accordion__content">
                                 @if(!$regLibrary)
-                                    <p style="color: green; ">Approved</p>
+                                    <p style="color: green; ">Cleared</p>
                                     <p>
                                         The Main Library have approved your Clearance,
                                         you can procceed to the next clearance
@@ -253,7 +253,7 @@
                             <div class="accordion__content">
                                 @if($regStudResidence)
                                     @if(($regStudResidence->status)==='leave')
-                                        <p style="color: green; ">Approved</p>
+                                        <p style="color: green; ">Cleared</p>
                                         <p>
                                             The student residence office  have approved your Clearance,
                                             you can procceed to the next clearance
@@ -270,7 +270,7 @@
                                     @endif
                                 @endif
                                 @if(!$regStudResidence)
-                                    <p style="color: green; ">Approved</p>
+                                    <p style="color: green; ">Cleared</p>
                                     <p>
                                         Your request have been approved ,
                                         you can procceed to the next clearance
@@ -296,7 +296,7 @@
 
                             <div class="accordion__content">
                                 @if(!$regDining)
-                                    <p style="color: green; ">Approved</p>
+                                    <p style="color: green; ">Cleared</p>
                                     <p>
                                         Dining Office have approved your Clearance,
                                         you can procceed to the next clearance
@@ -331,7 +331,7 @@
 
                             <div class="accordion__content">
                                 @if(($regRegistrar->status)!=='On-Class')
-                                    <p style="color: green; ">Approved</p>
+                                    <p style="color: green; ">Cleared</p>
                                     <p>
                                         The Registrar office have approved your Clearance,
                                         you can procceed to the next clearance

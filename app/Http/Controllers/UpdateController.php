@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Carbon;
+
+
 use App\Models\UserLogin;
 use App\Models\Teacher;
 use App\Models\AdminStaff;
@@ -29,6 +32,7 @@ use App\Models\PropertyCheckouts;
 use App\Models\CashierUsers;
 use App\Models\GeneralServiceUsers;
 use App\Models\AntiCorruptionUsers;
+use App\Models\Books;
 
 use DB;
 
@@ -205,7 +209,7 @@ class UpdateController extends Controller
     // 	}
     // }
     function hrmDelete($catagory, $id_no){
-        DB::table('students')
+        DB::table('employees')
             ->where([['program', $program],['ID_no', $id_no]])
             ->delete();
 
@@ -235,7 +239,7 @@ class UpdateController extends Controller
     }
 
     // library
-    function libraryReturnBook(Request $request){
+    function libraryCheckInBook(Request $request){
         //validate request input
         $request->validate([
             'barcode' => 'required',
@@ -247,10 +251,15 @@ class UpdateController extends Controller
                 ->where('barcode', $Barcode)
                 ->delete();
 
-        return redirect('/officers/library');
-        
+        $regUser=LibraryCheckouts::where('barcode','=', $Barcode)->first();
+
+        if(!$regUser){
+            return redirect()->back()->with('alert', 'Checkin Successful');
+        }else{
+            return redirect()->back()->with('alert', 'Something went wrong');
+        }
     }
-    function libraryCheckout($Catagory, $id_no){
+    function libraryCheckoutLists($Catagory, $id_no){
         $data = ['LoggedUser'=>$loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first()];
 
         $Checkouts = ['checkouts'=>LibraryCheckouts::where([['catagory','=', $Catagory],['card_no','=', $id_no]])->get()];
@@ -258,6 +267,62 @@ class UpdateController extends Controller
 
         return view('officers.library.libraryCheckouts')->with($data)->with($Checkouts)->with($Table);
     }
+    function libraryCheckOutBook(Request $request){
+        //validate request input
+        $request->validate([
+            'barcode' => 'required',
+        ]);
+        $inp = $request->input('card_no');
+
+        $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
+
+        // $libUser = LibraryUsers::where('Card_no','=', $inp)->first();
+        $libUser = DB::table('library_users')
+                ->where('Card_no', $inp)
+                ->first();
+        $book=Books::where('barcode','=', $request->barcode)->first();
+        $regUser=LibraryCheckouts::where('barcode','=', $request->barcode)->first();
+       
+        $catg = $libUser->catagory;
+        $due = '1';
+
+        if($catg==='Teacher'){
+            $due = Carbon::now()->addDays(30);
+        }elseif($catg==='Admin_Staff'){
+            $due = Carbon::now()->addDays(15);
+        }elseif($catg==='Student'){
+            $due = Carbon::now()->addDays(7);
+        }
+
+        if($regUser){
+            return redirect()->back()->with('alert', 'ERROR! this book is already taken');
+        }else{
+            if($book){
+                $checkout = new LibraryCheckouts;
+                $checkout->card_no = $libUser->Card_no;
+                $checkout->catagory = $catg;
+                $checkout->barcode = $book->barcode;
+                $checkout->title = $book->title;
+                $checkout->library = $book->library;
+                $checkout->location = $book->location;
+    
+                $checkout->due_date = $due;
+                $checkout->charge = '0';
+                $save = $checkout->save();
+    
+                if ($save){
+                    return redirect()->back()->with('alert', 'Checkin Successful');
+                }else{
+                    return redirect()->back()->with('alert', 'Something went wrong');
+                }
+    
+            }else{
+                return redirect()->back()->with('alert', 'ERROR! there is no such book in the database');
+            }
+        }
+     
+
+    } 
     
     function adminTableEdit(Request $request){
         if($request->ajax()){

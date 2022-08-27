@@ -434,6 +434,17 @@
                                     <div class="table-responsive">
                                         @csrf
                                         @if($all === true)
+
+                                            <style>
+                                                table{
+                                                    font-size: 13px;
+                                                }
+                                                .container{
+                                                    padding-right: 130px;
+                                                    padding-left: 3px;
+                                                }
+                                            </style>
+
                                             <table id="editable" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
@@ -448,6 +459,8 @@
                                                         <th>Phone</th>
                                                         <th>Add By</th>
                                                         <th>Created Date</th>
+                                                        <th>Edit</th>
+                                                        <th>Delete</th>
                                                     </tr>
                                                 </thead>
                                             
@@ -457,7 +470,7 @@
                                                     <tr>
                                                         <td></td>
                                                         <td>{{ $user->Card_no }}</td>
-                                                        <td>{{ $user->name }} </td>
+                                                        <td><a href="/library/checkouts/{{ $user->catagory }}/{{ $user->Card_no }}"> {{ $user->name }}</a></td>
                                                         <td>{{ $user->gender }}</td>
                                                         <td>{{ $user->catagory }}</td>
                                                         <td>{{ $user->college }}</td>
@@ -466,6 +479,12 @@
                                                         <td>{{ $user->phone }}</td>
                                                         <td>{{ $user->add_by }}</td>
                                                         <td>{{ $user->created_at }}</td>
+                                                        <td>
+                                                            <a class="deleteProduct btn btn-xs btn-success">Edit</a>
+                                                        </td>
+                                                        <td>
+                                                            <a class="deleteProduct btn btn-xs btn-danger" href="/registrar/delete/{{ $user->catagory }}/{{ $user->Card_no }}">Delete</a>
+                                                        </td>
                                                     </tr>
 
                                                 @endforeach
@@ -486,6 +505,8 @@
                                                         <th>College</th>
                                                         <th>Department</th>
                                                         <th>Add By</th>
+                                                        <th>Edit</th>
+                                                        <th>Delete</th>
                                                     </tr>
                                                 </thead>
                                                 
@@ -501,6 +522,12 @@
                                                             <td>{{ $user->college }}</td>
                                                             <td>{{ $user->department }}</td>
                                                             <td>{{ $user->add_by }}</td>
+                                                            <td>
+                                                                <a class="deleteProduct btn btn-xs btn-success">Edit</a>
+                                                            </td>
+                                                            <td>
+                                                                <a class="deleteProduct btn btn-xs btn-danger" href="/registrar/delete/{{ $user->catagory }}/{{ $user->Card_no }}">Delete</a>
+                                                            </td>
                                                         </tr>
 
                                                     @endforeach
@@ -596,9 +623,9 @@
                                     <div class="custom_select">
                                         <select id="catagory" name="catagory">
                                             <option selected disabled>Select</option>
-                                            <option value="Teacher"  @if(old('program') === 'Teacher') selected @endif>Teacher</option>
-                                            <option value="Admin_Staff"  @if(old('program') === 'Admin_Staff') selected @endif>Administrator Staff</option>
-                                            <option value="Student"  @if(old('program') === 'Student') selected @endif>Student</option>
+                                            <option value="Teacher"  @if(old('catagory') === 'Teacher') selected @endif>Teacher</option>
+                                            <option value="Admin_Staff"  @if(old('catagory') === 'Admin_Staff') selected @endif>Administrator Staff</option>
+                                            <option value="Student"  @if(old('catagory') === 'Student') selected @endif>Student</option>
                                         </select></br>
                                         <span style="color:red;">@error('catagory'){{ $message }} @enderror</span>
 
@@ -928,6 +955,14 @@
 @endsection
 
 @section('bottomScripts')
+    <!-- script for alert messege -->
+    <script>
+        var msg = '{{ Session::get('alert')}}';
+        var exist = '{{ Session::has('alert')}}';
+        if(exist){
+            alert(msg);
+        }
+    </script>
 
     <!-- script for select options -->
     <script>

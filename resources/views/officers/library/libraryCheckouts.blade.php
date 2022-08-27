@@ -16,15 +16,17 @@
 
     <style>
       
+      table{
+            font-size: 14px;
+        }
         body {
-            /* font-family: 'Nunito', sans-serif; */
-            font-family: "Times New Roman", Times, serif;
+            font-family: 'Nunito', sans-serif;
             padding-left: 4%;
             padding-right: 4%;
             background-color: gray;
         }
         .sticky {
-            width: 78.3%;
+            width: 79.5%;
         }
         #navbar .active{
             border: 1px solid;
@@ -37,13 +39,12 @@
             height: auto;
         }
         footer{
-            width: 98.2%;
+            width: 100%;
         }
   
         .column1{
-            width: 96%;
-            padding: 10px 20px;
-            float: center;
+            width: 100%;
+            padding: 10px 30px;
         }
         
         .dropspanCurrent { 
@@ -131,37 +132,48 @@
             color: black;
             font-size: 14px;
             border-radius: 4px;
-            margin-top: 25px;
             border: none;
             background-color: #71a3da;
+            margin-top: 20px;
         }
         
         .searchit{
             align-items: center;
-            width: 95%;
+            width: 80%;
             height: 80%;
             outline: none;
             border: 1px solid #d5dbd9;
             font-size: 15px;
             padding: 8px 10px;
             border-radius: 3px;
-            margin-bottom: 10px;
             transition: all 0.3s ease;
         }
         .searchForm{
             margin-left: 20%;
             display: flex;
             float: left;
-            margin-bottom: 25px;
-            padding-bottom: 10px;
-            height: 40px;
+            margin-bottom: 20px;
+            height: 60px;
             width: 50%;
         }
+        .inputfield{
+            margin-bottom: 10px;
+        }
         
-        .searchDiv{
+        .custom_select select{
+            height: 100%;
+            border-radius: 1px;
+            color: black;
+            font-size: 14px;
+            border-radius: 3px;
+            cursor: pointer;
+            border-color: lightgreen;
+        }
+        .searchDiv, .searchDiv2{
             display: flex; 
             float: center;
             width: 100vh;
+
         }
         .abtnCont{
             display: block;
@@ -185,10 +197,36 @@
             color: #f1f1f1;
             background-color: blue;
         }
+        .chooseField1{
+            display: none;
+        }
+        
+        .searchDiv2 {
+            margin-bottom: 40px;
+            color: darkred;
+        }
+        
+        .searchDiv2 .search-btn{
+            margin-top: 23px;
+            width: 80px;
+        }
         .search-btn:hover{
             opacity: 0.7;
             color: white;
         }
+        .searchDiv2 input{
+            height: 40px;
+            border-width: 1px;
+            border-color: lightgreen;
+            box-shadow: none; 
+        }
+        .searchDiv2{
+            display: none;
+        }
+        .chooseField label{
+            margin-left: 10px;
+        }
+        
         button{
             width: 40px;
             color: black;
@@ -199,7 +237,7 @@
             background-color: #71a3da;
         }
         .container{
-            padding-right: 20px;
+            padding-right: 180px;
             padding-left: 10px;
         }
         .container input{
@@ -209,11 +247,11 @@
             cursor: pointer;
         }
          
-        @media screen and (max-width:600px) {
+        @media screen and (max-width:420px) {
 
 
             .container{
-                padding: 0;
+                padding-right: 10px;
             }
             table{
                 font-size: 12px;
@@ -242,10 +280,32 @@
                 padding: 10px;
             }
              
+            .searchDiv{
+                display: inline-block;
+                vertical-align: top;
+                line-height: 1;
+            }
+            .searchDiv2 select{
+                max-width: 100px;
+                min-width: 30px;
+            }
+            .searchDiv2 .search-btn{
+                margin-left: 0;
+                max-width: 60px;
+            }  
+            .searchDiv2 input{
+                max-width: 70px;
+                min-width: 30px;
+                 
+            }
+            
+             
+            
         }
         
 
     </style>
+       
                     
     <style>
         .clearance-form{
@@ -292,7 +352,7 @@
         }
     </style>            
 
-    <span class="dropspanCurrent" >Registerar - Requested Clearance</span></br>
+    <span class="dropspanCurrent" >Library - Checkouts</span></br>
     <div class="navbar2">
     
         <ul  >
@@ -318,19 +378,22 @@
                     <input type="text" class="searchit" name="barcode" placeholder="Enter barcode" 
                         value="{{ old('barcode') }}"> </br>
                 </div> 
-                <button type="submit" class="search-btn" style="margitn-top: 5px;">Submit</button>
+                <button type="submit" class="search-btn" style="margitn-top: 12px;">Submit</button>
             </form>
             
         </div>
+
         <div id="checkOut" class="checkDiv" >  
-            <form method="POST" action="{{ route('library.checkOutBook') }}"  class="searchForm">
+            <form method="get" action="{{ route('library.checkOutBook') }}"  class="searchForm">
                 @csrf
+                <input type="text" style="display: none;" name="card_no" value="{{ $libraryUser->Card_no }}" > 
                 
                 <div class="inputfield" style="width: 100%;">
                     <label style="color: green; padding-left: 10px;">Barcode</label> </br>
                     <input type="text" class="searchit"   name="barcode" placeholder="Enter barcode" 
                         value="{{ old('barcode') }}"> </br>
                 </div> 
+
                 <button type="submit" class="search-btn" style="margitn-top: 10px;">Submit</button>
             </form>
             
@@ -358,13 +421,11 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Card No</th>
                                             <th>Barcode</th>
                                             <th>Title</th>
                                             <th>Location</th>
                                             <th>Due Date</th>
                                             <th>Checkout_date</th>
-                                            <th>Updated By</th>
                                             <th>charge</th>
                                         </tr>
                                     </thead>
@@ -374,13 +435,11 @@
                                     @foreach ($checkouts as $user)
                                         <tr>
                                             <td></td>
-                                            <td>{{ $user->Card_no }}</td>
                                             <td>{{ $user->barcode }} </td>
                                             <td>{{ $user->title }}</td>
                                             <td>{{ $user->location }}</td>
                                             <td>{{ $user->due_date }}</td>
                                             <td>{{ $user->created_at }}</td>
-                                            <td>{{ $user->updated_at }}</td>
                                             <td>{{ $user->charge }}</td>
                                         </tr>
 
@@ -424,7 +483,35 @@
     }
 </script>
 
+    <!-- script for alert messege -->
+    <script>
+        var msg = '{{ Session::get('alert')}}';
+        var exist = '{{ Session::has('alert')}}';
+        if(exist){
+            alert(msg);
+        }
+    </script>
+
 
 @endsection
  
- 
+@section('headerLinks')
+   
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>            
+   <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
+
+   <script type="text/javascript" src="/jquery/jqueryTabledit/jquery.tabledit.min.js"></script>
+   <script type="text/javascript" src="/jquery/jqueryTabledit/jquery.tabledit.js"></script>
+   <script type="text/javascript" src="/jquery/jquery.js"></script>
+   <script type="text/javascript" src="/jquery/jquery-2.js"></script>
+   <script type="text/javascript" src="/jquery/jquery-5.js"></script>
+   <script type="text/javascript" src="/jquery/table-edit-02.js"></script>
+   <script type="text/javascript" src="/jquery/ajax-jquery.js"></script>
+   <script type="text/javascript" src="/jquery/ajax-query-02.js"></script>
+
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+
+
+@endsection
+

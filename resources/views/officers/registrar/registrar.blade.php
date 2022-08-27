@@ -291,7 +291,7 @@
     </style>
                     
                 
-    <span class="dropspanCurrent" >Registerar</span></br>
+    <span class="dropspanCurrent" >Registerar Office</span></br>
     <div class="navbar2">
     
         <ul style="margin-top: 5px;">
@@ -749,6 +749,7 @@
                                                 <label>Department</label></br>
                                                 <div class="custom_select">
                                                     <select name="department">
+                                                        <option selected disabled>Select (College of Law)</option>
                                                         <option value="Law">Law</option>
                                                     </select>
                                                 </div>
@@ -852,7 +853,7 @@
 
 @section('bottomScripts')
 
-    <!-- script for delete -->
+    <!-- script for alert messege -->
     <script>
         var msg = '{{ Session::get('alert')}}';
         var exist = '{{ Session::has('alert')}}';

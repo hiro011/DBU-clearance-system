@@ -13,8 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ahmed_mehameds', function (Blueprint $table) {
+        Schema::create('department_items', function (Blueprint $table) {
             $table->id();
+            $table->string('ID_no', 50);
+            $table->string('name', 50);
+            $table->string('gender', 50);
+            $table->integer('year');
+            $table->string('department', 100);
+            $table->string('catagory', 250);
+            $table->string('item_name', 250);
+            $table->string('add_by', 250);
             $table->timestamps();
         });
     }
@@ -26,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ahmed_mehameds');
+        Schema::dropIfExists('department_items');
     }
 };
