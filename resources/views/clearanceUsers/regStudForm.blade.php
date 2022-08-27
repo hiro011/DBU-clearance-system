@@ -155,6 +155,9 @@
                             <span>Your request is submitted you can check Registrar office to get the paper</span>
                         </div>
                     @endif
+                    <div class="name-title">
+                        <span>{{ $LoggedUser['name'] }}</span>
+                    </div>
 
                     <form action="{{ route('clearanceUsers.checkRegular') }}" method="POST">
 

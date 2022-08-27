@@ -297,12 +297,12 @@
     <span class="dropspanCurrent" >Library</span></br>
     <div class="navbar2">
 
-        <ul style="margin-top: 0;">
+        <ul >
             <a href="/officers/library" id="allPatronsA">All Patrons</a>
             <a href="/officers/library/teachers" id="teachersA">Teachers</a>
             <a href="/officers/library/admin staffs" id="adminStaffsA">Administrator Staffs</a>
             <a href="/officers/library/students" id="studentA">Students</a>
-            <a href="/officers/library/students" id="bookA">Books</a>
+            <a href="/officers/library/books" id="bookA">Books</a>
             <a href="/officers/library/new patron" class="abutton"  id="newPatronA">New Patron</a>
             <a href="/officers/library/new book" class="abutton"  id="newBookA">New Book</a>
 
@@ -316,7 +316,7 @@
             <div class="column1">
                 <!-- content place -->
 
-                @if(($new === false) or ($newBook === false) )
+                @if(($new === false) && ($newBook === false) )
                     @if($all === true)
                         <style>
                             #allPatronsA{
@@ -368,8 +368,8 @@
                     @if($book === true)
                         <style>
                             #bookA{
-                            background-color: blue;
-                            color: white;
+                                background-color: blue;
+                                color: white;
                             }
                             #bookA:hover{
                                 color: black; 
@@ -404,13 +404,13 @@
                                 </form>
 
                                 <div class="abtnCont">
-                                    <button class="abtn" onclick="toggleText()">Return Book</button>
+                                    <button id="returnBtn" class="abtn" onclick="toggleText()">Return Book</button>
                                 </div>
 
                             </div>
 
                             <div id="sDiv2" class="searchDiv2" >  
-                                <form method="POST" action="{{ route('library.returnBook') }}"  class="searchForm">
+                                <form method="POST" action="{{ route('library.checkInBook') }}"  class="searchForm">
                                     @csrf
                                     
                                     <div class="inputfield" style="width: 100%;">
@@ -434,7 +434,7 @@
                                     <div class="table-responsive">
                                         @csrf
                                         @if($all === true)
-                                            <table class="table table-bordered table-striped">
+                                            <table id="editable" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -457,7 +457,7 @@
                                                     <tr>
                                                         <td></td>
                                                         <td>{{ $user->Card_no }}</td>
-                                                        <td> <a href="/library/checkouts/{{ $user->catagory }}/{{ $user->Card_no }}"> {{ $user->name }}</a></td>
+                                                        <td>{{ $user->name }} </td>
                                                         <td>{{ $user->gender }}</td>
                                                         <td>{{ $user->catagory }}</td>
                                                         <td>{{ $user->college }}</td>
@@ -474,8 +474,8 @@
                                             </table>
                                         @endif
 
-                                        @if($all === false && $book === false)
-                                            <table id="editable" class="table table-bordered table-striped">
+                                        @if($teachers === true or $adminstaffs === true or $students === true)
+                                            <table class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -495,7 +495,7 @@
                                                         <tr>
                                                             <td></td>
                                                             <td>{{ $user->Card_no }}</td>
-                                                            <td>{{ $user->name }} </td>
+                                                            <td> <a href="/library/checkouts/{{ $user->catagory }}/{{ $user->Card_no }}"> {{ $user->name }}</a></td>
                                                             <td>{{ $user->gender }}</td>
                                                             <td>{{ $user->catagory }}</td>
                                                             <td>{{ $user->college }}</td>
@@ -857,10 +857,10 @@
                          
                     </style> 
 
-                    <div class="wrapper">
+                    <div class="wrapper" >
                         <div class="title">Add New Book</div>
                         
-                        <div class="form">
+                        <div class="form" >
 
                             @if (Session::get('success'))
                                 <div class="alert-success">
@@ -881,9 +881,9 @@
                                     <div class="custom_select">
                                         <select id="library" name="library">
                                             <option selected disabled>Select</option>
-                                            <option value="Teacher"  @if(old('library') === 'Teacher') selected @endif>Teacher</option>
-                                            <option value="Admin_Staff"  @if(old('library') === 'Admin_Staff') selected @endif>Administrator Staff</option>
-                                            <option value="Student"  @if(old('library') === 'Student') selected @endif>Student</option>
+                                            <option value="main_library"  @if(old('library') === 'main_library') selected @endif>Main Library</option>
+                                            <option value="social_library"  @if(old('library') === 'social_library') selected @endif>Social Library</option>
+                                            <option value="law_library"  @if(old('library') === 'law_library') selected @endif>Law Library</option>
                                         </select></br>
                                         <span style="color:red;">@error('library'){{ $message }} @enderror</span>
 
@@ -947,17 +947,20 @@
         });
         function toggleText(){
             var x = document.getElementById("sDiv2");
+            var es = document.getElementById("returnBtn");
             if (x.style.display === "none") {
                 x.style.display = "block";
+                es.style.background = "blue";
             } else {
                 x.style.display = "none";
+                es.style.background = "#94b5d8";
             }
         }
               
     </script>
 
     <!-- table edit -->
-    <script type="text/javascript">
+    <script >
         $(document).ready(function(){
             
             $.ajaxSetup({
@@ -1024,8 +1027,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>            
     <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
 
-    <script type="text/javascript" src="/jquery/jquery-tabledit/jquery.tabledit.min.js"></script>
-    <script type="text/javascript" src="/jquery/jquery-tabledit/jquery.tabledit.js"></script>
+    <script type="text/javascript" src="/jquery/jqueryTabledit/jquery.tabledit.min.js"></script>
+    <script type="text/javascript" src="/jquery/jqueryTabledit/jquery.tabledit.js"></script>
     <script type="text/javascript" src="/jquery/jquery.js"></script>
     <script type="text/javascript" src="/jquery/jquery-2.js"></script>
     <script type="text/javascript" src="/jquery/jquery-5.js"></script>

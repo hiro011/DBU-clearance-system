@@ -10,6 +10,13 @@
             margin: 10px;
             opacity: 0.9;
         }
+        .name-title {
+            width: 90%;
+            padding: 3%;
+            margin: 10px;
+            color: blue;
+            font-weight: bold;
+        }
        
         .profile_dd{
             top: 58px; 
@@ -297,6 +304,9 @@
         <div class="navbar2">
         
             <ul style="margin-top: 0;">
+                @if($officerBack===true)
+                <a href="/clearance/back/{{ $LoggedUser['role'] }}" id="backA">Home</a>
+                @endif
                 @if($regStud)
                 <a href="/clearance/regular student" id="regStudA">Regular Student</a>
                 @endif

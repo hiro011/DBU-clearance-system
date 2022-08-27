@@ -376,6 +376,10 @@
                         </div>
                     @endif
 
+                    <div class="name-title">
+                        <span>{{ $LoggedUser['name'] }}</span>
+                    </div>
+
                     <form action="{{ route('clearanceUsers.checkTeacher') }}" method="POST">
 
                         @csrf

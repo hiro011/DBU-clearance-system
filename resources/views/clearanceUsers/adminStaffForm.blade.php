@@ -265,6 +265,9 @@
                             <span>Your request is submitted you can check HRM office to get the paper</span>
                         </div>
                     @endif
+                    <div class="name-title">
+                        <span>{{ $LoggedUser['name'] }}</span>
+                    </div>
 
                     <form action="{{ route('clearanceUsers.checkAdminStaff') }}" method="POST">
 

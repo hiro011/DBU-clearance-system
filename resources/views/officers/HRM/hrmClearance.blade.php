@@ -15,14 +15,6 @@
     </style>
 
     <style>
-         
-        .panel {
-             width: 86%;
-        }
-
-    </style>
-
-    <style>
       
       body {
           font-family: 'Nunito', sans-serif;
@@ -127,7 +119,7 @@
       }
 
     </style>
- 
+  
     <style>
         .search-btn{
             width: 80px;
@@ -158,10 +150,20 @@
             width: 50%;
         }
         
-        .searchDiv{
+        .custom_select select{
+            height: 100%;
+            border-radius: 1px;
+            color: black;
+            font-size: 14px;
+            border-radius: 3px;
+            cursor: pointer;
+            border-color: lightgreen;
+        }
+        .searchDiv, .searchDiv2{
             display: flex; 
             float: center;
             width: 100vh;
+
         }
         .abtnCont{
             display: block;
@@ -185,10 +187,41 @@
             color: #f1f1f1;
             background-color: blue;
         }
+        .chooseField1{
+            display: none;
+        }
+        
+        .searchDiv2 {
+            margin-bottom: 40px;
+            color: darkred;
+        }
+        .searchDiv2 select{
+            /* width: 80px; */
+            height: 40px;
+            min-width: 130px;
+        }
+            
+        .searchDiv2 .search-btn{
+            margin-top: 23px;
+            width: 80px;
+        }
         .search-btn:hover{
             opacity: 0.7;
             color: white;
         }
+        .searchDiv2 input{
+            height: 40px;
+            border-width: 1px;
+            border-color: lightgreen;
+            box-shadow: none; 
+        }
+        .searchDiv2{
+            display: none;
+        }
+        .chooseField label{
+            margin-left: 10px;
+        }
+        
         button{
             width: 40px;
             color: black;
@@ -199,7 +232,7 @@
             background-color: #71a3da;
         }
         .container{
-            padding-right: 20px;
+            padding-right: 180px;
             padding-left: 10px;
         }
         .container input{
@@ -247,27 +280,41 @@
                 vertical-align: top;
                 line-height: 1;
             }
+            .searchDiv2 select{
+                max-width: 100px;
+                min-width: 30px;
+            }
+            .searchDiv2 .search-btn{
+                margin-left: 0;
+                max-width: 60px;
+            }  
+            .searchDiv2 input{
+                max-width: 70px;
+                min-width: 30px;
+                 
+            }
+            
+             
             
         }
         
+
     </style>
-                    
-                
-    <span class="dropspanCurrent" >Registerar - Requested Clearance</span></br>
+    
+    
+    <span class="dropspanCurrent" >Human Resource Management</span></br>
     <div class="navbar2">
     
-        <ul style="margin-top: 5px;">
-            <a href="/officers/registrar" id="allStudA">All Student</a>
-            <a href="/officers/registrar/regular students" id="regStudA">Regular Student</a>
-            <a href="/officers/registrar/extension students" id="extnStudA">Extension Student</a>
-            <a href="/officers/registrar/distance students" id="disStudA">Distance Student</a>
+        <ul style="margin-top: 10px;">
+            <a href="/officers/HRM" id="allEmployeeA">All Employees</a>
+            <a href="/officers/HRM/teachers" id="teachersA">Teachers</a>
+            <a href="/officers/HRM/admin staffs" id="adminStaffA">Administrator Staffs</a>
+            <a href="/officers/HRM/new employee" class="abutton"  id="newEmployeeA">New Employee</a>
 
-            <a href="/officers/registrar/new student" class="abutton"  id="newStudA">New Student</a>
-            <a href="/clearance/administrator staff" class="abutton"  id="reqCA" style="margin-left: 5px;">Request Clearance</a>
-            <a href="/registrar/clearance/list" class="abutton"  id="viewCA" style="margin-left: 5px;">View Clearance</a>
+            <a href="/clearance/administrator staff" class="abutton"  id="reqCA" style="margin-left: 5px;"> Request Clearance</a>
+            <a href="/HRM/clearance/list" class="abutton"  id="viewCA" style="margin-left: 5px;">View Clearance</a>
         </ul>
         
-
     </div>
  
     <section id="columns">
@@ -276,7 +323,7 @@
             <div class="column1">
                 <!-- content place -->
 
-                    <div class="studLists">
+                    <div class="empLists">
 
                         <div style="margin-bottom:20px;">
                             <div class="searchDiv" >  
@@ -313,7 +360,7 @@
                                                     <th>Name</th>
                                                     <th>Gender</th>
                                                     <th>Year</th>
-                                                    <th>program</th>
+                                                    <th>Catagory</th>
                                                     <th>College</th>
                                                     <th>Department</th>
                                                     <th>Reason</th>
@@ -328,12 +375,13 @@
                                                     
                                                     <tr>
                                                         <td></td>
-                                                        <td> <a class="btn btn-xs btn-success" href="/registrar/clearance/pdf/{{ $user->program }}/{{ $user->ID_no }}">View</a></td>
+                                                        <td> <a href="/clearance/export pdf/{{ $user->catagory }}/{{ $user->ID_no }}">View</a></td>
+                                                        <td><a class="btn btn-xs btn-success" href="/HRM/clearance/pdf/{{ $user->program }}/{{ $user->ID_no }}">View</a></td>
                                                         <td>{{ $user->ID_no }}</td>
                                                         <td>{{ $user->name }}</td>
                                                         <td>{{ $user->gender }}</td>
                                                         <td>{{ $user->year }}</td>
-                                                        <td>{{ $user->program }}</td>
+                                                        <td>{{ $user->catagory }}</td>
                                                         <td>{{ $user->college }}</td>
                                                         <td>{{ $user->department }}</td>
                                                         <td>{{ $user->reason }}</td>
@@ -365,10 +413,9 @@
 @endsection
 
 @section('bottomScripts')
-    <!-- 
-    script for print
-    <script>
 
+    <!-- script for print
+    <script>
         // togglePrint()
         function toggleText(){
             var x = document.getElementById("sDiv2");
@@ -378,6 +425,7 @@
                 x.style.display = "none";
             }
         }
+         
     </script> -->
 
     <!-- script for delete -->
@@ -411,6 +459,7 @@
             }).change();
         });
 
+      
     </script>
 
     <!-- table edit -->
@@ -433,24 +482,6 @@
                 [4, 'year'], [5, 'program', '{"Regular":"Regular", "Extension":"Extension", "Distance":"Distance"}'], [6, 'college'], 
                 [7, 'department'], [8, 'status', '{"On-Class":"On-Class", "Dismissed":"Dismissed", "Withdrow":"Withdrow", "Transfered":"Transfered"}']]
             },
-            // buttons: {
-            //     edit: {
-            //         class: 'btn btn-sm btn-secondary',
-            //         html: '<span class="fas fa-pencil-alt"></span>',
-            //         action: 'edit'
-
-            //         "type": "row",
-            //         "icon": "pencil-alt",
-            //         "class": "is-warning",
-            //         "event": "edit"
-            //     }
-            //     edit: {
-            //         class: 'btn btn-sm btn-secondary',
-            //         html: '<span class="fas fa-trash"></span>',
-            //         action: 'delete'
-            //     }
-            // },
-             
 
             restoreButton:false,
             onSuccess:function(data, textStatus, jqXHR)
@@ -468,28 +499,24 @@
 @endsection
 
 @section('headerLinks')
-
-    <!-- <link rel="stylesheet" href="/css/bootstrap-4.css"> -->
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>            
+    <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>        
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>            
-    <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
-    <!-- <script type="text/javascript" src="/jquery/jqueryTabledit/jquery.tabledit.min.js"></script> -->
-    <!-- <script type="text/javascript" src="/jquery/jqueryTabledit/jquery.tabledit.js"></script> -->
-    <!-- <script type="text/javascript" src="/jquery/ajax-query-02.js"></script> -->
 
-    <!-- <script type="text/javascript" src="/jquery/jquery-tabledit/jquery.tabledit.min.js"></script>
+    <script type="text/javascript" src="/jquery/jquery-tabledit/jquery.tabledit.min.js"></script>
     <script type="text/javascript" src="/jquery/jquery-tabledit/jquery.tabledit.js"></script>
     <script type="text/javascript" src="/jquery/jquery.js"></script>
     <script type="text/javascript" src="/jquery/jquery-2.js"></script>
     <script type="text/javascript" src="/jquery/jquery-5.js"></script>
     <script type="text/javascript" src="/jquery/table-edit-02.js"></script>
     <script type="text/javascript" src="/jquery/ajax-jquery.js"></script>
-    <script type="text/javascript" src="/jquery/ajax-query-02.js"></script> -->
+    <script type="text/javascript" src="/jquery/ajax-query-02.js"></script>
 
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> -->
 

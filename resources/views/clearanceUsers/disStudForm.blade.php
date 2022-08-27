@@ -122,8 +122,11 @@
                         <span>Your request is submitted you can check Registrar office to get the paper</span>
                         </div>
                     @endif
+                    <div class="name-title">
+                        <span>{{ $LoggedUser['name'] }}</span>
+                    </div>
 
-                    <form action="{{ route('clearanceUsers.checkDistance') }}" method="POST">
+                    <form action="{{ route('clearanceUsers.checkDistance') }}" method="get">
 
                         @csrf
                         <div class="accordion department">
@@ -198,11 +201,11 @@
                         <div class="accordion continuing">
                             <input type="checkbox" name="example_accordion" id="section4" class="accordion__input">
                             <label for="section4" class="accordion__label">
-                                @if(!$disContinuing)
-                                <img src="/img/success-icon.png" alt="success-icon" class="success">
+                                @if(($disContinuing->status)!=='On-Class')
+                                    <img src="/img/success-icon.png" alt="success-icon" class="success">
                                 @endif
-                                @if($disContinuing)
-                                <img src="/img/error-icon.png" alt="error-icon" class="fail">
+                                @if(($disContinuing->status)==='On-Class')
+                                    <img src="/img/error-icon.png" alt="error-icon" class="fail">
                                 @endif
                                 
                                 <img src="/img/caret-down-outline.svg" alt="down-icon" class="acc-down-icon">
@@ -210,14 +213,14 @@
                             </label>
 
                             <div class="accordion__content">
-                                @if(!$disContinuing)
+                                @if(($disContinuing->status)!=='On-Class')
                                     <p style="color: green; ">Approved</p>
                                     <p>
                                         Continuing Education Office have approved your Clearance,
                                         you can procceed to the next clearance
                                     </p>
                                 @endif
-                                @if($disContinuing)
+                                @if(($disContinuing->status)==='On-Class')
                                     <p style="color: red;"> Declined </p>
                                     <p>
                                         You didnt get the approval of the Continuing Education office, 
@@ -226,7 +229,7 @@
                                         if there is any problem you can go check in the Continuing Education office
                                     </p>
                                 @endif
-                                    
+
                             </div>
                         </div>
                          

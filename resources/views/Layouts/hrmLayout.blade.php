@@ -237,7 +237,7 @@
             <a href="/officers/HRM/teachers" id="teachersA">Teachers</a>
             <a href="/officers/HRM/admin staffs" id="adminStaffA">Administrator Staffs</a>
             <a href="/officers/HRM/new employee" class="abutton"  id="newEmployeeA">New Employee</a>
-
+            
         </ul>
 
     </div>
@@ -287,24 +287,24 @@
 
     </script>
 
-<script>
+    <script>
 
-    $(document).ready(function(){
-        $("#select_c").on('change', function(){
-            $(".chooseField1").hide();
-            $("#" + $(this).val()).fadeIn(1);
-        }).change();
-    });
+        $(document).ready(function(){
+            $("#select_c").on('change', function(){
+                $(".chooseField1").hide();
+                $("#" + $(this).val()).fadeIn(1);
+            }).change();
+        });
 
-    function toggleText(){
-        var x = document.getElementById("sDiv2");
-        if (x.style.display === "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
+        function toggleText(){
+            var x = document.getElementById("sDiv2");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
         }
-    }
-</script>
+    </script>
 
 @endsection
 

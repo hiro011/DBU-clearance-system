@@ -59,10 +59,17 @@ class UserController extends Controller
         $regDi=['regDining'=>DiningNonCafe::where('ID_no','=', $loggedUser->ID_no)->first()];
         $regRg=['regRegistrar'=>Students::where([['program','=', 'Regular'],['ID_no','=', $loggedUser->ID_no]])->first()];
 
+        $role = $loggedUser->role;
+        $display = false;
+        if($role!=='User' && $role!=='Admin'){
+            $display = ['officerBack'=> true];
+        }else{
+            $display = ['officerBack'=> false];
+        }
         // store logged user info
         $data = ['LoggedUser'=>$loggedUser];
 
-        return view('clearanceUsers.regStudForm')->with($data)->with($regUser)->with($extnUser)
+        return view('clearanceUsers.regStudForm')->with($data)->with($regUser)->with($extnUser)->with($display)
                 ->with($disUser)->with($teacherUser)->with($adminStaffUser)->with($regDH)
                 ->with($regL)->with($regSR)->with($regDi)->with($regRg)->with($Clearance);
                  
@@ -86,12 +93,19 @@ class UserController extends Controller
         $extnRg=['extnRegistrar'=>Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first()];
         $extnCon=['extnContinuing'=>Students::where([['program','=', 'Extension'],['ID_no','=', $loggedUser->ID_no]])->first()];
 
+        $role = $loggedUser->role;
+        $display = false;
+        if($role!=='User' && $role!=='Admin'){
+            $display = ['officerBack'=> true];
+        }else{
+            $display = ['officerBack'=> false];
+        }
         // store logged user info
         $data = ['LoggedUser'=>$loggedUser];
 
         return view('clearanceUsers.extnStudForm')->with($data)->with($regUser)->with($extnUser)
                         ->with($disUser)->with($teacherUser)->with($adminStaffUser)->with($Clearance)
-                        ->with($extnDH)->with($extnL)->with($extnRg)->with($extnCon);
+                        ->with($extnDH)->with($extnL)->with($extnRg)->with($extnCon)->with($display);
                  
     }
     function clearanceDistance(){
@@ -113,10 +127,17 @@ class UserController extends Controller
         $disRg=['disRegistrar'=>Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first()];
         $disCon=['disContinuing'=>Students::where([['program','=', 'Distance'],['ID_no','=', $loggedUser->ID_no]])->first()];
 
+        $role = $loggedUser->role;
+        $display = false;
+        if($role!=='User' && $role!=='Admin'){
+            $display = ['officerBack'=> true];
+        }else{
+            $display = ['officerBack'=> false];
+        }
         // store logged user info
         $data = ['LoggedUser'=>$loggedUser];
 
-        return view('clearanceUsers.disStudForm')->with($data)->with($regUser)->with($extnUser)
+        return view('clearanceUsers.disStudForm')->with($data)->with($regUser)->with($extnUser)->with($display)
                                 ->with($disUser)->with($teacherUser)->with($adminStaffUser)
                                 ->with($disDH)->with($disL)->with($disRg)->with($disCon)->with($Clearance);
                  
@@ -147,6 +168,14 @@ class UserController extends Controller
         $AntiCorr=['AntiCorrupt'=>AntiCorruptionUsers::where('ID_no','=', $loggedUser->ID_no)->first()];
         $HRM= ['HRM'=>Teacher::where('ID_no','=', $loggedUser->ID_no)->first()];
 
+        $role = $loggedUser->role;
+        $display = false;
+        if($role!=='User' && $role!=='Admin'){
+            $display = ['officerBack'=> true];
+        }else{
+            $display = ['officerBack'=> false];
+        }
+
         // store logged user info
         $data = ['LoggedUser'=>$loggedUser];
 
@@ -154,7 +183,7 @@ class UserController extends Controller
                 ->with($disUser)->with($teacherUser)->with($adminStaffUser)->with($DH)
                 ->with($Property)->with($IctProperty)->with($Cashier)->with($Finance)
                 ->with($Library)->with($Research)->with($ColFinance)->with($Clearance)
-                ->with($GenServe)->with($AntiCorr)->with($HRM);
+                ->with($GenServe)->with($AntiCorr)->with($HRM)->with($display);
 
     }
     function clearanceAdminStaff(){
@@ -180,14 +209,53 @@ class UserController extends Controller
         $AntiCorr= ['AntiCorrupt'=>AntiCorruptionUsers::where('ID_no','=', $loggedUser->ID_no)->first()];
         $HRM= ['HRM'=>AdminStaff::where('ID_no','=', $loggedUser->ID_no)->first()];
 
+        $role = $loggedUser->role;
+        $display = false;
+        if($role!=='User' && $role!=='Admin'){
+            $display = ['officerBack'=> true];
+        }else{
+            $display = ['officerBack'=> false];
+        }
         // store logged user info
         $data = ['LoggedUser'=>$loggedUser];
 
         return view('clearanceUsers.adminStaffForm')->with($data)->with($regUser)->with($extnUser)
-                ->with($disUser)->with($teacherUser)->with($adminStaffUser)->with($DH)
+                ->with($disUser)->with($teacherUser)->with($adminStaffUser)->with($DH)->with($display)
                 ->with($Property)->with($IctProperty)->with($Cashier)->with($HRM)
                 ->with($Finance)->with($Library)->with($AntiCorr)->with($Clearance);
 
+    }
+    
+    function clearanceOfficersBack($roleO){
+        if($roleO==='HRM') {
+            return redirect('/officers/HRM');
+        }elseif($roleO==='Property-Office') {
+            return redirect('/officers/property office');
+        }elseif($roleO==='General-Service') {
+            return redirect('/officers/general service');
+        }elseif($roleO==='Research') {
+            return redirect('/officers/research');
+        }elseif($roleO==='ICT-Property') {
+            return redirect('/officers/ict property');
+        }elseif($roleO==='Finance') {
+            return redirect('/officers/finance');
+        }elseif($roleO==='Cashier') {
+            return redirect('/officers/cashier');
+        }elseif($roleO==='Anti-Corruption') {
+            return redirect('/officers/anti corruption');
+        }elseif($roleO==='EngCollege-Finance') {
+            return redirect('/officers/engineering finance');
+        }elseif($roleO==='StudResidence') {
+            return redirect('/officers/student residence');
+        }elseif($roleO==='Department-Head') {
+            return redirect('/officers/department head');
+        }elseif($roleO==='Dining') {
+            return redirect('/officers/dining');
+        }elseif($roleO==='Registrar') {
+            return redirect('/officers/registrar');
+        }elseif($roleO==='Library') {
+            return redirect('/officers/library');
+        }
     }
 
     function clearanceCheckRegular(Request $request){
@@ -205,12 +273,18 @@ class UserController extends Controller
         $registrar = $regRegistrar->status;
 
         if($Clearance){
-            
             return back()->with('fail','Your request have already been submitted');
         }else{
+            $checkS = false;
             if($regStudResidence){
                 $residence = $regStudResidence->status;
-                $checkS = !$regDepHead && !$regLibrary && ($residence!=='stay') && ($registrar!=='On-Class') && $regDining;
+                $checkS = (!$regDepHead && !$regLibrary && ($residence!=='stay') && ($registrar!=='On-Class') && $regDining);
+            }
+            if(!$regStudResidence){
+                $checkS = (!$regDepHead && !$regLibrary && ($registrar!=='On-Class') && $regDining);
+            }
+            
+            if($checkS){ 
                 //Insert data into database
                 $regClearStud = new ClearanceStudent;
                 $regClearStud->ID_no = $regRegistrar->ID_no;
@@ -229,28 +303,10 @@ class UserController extends Controller
                 }else{
                     return back()->with('fail','Something went wrong try again!');
                 }
-            }elseif(!$regStudResidence){
-                $checkS = !$regDepHead && !$regLibrary && ($registrar!=='On-Class') && $regDining;
-                //Insert data into database
-                $regClearStud = new ClearanceStudent;
-                $regClearStud->ID_no = $regRegistrar->ID_no;
-                $regClearStud->name = $regRegistrar->name;
-                $regClearStud->gender = $regRegistrar->gender;
-                $regClearStud->program = 'Regular';
-                $regClearStud->year = $regRegistrar->year;
-                $regClearStud->college = $regRegistrar->college;
-                $regClearStud->department = $regRegistrar->department;
-                $regClearStud->reason = $regRegistrar->status;
-                $save = $regClearStud->save();
-
-                if($save){
-                    return back()->with('success','Your request has been sent to registrar successfuly');
-                }else{
-                    return back()->with('fail','Something went wrong try again!');
-                }
             }else{
                 return back()->with('fail','All officers must approve to request a clearance!');
             }
+            
         }
 
          
@@ -366,7 +422,7 @@ class UserController extends Controller
 
         $cashier = NULL;
         $finance = NULL;
-      $colFinance = NULL;
+        $colFinance = NULL;
         $research = NULL;
         $genServe = NULL;
         $antiCorr = NULL;

@@ -6,24 +6,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>DBU Clearance System</title>
 
-        @yield('headerLinks')
+        
  
         <!-- Fonts -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/css/main.css">
-        <link rel="stylesheet" href="/css/table.css">
+        <!-- <link rel="stylesheet" href="/css/table.css"> -->
 
-        <script type="text/javascript" src="/jquery/jquery-tabledit/jquery.tabledit.min.js"></script>
-        <script type="text/javascript" src="/jquery/jquery-tabledit/jquery.tabledit.js"></script>
+        <!-- <script type="text/javascript" src="/jquery/jqueryTabledit/jquery.tabledit.min.js"></script> -->
+        <!-- <script type="text/javascript" src="/jquery/jqueryTabledit/jquery.tabledit.js"></script>
         <script type="text/javascript" src="/jquery/jquery-5.js"></script>
         <script type="text/javascript" src="/jquery/table-edit-02.js"></script>
         <script type="text/javascript" src="/jquery/ajax-jquery.js"></script>
         <script type="text/javascript" src="/jquery/ajax-query-02.js"></script>
+ -->
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>            
-        <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
+ 
+        @yield('headerLinks')
 
         <style>
             .navbar_right{
@@ -263,6 +263,7 @@
 
                                 
                             @endif
+                            
                             <div class="about-btn">
                             <a id="link" href="/about">About</a>
                             </div>

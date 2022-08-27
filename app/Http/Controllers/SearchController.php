@@ -49,26 +49,17 @@ class SearchController extends Controller
         
         $search_text = $request->key_word;
 
-        if($request->search_by===''){
-            $StudTable = ['studTable'=>DB::select('select * from students')];
-            $Display = ['all' => true];
-            $Display4 = ['new' => false];
-            $Display1 = ['reg' => false];
-            $Display2 = ['extn' => false];
-            $Display3 = ['dis' => false];
-            return view('officers.registrar.registrar')->with($data)->with($StudTable)
-            ->with($Display)->with($Display1)->with($Display2)->with($Display4)->with($Display3);
-
-        }else{
             $studTable = DB::table('students')
                 ->where('ID_no', 'like', '%'.$search_text.'%')
                 ->orWhere('name', 'like', '%'.$search_text.'%')
                 ->orWhere('program', 'like', '%'.$search_text.'%')
+                ->orWhere('year', 'like', '%'.$search_text.'%')
                 ->orWhere('department', 'like', '%'.$search_text.'%')
                 ->orWhere('college', 'like', '%'.$search_text.'%')
                 ->orWhere('status', 'like', '%'.$search_text.'%')
                 ->orderBy('ID_no', 'asc')
                 ->get();
+                
             $StudTable = ['studTable' => $studTable];
             $Display = ['all' => true];
             $Display4 = ['new' => false];
@@ -79,8 +70,6 @@ class SearchController extends Controller
             ->with($Display)->with($Display1)->with($Display2)->with($Display4)->with($Display3);
 
 
-        }
-       
     }
     function registrarRegSearch(Request $request){
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
@@ -230,11 +219,6 @@ class SearchController extends Controller
         }
        
     }
-    // 'libraryAllSearch
-    // ibraryTeachSearch
-    // libraryStudSearch
-    // yAdminStaffSearch
-    // libraryBookSearch
 
     // Library
     function libraryAllSearch(Request $request){
@@ -327,7 +311,7 @@ class SearchController extends Controller
         }
 
     }
-    function registrarExtnSearch(Request $request){
+    function libraryStudSearch(Request $request){
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
         
         $search_text = $request->key_word;
@@ -368,7 +352,7 @@ class SearchController extends Controller
         }
 
     }
-    function registrarDisSearch(Request $request){
+    function libraryyAdminStaffSearch(Request $request){
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
         
         $search_text = $request->key_word;
@@ -410,7 +394,7 @@ class SearchController extends Controller
         }
 
     }
-    function registrarClearanceSearch(Request $request){
+    function libraryBookSearch(Request $request){
          
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
         

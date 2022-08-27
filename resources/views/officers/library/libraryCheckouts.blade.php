@@ -138,8 +138,8 @@
         
         .searchit{
             align-items: center;
-            width: 80%;
-            height: 100%;
+            width: 95%;
+            height: 80%;
             outline: none;
             border: 1px solid #d5dbd9;
             font-size: 15px;
@@ -242,12 +242,6 @@
                 padding: 10px;
             }
              
-            .searchDiv{
-                display: inline-block;
-                vertical-align: top;
-                line-height: 1;
-            }
-            
         }
         
 
@@ -293,29 +287,51 @@
             transform: rotate(-2deg);
 
         }
+        .checkDiv{
+            display: none;
+        }
     </style>            
 
     <span class="dropspanCurrent" >Registerar - Requested Clearance</span></br>
     <div class="navbar2">
     
-        <ul style="margin-top: 0;">
+        <ul  >
             <a href="/officers/library" class="abutton"  id="viewCA" style="margin-left: 5px;">Back</a>
         </ul>
-        
+        <h2 style="margin-left: 20%">{{ $libraryUser->name }}</h2>
+        <ul>
+        <button id="checkI" class="abtn" onclick="toggleText1()">Check In</button>
+        <button id="checkO" class="abtn" onclick="toggleText2()">Check Out</button>
+
+        </ul>
+
     </div>
 
     <div style="margin-bottom:20px;">
 
-        <div id="sDiv2" class="searchDiv2" >  
-            <form method="POST" action="{{ route('library.returnBook') }}"  class="searchForm">
+        <div id="checkIn" class="checkDiv" >  
+            <form method="POST" action="{{ route('library.checkInBook') }}"  class="searchForm">
                 @csrf
                 
                 <div class="inputfield" style="width: 100%;">
                     <label style="color: green; padding-left: 10px;">Barcode</label> </br>
-                    <input type="text" class="searchit" style="width: 95%; margitn-top: 10px;" name="barcode" placeholder="Enter barcode" 
+                    <input type="text" class="searchit" name="barcode" placeholder="Enter barcode" 
                         value="{{ old('barcode') }}"> </br>
                 </div> 
-                <button type="submit" class="search-btn" style="margitn-top: 10px;">Return</button>
+                <button type="submit" class="search-btn" style="margitn-top: 5px;">Submit</button>
+            </form>
+            
+        </div>
+        <div id="checkOut" class="checkDiv" >  
+            <form method="POST" action="{{ route('library.checkOutBook') }}"  class="searchForm">
+                @csrf
+                
+                <div class="inputfield" style="width: 100%;">
+                    <label style="color: green; padding-left: 10px;">Barcode</label> </br>
+                    <input type="text" class="searchit"   name="barcode" placeholder="Enter barcode" 
+                        value="{{ old('barcode') }}"> </br>
+                </div> 
+                <button type="submit" class="search-btn" style="margitn-top: 10px;">Submit</button>
             </form>
             
         </div>
@@ -382,6 +398,31 @@
 
         </div> 
     </section>
+
+<script>
+    function toggleText1(){
+        var x = document.getElementById("checkIn");
+        var es = document.getElementById("checkI");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+            es.style.background = "blue";
+        } else {
+            es.style.background = "#94b5d8";
+            x.style.display = "none";
+        }
+    }
+    function toggleText2(){
+        var x = document.getElementById("checkOut");
+        var es = document.getElementById("checkO");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+            es.style.background = "blue";
+        } else {
+            es.style.background = "#94b5d8";
+            x.style.display = "none";
+        }
+    }
+</script>
 
 
 @endsection

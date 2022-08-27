@@ -70,9 +70,19 @@ class loginController extends Controller
         $adminStaffTable = ['adminStaffTable'=>DB::select('select * from admin_staff')];
         $teacherTable = ['teacherTable'=>DB::select('select * from teachers')];
         $employeeTable = ['employeeTable'=>DB::select('select * from employees')];
+        
         $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
-        return view('officers.HRM.HRM')->with($data)->with($adminStaffTable)
-                                ->with($employeeTable)->with($teacherTable);
+
+        $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
+        $Table = ['Tables'=>DB::select('select * from employees')];
+
+        $Display1 = ['new' => false];
+        $Display2 = ['all' => true];
+        $Display3 = ['teachers' => false];
+        $Display4 = ['adminStaffs' => false];
+        return view('officers.HRM.HRM')->with($data)->with($Table)->with($Display1)
+                    ->with($Display2)->with($Display3)->with($Display4);
+
     }
     function studResidenceDashboard(){
         $data = ['LoggedUserInfo'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
@@ -90,7 +100,22 @@ class loginController extends Controller
         return view('officers.registrar.registrar')->with($data)->with($studTable)->with($data)
                 ->with($Display)->with($Display1)->with($Display2)->with($Display3)->with($Display4);
     } 
- 
+    function departmentsDashboard(){
+        $userinfo = UserLogin::where('id','=', session('LoggedUser'))->first();
+        
+        
+        $studTable = ['studTable'=>DB::select('select * from students')];
+
+        $Display = ['all' => true];
+        $Display1 = ['reg' => false];
+        $Display4 = ['new' => false];
+        $Display2 = ['extn' => false];
+        $Display3 = ['dis' => false];
+
+        $data = ['LoggedUser'=>$userinfo];
+        return view('officers.DepartmentHeads.departmentHead')->with($data)->with($studTable)->with($data)
+                ->with($Display)->with($Display1)->with($Display2)->with($Display3)->with($Display4);
+    } 
     function clearanceDashboard(){
         $loggedUser = UserLogin::where('id','=', session('LoggedUser'))->first();
         // $data = ['LoggedUser'=>$loggedUser];
@@ -113,20 +138,12 @@ class loginController extends Controller
             //                             ->with($disUser)->with($teacherUser)->with($adminStaffUser);
         }elseif($extnstud){
             return redirect('/clearance/extension student');
-            // ->with($data)->with($regUser)->with($extnUser)
-            //                             ->with($disUser)->with($teacherUser)->with($adminStaffUser);
         }elseif($disstud){
             return redirect('/clearance/distance student');
-            // ->with($data)->with($regUser)->with($extnUser)
-            //                             ->with($disUser)->with($teacherUser)->with($adminStaffUser);
         }elseif($teachers){
             return redirect('/clearance/teacher');
-            // ->with($data)->with($regUser)->with($extnUser)
-            //                             ->with($disUser)->with($teacherUser)->with($adminStaffUser);
         }elseif($adminstaffs){
             return redirect('/clearance/administrator staff');
-            // ->with($data)->with($regUser)->with($extnUser)
-            //                             ->with($disUser)->with($teacherUser)->with($adminStaffUser);
         }
     } 
    
@@ -153,12 +170,6 @@ class loginController extends Controller
 
     }
 
-    // function newOfficerRegister(){
-    //     $data = ['LoggedUser'=>UserLogin::where('id','=', session('LoggedUser'))->first()];
-
-    //     return view('admin.newOfficer', $data);
-    // }
-    
     function logout(){
         if(session()->has('LoggedUser')){
             session()->pull('LoggedUser');
@@ -233,7 +244,7 @@ class loginController extends Controller
     function check(Request $request){
         //validate request input
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'required',
             'password' => 'required'
         ]);
 
@@ -247,8 +258,8 @@ class loginController extends Controller
 
             if(Hash::check($request->password, $password)){
 
-
                 $role = $userInfo->role;
+                
                 if($role==='Admin'){
                     $request->session()->put('LoggedUser', $userInfo->id);
                     return redirect('/admin/dashboard');

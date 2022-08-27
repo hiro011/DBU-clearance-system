@@ -289,20 +289,19 @@
         
 
     </style>
-                    
                 
-    <span class="dropspanCurrent" >Registerar</span></br>
+    <span class="dropspanCurrent" >Department</span></br>
     <div class="navbar2">
     
         <ul style="margin-top: 5px;">
-            <a href="/officers/registrar" id="allStudA">All Student</a>
-            <a href="/officers/registrar/regular students" id="regStudA">Regular Student</a>
-            <a href="/officers/registrar/extension students" id="extnStudA">Extension Student</a>
-            <a href="/officers/registrar/distance students" id="disStudA">Distance Student</a>
+            <a href="/officers/department head" id="allStudA">All Student</a>
+            <a href="/officers/department/regular students" id="regStudA">Regular Student</a>
+            <a href="/officers/department/extension students" id="extnStudA">Extension Student</a>
+            <a href="/officers/department/distance students" id="disStudA">Distance Student</a>
+            <a href="/department/checkout/list" class="abutton"  id="viewCA" style="margin-left: 5px;">View Checkouts</a>
 
-            <a href="/officers/registrar/new student" class="abutton"  id="newStudA">New Student</a>
+            <a href="/officers/department/add checkout" class="abutton"  id="newStudA">Add Checkout</a>
             <a href="/clearance/administrator staff" class="abutton"  id="reqCA" style="margin-left: 5px;">Request Clearance</a>
-            <a href="/registrar/clearance/list" class="abutton"  id="viewCA" style="margin-left: 5px;">View Clearance</a>
         </ul>
         
 
@@ -363,22 +362,37 @@
                             }
                         </style>
                     @endif
+                    @if($checks === true)
+                        <style>
+                            #viewCA{
+                            background-color: blue;
+                            color: white;
+                            }
+                            #viewCA:hover{
+                                color: black; 
+                                opacity: 0.8;
+                            }
+                        </style>
+                    @endif
 
                     <div class="studLists">
 
                         <div style="margin-bottom:20px;">
                             <div class="searchDiv" >  
                                 @if($all === true)
-                                <form method="get" action="/officers/registrar/search all" class="searchForm">
+                                <form method="get" action="/officers/departments/search all" class="searchForm">
                                 @endif
                                 @if($reg === true)
-                                <form method="get" action="/officers/registrar/search regular" class="searchForm">
+                                <form method="get" action="/officers/departments/search regular" class="searchForm">
                                 @endif
                                 @if($extn === true)
-                                <form method="get" action="/officers/registrar/search extension" class="searchForm">
+                                <form method="get" action="/officers/departments/search extension" class="searchForm">
                                 @endif
                                 @if($dis === true)
-                                <form method="get" action="/officers/registrar/search distance" class="searchForm">
+                                <form method="get" action="/officers/departments/search distance" class="searchForm">
+                                @endif
+                                @if($checks === true)
+                                <form method="get" action="/departments/checkout/search" class="searchForm">
                                 @endif
                                 
                                 @csrf
@@ -386,111 +400,9 @@
                                     <button type="submit" class="search-btn">Search</button>
                                 </form>
 
-                                <div class="abtnCont">
-                                    <button id="editStatus" class="abtn" onclick="toggleText()">Edit Status</button>
-                                </div>
                                 
                             </div>
-
-                            <div id="sDiv2" class="searchDiv2" >  
-                                <form method="POST" action="{{ route('registrar.registerUpdateStatus') }}"  class="searchForm">
-                                    @csrf
-                                    <div class="chooseField">
-                                        <label>Select</label></br>
-                                        <div class="custom_select">
-                                            <select id="select_c" name="select_c" onchange="select_c(this)">
-                                                <option value="year"  @if(old('select_c') === 'year') selected @endif>Year</option>
-                                                <option value="program"  @if(old('select_c') === 'program') selected @endif>Program</option>
-                                                <option value="college"  @if(old('select_c') === 'college') selected @endif>College</option>
-                                                <option value="status"  @if(old('select_c') === 'status') selected @endif>Status</option>
-                                            </select></br>
-                                            <span style="color:red;">@error('select'){{ $message }} @enderror</span>
-
-                                        </div>
-                                    </div>
-
-                                    <div id="year" class="chooseField1">
-                                        <div class="chooseField">
-                                            <label>Year</label> </br>
-                                            <input type="text" class="input" name="where" placeholder="Enter year" value="{{ old('where') }}"> </br>
-                                        </div>
-                                    </div>
-
-                                    <div id="program" class="chooseField1">
-                                        <div class="chooseField">
-                                            <label>Program</label></br>
-                                            <div class="custom_select">
-                                                <select id="where" name="where">
-                                                    <option selected disabled>Select</option>
-
-                                                    <option value="Regular"  @if(old('where') === 'Regular') selected @endif>Regular</option>
-                                                    <option value="Extension"  @if(old('where') === 'Extension') selected @endif>Extension</option>
-                                                    <option value="Distance"  @if(old('where') === 'Distance') selected @endif>Distance</option>
-                                                </select></br>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div id="status" class="chooseField1">
-                                        <div class="chooseField">
-                                            <label>Status</label></br>
-                                            <div class="custom_select">
-                                                <select id="where" name="where">
-                                                    <option selected disabled>Select</option>
-                                                    <option value="Dismissed"  @if(old('where') === 'Dismissed') selected @endif>Dismissed</option>
-                                                    <option value="On-Class"  @if(old('where') === 'On-Class') selected @endif>On Class</option>
-                                                    <option value="Transfered"  @if(old('where') === 'Transfered') selected @endif>Transfered</option>
-                                                    <option value="Withdraw"  @if(old('where') === 'Withdraw') selected @endif>Withdraw</option>
-                                                    <option value="End_Of_Year"  @if(old('where') === 'End_Of_Year') selected @endif>End Of Year</option>
-                                                </select></br>
-                                                <span style="color:red;">@error('where'){{ $message }} @enderror</span>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div id="college" class="chooseField1">
-                                        <div class="chooseField">
-                                        <label>College</label></br>
-                                            <div class="custom_select">
-                                                <select id="where" name="where">
-                                                    <option selected disabled>Select</option>
-
-                                                    <option value="Engineering"  @if(old('where') === 'Engineering') selected @endif>Engineering</option>
-                                                    <option value="Computing"  @if(old('where') === 'Computing') selected @endif>Computing</option>
-                                                    <option value="Freshman"  @if(old('where') === 'Freshman') selected @endif>Freshman</option>
-                                                    <option value="Law"  @if(old('where') === 'Law') selected @endif>Law</option>
-                                                    <option value="Education" @if(old('where') === 'Education') selected @endif>Education</option>
-                                                    <option value="Social-Science" @if(old('where') === 'Social-Science') selected @endif>Social-Science</option>
-                                                    <option value="Business" @if(old('where') === 'Business') selected @endif>Business</option>
-                                                    <option value="Computational" @if(old('where') === 'Computational') selected @endif>Computational</option>
-                                                    <option value="Agriculture" @if(old('where') === 'Agriculture') selected @endif>Agriculture</option>
-                                                </select></br>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="chooseField">
-                                        <label>New Status</label></br>
-                                        <div class="custom_select">
-                                            <select id="status2" name="status">
-                                                <option selected disabled>Select</option>
-                                                <option value="Dismissed"  @if(old('status') === 'Dismissed') selected @endif>Dismissed</option>
-                                                <option value="On-Class"  @if(old('status') === 'On-Class') selected @endif>On Class</option>
-                                                <option value="Transfered"  @if(old('status') === 'Transfered') selected @endif>Transfered</option>
-                                                <option value="Withdraw"  @if(old('status') === 'Withdraw') selected @endif>Withdraw</option>
-                                                <option value="End_Of_Year"  @if(old('where') === 'End_Of_Year') selected @endif>End Of Year</option>
-
-                                            </select></br>
-                                        </div>
-                                    </div>
-
-                                    <button type="submit" class="search-btn">Change</button>
-                                </form>
-                                
-                            </div>
+ 
                         </div>
                         
                         <div class="container" style=" overflow-x:auto; overflow-y:auto;">

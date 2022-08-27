@@ -157,30 +157,31 @@
 
         <form action="{{ route('auth.check') }}" method="post">
         
-        @if(Session::get('fail'))
-            <div class="alert-danger" >
-            {{ Session::get('fail') }}
+            @if(Session::get('fail'))
+                <div class="alert-danger" >
+                    {{ Session::get('fail') }}
+                </div>
+            @endif
+
+            @csrf
+            <div class="txt_field">
+                <label>Email</label>
+                <input type="text" class="" name="email" placeholder="email" class="input" value="{{ old('email') }}">
+                <span style="color: red;">@error('email'){{ $message }} @enderror</span>
             </div>
-        @endif
+            <div class="txt_field">
+                <label>Password</label>
+                <a href="" style="float: right; color: red;">Forgot Password?</a>
+                <input type="password" name="password" placeholder="password" class="input">
+                <span style="color: red;">@error('password'){{ $message }} @enderror</span>
+            </div>
 
-        @csrf
-        <div class="txt_field">
-            <label>Email</label>
-            <input type="text" class="" name="email" placeholder="email" class="input" value="{{ old('email') }}">
-            <span style="color: red;">@error('email'){{ $message }} @enderror</span>
-        </div>
-        <div class="txt_field">
-            <label>Password</label>
-            <a href="" style="float: right; color: red;">Forgot Password?</a>
-            <input type="password" name="password" placeholder="password" class="input">
-            <span style="color: red;">@error('password'){{ $message }} @enderror</span>
-        </div>
-
-        <div class="subBtn">
-        <input id="myButton" type="submit" value="Login">
-        </div>
+            <div class="subBtn">
+                <input id="myButton" type="submit" value="Login">
+            </div>
 
         </form>
+
     </div>
 
     <!-- script for down key to go to next inputfield -->
